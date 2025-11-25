@@ -1,2 +1,8 @@
 - [] add currency selector
 - [] make the README content
+- [] link and make pages:
+    - [] about
+    - [] privacy
+    - [] terms of service
+    - [] api docs (later)
+    - [] 
