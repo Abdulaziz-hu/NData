@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ABOUT US | N(DATA)</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {}
+            }
+        }
+    </script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DotGothic16&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <link rel="stylesheet" href="../static/css/style.css">
+</head>
+<body class="min-h-screen flex flex-col">
+
+    <nav class="sticky top-0 z-50 glass-panel px-4 sm:px-6 py-4 flex justify-between items-center">
+        <div class="flex items-center gap-2 sm:gap-3 group cursor-pointer" onclick="app.reset()">
+            <div class="w-6 h-6 sm:w-8 sm:h-8 bg-red-600 rounded-full group-hover:scale-110 transition-transform"></div>
+            <span class="text-xl sm:text-2xl brand-font font-bold tracking-tighter"><a href="../index.html">N(DATA)</a></span>
+        </div>
+        
+        <div class="hidden md:flex items-center gap-6">
+            <a href="../index.html" class="hover:text-red-600 transition-colors brand-font text-sm">HOME</a>
+            <a href="./pages/about.html" class="underline decoration-red-600 decoration-2 underline-offset-4 hover:text-red-600 transition-colors brand-font text-sm">ABOUT</a>
+            <a href="../api/docs.html" class="hover:text-red-600 transition-colors brand-font text-sm">DOCS</a>
+            <a href="../api/api.html" class="hover:text-red-600 transition-colors brand-font text-sm">API</a>
+            <button id="theme-toggle" class="p-2 hover:bg-gray-300 dark:hover:bg-gray-800 rounded-full transition">
+                <i data-lucide="moon" class="w-5 h-5"></i>
+            </button>
+        </div>
+        
+        <button class="md:hidden p-2" id="mobile-menu-btn">
+            <i data-lucide="menu" class="w-6 h-6"></i>
+        </button>
+    </nav>
+
+    <div id="mobile-menu" class="fixed inset-0 z-[60] hidden md:hidden">
+        <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" id="mobile-menu-backdrop"></div>
+        <div class="absolute right-0 top-0 h-full w-64 glass-panel transform transition-transform duration-300 translate-x-full" id="mobile-menu-panel">
+            <div class="p-6 flex flex-col gap-6">
+                <button id="mobile-menu-close" class="self-end">
+                    <i data-lucide="x" class="w-6 h-6"></i>
+                </button>
+                <a href="../index.html" class="hover:text-red-600 transition-colors brand-font text-sm">HOME</a>
+                <a href="./pages/about.html" class="underline decoration-red-600 decoration-2 underline-offset-4 hover:text-red-600 transition-colors brand-font text-sm">ABOUT</a>
+                <a href="../api/docs.html" class="hover:text-red-600 transition-colors brand-font text-sm">DOCS</a>
+                <a href="../api/api.html" class="hover:text-red-600 transition-colors brand-font text-sm">API</a>
+                <button id="mobile-theme-toggle" class="flex items-center gap-2 hover:text-red-600 transition-colors brand-font text-sm">
+                    <i data-lucide="moon" class="w-5 h-5"></i>
+                    <span>TOGGLE THEME</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <header class="px-4 sm:px-6 py-8 sm:py-12 md:py-24 max-w-7xl mx-auto w-full">
+        <h1 class="text-4xl sm:text-5xl md:text-8xl font-black mb-4 sm:mb-6 leading-none">
+            A B O U T .<br><span class="text-red-600">U S .</span>
+        </h1>
+    </header>
+
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 mb-20">
+        <div class="rounded-2xl overflow-hidden shadow-xl border border-gray-300 dark:border-gray-800">
+            <img src="https://images.unsplash.com/photo-1542751110-97427bbecf20?auto=format&fit=crop&w=1600&q=80"
+                 alt="Tech abstract image"
+                 class="w-full object-cover h-64 sm:h-96">
+        </div>
+    </section>
+
+    <section class="px-4 sm:px-6 max-w-5xl mx-auto mb-24">
+        <h2 class="text-3xl sm:text-5xl font-black mb-6">Our Mission</h2>
+        <p class="opacity-80 text-lg leading-relaxed">
+            N(DATA) exists to make technical specifications available to everyone — 
+            developers, researchers, engineers, and enthusiasts.  
+            No marketing fluff. No paywalls. No noise.  
+            Just clean, structured, machine-friendly data you can trust.
+        </p>
+    </section>
+
+    <section class="px-4 sm:px-6 max-w-6xl mx-auto mb-24">
+        <h2 class="text-3xl sm:text-5xl font-black mb-12">What We Provide</h2>
+
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-10">
+            <!-- Feature 1 -->
+            <div class="p-6 glass-panel rounded-xl border border-gray-400/20 dark:border-gray-700/40">
+                <i data-lucide="database" class="w-10 h-10 mb-4 text-red-600"></i>
+                <h3 class="text-xl font-semibold mb-2">Huge Technical Database</h3>
+                <p class="opacity-80 text-sm">
+                    Access specs for devices, hardware components, chips, displays, sensors, and more.
+                </p>
+            </div>
+
+            <!-- Feature 2 -->
+            <div class="p-6 glass-panel rounded-xl border border-gray-400/20 dark:border-gray-700/40">
+                <i data-lucide="code" class="w-10 h-10 mb-4 text-red-600"></i>
+                <h3 class="text-xl font-semibold mb-2">JSON API</h3>
+                <p class="opacity-80 text-sm">
+                    Use our fast, structured API in your apps, dashboards, or research tools.
+                </p>
+            </div>
+
+            <!-- Feature 3 -->
+            <div class="p-6 glass-panel rounded-xl border border-gray-400/20 dark:border-gray-700/40">
+                <i data-lucide="git-branch" class="w-10 h-10 mb-4 text-red-600"></i>
+                <h3 class="text-xl font-semibold mb-2">Open-Source</h3>
+                <p class="opacity-80 text-sm">
+                    Completely open, community-maintained, MIT-licensed, and built for transparency.
+                </p>
+            </div>
+
+            <!-- Feature 4 -->
+            <div class="p-6 glass-panel rounded-xl border border-gray-400/20 dark:border-gray-700/40">
+                <i data-lucide="search" class="w-10 h-10 mb-4 text-red-600"></i>
+                <h3 class="text-xl font-semibold mb-2">No Clutter</h3>
+                <p class="opacity-80 text-sm">
+                    Clean search, organized categories, and fast navigation for power users.
+                </p>
+            </div>
+
+            <!-- Feature 5 -->
+            <div class="p-6 glass-panel rounded-xl border border-gray-400/20 dark:border-gray-700/40">
+                <i data-lucide="server" class="w-10 h-10 mb-4 text-red-600"></i>
+                <h3 class="text-xl font-semibold mb-2">Structured Data</h3>
+                <p class="opacity-80 text-sm">
+                    Every device spec is normalized, validated, and stored consistently.
+                </p>
+            </div>
+
+            <!-- Feature 6 -->
+            <div class="p-6 glass-panel rounded-xl border border-gray-400/20 dark:border-gray-700/40">
+                <i data-lucide="shield" class="w-10 h-10 mb-4 text-red-600"></i>
+                <h3 class="text-xl font-semibold mb-2">Reliable & Transparent</h3>
+                <p class="opacity-80 text-sm">
+                    All data sources are documented and manually reviewed for accuracy.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- TIMELINE -->
+    <section class="px-4 sm:px-6 max-w-5xl mx-auto mb-28">
+        <h2 class="text-3xl sm:text-5xl font-black mb-12">Our Journey</h2>
+
+        <div class="border-l-2 border-red-600 pl-6 space-y-12">
+            <div>
+                <p class="text-red-600 font-semibold">Nov 25 • 2025</p>
+                <h3 class="text-xl font-bold">The Idea</h3>
+                <p class="opacity-80 text-sm max-w-lg">We noticed the lack of a clean, open, developer-friendly database for device specifications.</p>
+            </div>
+        </div>
+    </section>
+
+    <script src="../static/js/simple-func.js"></script>
+    <script src="../static/js/app.js"></script>
+</body>
+</html>
