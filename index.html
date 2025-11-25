@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>N(DATA) | Tech Archive</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {}
+            }
+        }
+    </script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DotGothic16&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <link rel="stylesheet" href="./static/css/style.css">
+</head>
+<body class="min-h-screen flex flex-col">
+
+    <nav class="sticky top-0 z-50 glass-panel px-4 sm:px-6 py-4 flex justify-between items-center">
+        <div class="flex items-center gap-2 sm:gap-3 group cursor-pointer" onclick="app.reset()">
+            <div class="w-6 h-6 sm:w-8 sm:h-8 bg-red-600 rounded-full group-hover:scale-110 transition-transform"></div>
+            <span class="text-xl sm:text-2xl brand-font font-bold tracking-tighter">N(DATA)</span>
+        </div>
+        
+        <div class="hidden md:flex items-center gap-6">
+            <a href="./index.html" class="underline decoration-red-600 decoration-2 underline-offset-4 hover:text-red-600 transition-colors brand-font text-sm">HOME</a>
+            <a href="./pages/about.html" class="hover:text-red-600 transition-colors brand-font text-sm">ABOUT</a>
+            <a href="./pages/docs.html" class="hover:text-red-600 transition-colors brand-font text-sm">DOCS</a>
+            <a href="./pages/api.html" class="hover:text-red-600 transition-colors brand-font text-sm">API</a>
+            <button id="theme-toggle" class="p-2 hover:bg-gray-300 dark:hover:bg-gray-800 rounded-full transition">
+                <i data-lucide="moon" class="w-5 h-5"></i>
+            </button>
+        </div>
+        
+        <button class="md:hidden p-2" id="mobile-menu-btn">
+            <i data-lucide="menu" class="w-6 h-6"></i>
+        </button>
+    </nav>
+
+    <div id="mobile-menu" class="fixed inset-0 z-[60] hidden md:hidden">
+        <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" id="mobile-menu-backdrop"></div>
+        <div class="absolute right-0 top-0 h-full w-64 glass-panel transform transition-transform duration-300 translate-x-full" id="mobile-menu-panel">
+            <div class="p-6 flex flex-col gap-6">
+                <button id="mobile-menu-close" class="self-end">
+                    <i data-lucide="x" class="w-6 h-6"></i>
+                </button>
+                <a href="./index.html" class="hover:text-red-600 transition-colors brand-font text-sm">HOME</a>
+            <a href="./pages/about.html" class="hover:text-red-600 transition-colors brand-font text-sm">ABOUT</a>
+            <a href="./pages/docs.html" class="hover:text-red-600 transition-colors brand-font text-sm">DOCS</a>
+            <a href="./pages/api.html" class="hover:text-red-600 transition-colors brand-font text-sm">API</a>
+                <button id="mobile-theme-toggle" class="flex items-center gap-2 hover:text-red-600 transition-colors brand-font text-sm">
+                    <i data-lucide="moon" class="w-5 h-5"></i>
+                    <span>TOGGLE THEME</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <header class="px-4 sm:px-6 py-8 sm:py-12 md:py-24 max-w-7xl mx-auto w-full">
+        <h1 class="text-4xl sm:text-5xl md:text-8xl font-black mb-4 sm:mb-6 leading-none">
+            PURE.<br><span class="text-red-600">RAW.</span><br>DATA.
+        </h1>
+        <p class="text-base sm:text-lg md:text-xl max-w-2xl opacity-70 mb-6 sm:mb-8">
+            An open-source repository of technical specifications. No clutter. Just data.
+            Accessible via our web interface or JSON API.
+        </p>
+        
+        <div class="relative max-w-xl">
+            <input type="text" id="search-input" placeholder="SEARCH DATABASE..." 
+                class="w-full bg-transparent border-b-2 border-current py-3 sm:py-4 text-lg sm:text-xl md:text-2xl focus:outline-none focus:border-red-600 font-mono transition-colors placeholder-opacity-50 placeholder-current pr-10">
+            <i data-lucide="search" class="absolute right-0 top-1/2 -translate-y-1/2 opacity-50 w-5 h-5 sm:w-6 sm:h-6"></i>
+        </div>
+    </header>
+
+    <section class="px-4 sm:px-6 py-4 sticky top-16 sm:top-20 z-40 bg-opacity-90 backdrop-blur-md border-y border-gray-300 dark:border-gray-800 transition-colors" style="background-color: var(--bg-color);">
+        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row flex-wrap gap-4 items-start sm:items-center justify-between">
+            <div class="flex flex-wrap gap-2 w-full sm:w-auto" id="category-filters">
+                <button class="btn-raw active text-xs sm:text-sm" data-cat="all">ALL</button>
+                <button class="btn-raw text-xs sm:text-sm" data-cat="smartphones">PHONES</button>
+                <button class="btn-raw text-xs sm:text-sm" data-cat="laptops">LAPTOPS</button>
+                <button class="btn-raw text-xs sm:text-sm" data-cat="wearables">AUDIO/WEAR</button>
+                <button class="btn-raw text-xs sm:text-sm" data-cat="components">COMPONENTS</button>
+                <button class="btn-raw text-xs sm:text-sm" data-cat="tablets">TABLETS</button>
+                <button class="btn-raw text-xs sm:text-sm" data-cat="cameras">CAMERAS</button>
+            </div>
+            <div class="flex items-center gap-2 text-xs font-mono opacity-60">
+                <span id="item-count">0</span> ITEMS INDEXED
+            </div>
+        </div>
+    </section>
+
+    <main class="flex-grow px-4 sm:px-6 py-8 sm:py-12 max-w-7xl mx-auto w-full">
+        <div id="loader" class="flex justify-center py-20 hidden">
+            <div class="loader"></div>
+        </div>
+        
+        <div id="grid-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
+            </div>
+        
+        <div id="no-results" class="hidden text-center py-20">
+            <h3 class="text-2xl sm:text-3xl mb-2">NULL RESULT</h3>
+            <p class="opacity-60 font-mono text-sm sm:text-base">The requested data point does not exist in the matrix.</p>
+        </div>
+    </main>
+
+    <footer class="border-t border-gray-300 dark:border-gray-800 px-4 sm:px-6 py-8 sm:py-12 mt-auto">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-start gap-8">
+            <div>
+                <h2 class="text-xl sm:text-2xl mb-4">N(DATA)</h2>
+                <p class="text-xs sm:text-sm opacity-50 max-w-xs">
+                    Open source tech specification database. <br>
+                    Designed for transparency. Built for speed.
+                </p>
+            </div>
+            <div class="flex gap-6 sm:gap-8 text-xs sm:text-sm font-mono">
+                <div class="flex flex-col gap-2">
+                    <span class="opacity-40 mb-2">PROJECT</span>
+                    <a href="#" class="hover:underline">GitHub</a>
+                    <a href="#" class="hover:underline">API Docs</a>
+                    <a href="#" class="hover:underline">Contribute</a>
+                </div>
+                <div class="flex flex-col gap-2">
+                    <span class="opacity-40 mb-2">LEGAL</span>
+                    <a href="#" class="hover:underline">Privacy</a>
+                    <a href="#" class="hover:underline">MIT License</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <div id="modal" class="fixed inset-0 z-[100] hidden">
+        <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" onclick="app.closeModal()"></div>
+        <div class="absolute right-0 top-0 h-full w-full sm:w-[90%] md:w-[500px] bg-white dark:bg-zinc-900 shadow-2xl transform transition-transform duration-300 translate-x-full overflow-y-auto" id="modal-panel">
+            <div class="h-full flex flex-col">
+                <div class="p-4 sm:p-6 border-b border-gray-200 dark:border-gray-800 flex justify-between items-start bg-red-600 text-white sticky top-0 z-10">
+                    <div class="flex-1 pr-4">
+                        <span class="font-mono text-xs opacity-80" id="modal-category">CATEGORY</span>
+                        <h2 class="text-2xl sm:text-3xl font-bold mt-1 leading-none break-words" id="modal-title">TITLE</h2>
+                    </div>
+                    <button onclick="app.closeModal()" class="hover:rotate-90 transition-transform flex-shrink-0">
+                        <i data-lucide="x" class="w-6 h-6 sm:w-8 sm:h-8"></i>
+                    </button>
+                </div>
+                
+                <div class="flex-grow p-4 sm:p-6 custom-scrollbar">
+                    
+                    <div id="modal-gallery" class="mb-6 w-full">
+                        </div>
+
+                    <div class="mb-6 sm:mb-8">
+                        <p class="text-base sm:text-lg leading-relaxed text-gray-800 dark:text-gray-200" id="modal-desc">Description goes here.</p>
+                    </div>
+
+                    <div class="space-y-4 sm:space-y-6">
+                        <h3 class="border-b border-current pb-2 text-xs sm:text-sm opacity-50">TECHNICAL SPECIFICATIONS</h3>
+                        <div id="modal-specs" class="space-y-3 sm:space-y-4 font-mono text-xs sm:text-sm">
+                            </div>
+                    </div>
+
+                    <div class="mt-8 sm:mt-10 p-3 sm:p-4 bg-gray-100 dark:bg-zinc-800 rounded font-mono text-xs overflow-x-auto">
+                        <div class="flex justify-between mb-2 opacity-50">
+                            <span>RAW JSON</span>
+                            <button onclick="app.copyJson()" class="hover:text-red-500">COPY</button>
+                        </div>
+                        <pre id="modal-json" class="text-xs text-gray-600 dark:text-gray-400"></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="./static/js/app.js"></script>
+</body>
+</html>

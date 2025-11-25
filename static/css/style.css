@@ -1,0 +1,221 @@
+/* --- CORE AESTHETICS (Nothing Style) --- */
+:root {
+    --bg-color: #e6e6e6;
+    --text-color: #1a1a1a;
+    --accent-red: #d71920;
+    --dot-matrix: 'DotGothic16', sans-serif;
+    --sans: 'Inter', sans-serif;
+    --glass: rgba(255, 255, 255, 0.4);
+    --border: #ccc;
+}
+
+/* Dark Mode */
+.dark-mode {
+    --bg-color: #0f0f0f;
+    --text-color: #f0f0f0;
+    --glass: rgba(20, 20, 20, 0.6);
+    --border: #333;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: var(--sans);
+    transition: background-color 0.3s ease, color 0.3s ease;
+    overflow-x: hidden;
+}
+
+h1, h2, h3, .brand-font {
+    font-family: var(--dot-matrix);
+    letter-spacing: -0.05em;
+    text-transform: uppercase;
+}
+
+/* --- CUSTOM SCROLLBAR --- */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-color);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--text-color);
+    border-radius: 0px;
+}
+
+/* Utility to hide scrollbar but keep functionality for gallery */
+.no-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+.no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+/* --- UTILITIES --- */
+.glass-panel {
+    background: var(--glass);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--border);
+}
+
+.glitch-hover:hover {
+    animation: glitch 0.2s cubic-bezier(.25, .46, .45, .94) both infinite;
+    color: var(--accent-red);
+}
+
+@keyframes glitch {
+    0% { transform: translate(0) }
+    20% { transform: translate(-2px, 2px) }
+    40% { transform: translate(-2px, -2px) }
+    60% { transform: translate(2px, 2px) }
+    80% { transform: translate(2px, -2px) }
+    100% { transform: translate(0) }
+}
+
+.btn-raw {
+    border: 1px solid var(--text-color);
+    background: transparent;
+    color: var(--text-color);
+    padding: 0.5rem 1rem;
+    font-family: var(--dot-matrix);
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+}
+
+.btn-raw:hover {
+    background: var(--text-color);
+    color: var(--bg-color);
+}
+
+.btn-raw.active {
+    background: var(--accent-red);
+    border-color: var(--accent-red);
+    color: white;
+}
+
+/* --- CARD DESIGN --- */
+.data-card {
+    background: var(--bg-color);
+    border: 1px solid var(--border);
+    transition: transform 0.2s, box-shadow 0.2s;
+    position: relative;
+    overflow: hidden;
+}
+
+.data-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 4px 4px 0px var(--text-color);
+    border-color: var(--text-color);
+}
+
+.data-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: var(--accent-red);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease;
+}
+
+.data-card:hover::before {
+    transform: scaleX(1);
+}
+
+/* --- LOADER --- */
+.loader {
+    width: 40px;
+    height: 40px;
+    border: 2px dotted var(--text-color);
+    border-radius: 50%;
+    animation: spin 4s linear infinite;
+}
+
+@keyframes spin { 
+    100% { transform: rotate(360deg); } 
+}
+
+/* --- JSON PREVIEWER --- */
+pre {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+/* --- LINE CLAMP UTILITY --- */
+.line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* --- MOBILE RESPONSIVE IMPROVEMENTS --- */
+@media (max-width: 640px) {
+    .btn-raw {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.75rem;
+    }
+    
+    h1 {
+        font-size: 2.5rem;
+    }
+    
+    .data-card {
+        padding: 1rem;
+    }
+}
+
+/* --- SMOOTH TRANSITIONS --- */
+* {
+    -webkit-tap-highlight-color: transparent;
+}
+
+a, button {
+    -webkit-touch-callout: none;
+    user-select: none;
+}
+
+/* --- ACCESSIBILITY --- */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* Custom scrollbar for modal content */
+.custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+    background: var(--border);
+    border-radius: 3px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: var(--text-color);
+}

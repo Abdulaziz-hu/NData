@@ -1,0 +1,2 @@
+- [] add currency selector
+- [] make the README content
