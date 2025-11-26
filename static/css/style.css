@@ -31,6 +31,14 @@ h1, h2, h3, .brand-font {
     text-transform: uppercase;
 }
 
+.external-link {
+    text-decoration: 2px underline;
+}
+
+.external-link:hover {
+    color: var(--accent-red);
+}
+
 /* --- CUSTOM SCROLLBAR --- */
 ::-webkit-scrollbar {
     width: 8px;
