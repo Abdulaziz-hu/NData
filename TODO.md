@@ -1,9 +1,11 @@
-- [] add currency selector
+- [] add currency selector (USD $, SAR , YEN ¥)
 - [] make the README content
 - [] link and make pages:
     - [x] about
-    - [] privacy
-    - [] terms of service
-    - [] api page
-    - [] api docs (later)
+    - [~] privacy
+    - [~] terms of service
+    - [~] api page
+    - [~] api docs
     - [] 
+- [] make the filter horizontal scrolling for future proofing
+- [] 
