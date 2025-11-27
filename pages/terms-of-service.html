@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policies | N(DATA)</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {}
+            }
+        }
+    </script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=DotGothic16&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <link rel="stylesheet" href="../static/css/style.css">
+</head>
+<body class="min-h-screen flex flex-col">
+
+    <nav class="sticky top-0 z-50 glass-panel px-4 sm:px-6 py-4 flex justify-between items-center">
+        <div class="flex items-center gap-2 sm:gap-3 group cursor-pointer" onclick="app.reset()">
+            <div class="w-6 h-6 sm:w-8 sm:h-8 bg-red-600 rounded-full group-hover:scale-110 transition-transform"></div>
+            <span class="text-xl sm:text-2xl brand-font font-bold tracking-tighter"><a href="../index.html">N(DATA)</a></span>
+        </div>
+        
+        <div class="hidden md:flex items-center gap-6">
+            <a href="../index.html" class="hover:text-red-600 transition-colors brand-font text-sm">HOME</a>
+            <a href="./about.html" class="hover:text-red-600 transition-colors brand-font text-sm">ABOUT</a>
+            <a href="../api/docs.html" class="hover:text-red-600 transition-colors brand-font text-sm">DOCS</a>
+            <a href="../api/api.html" class="hover:text-red-600 transition-colors brand-font text-sm">API</a>
+            <button id="theme-toggle" class="p-2 hover:bg-gray-300 dark:hover:bg-gray-800 rounded-full transition">
+                <i data-lucide="moon" class="w-5 h-5"></i>
+            </button>
+        </div>
+        
+        <button class="md:hidden p-2" id="mobile-menu-btn">
+            <i data-lucide="menu" class="w-6 h-6"></i>
+        </button>
+    </nav>
+
+    <div id="mobile-menu" class="fixed inset-0 z-[60] hidden md:hidden">
+        <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" id="mobile-menu-backdrop"></div>
+        <div class="absolute right-0 top-0 h-full w-64 glass-panel transform transition-transform duration-300 translate-x-full" id="mobile-menu-panel">
+            <div class="p-6 flex flex-col gap-6">
+                <button id="mobile-menu-close" class="self-end">
+                    <i data-lucide="x" class="w-6 h-6"></i>
+                </button>
+                <a href="../index.html" class="hover:text-red-600 transition-colors brand-font text-sm">HOME</a>
+                <a href="./about.html" class="hover:text-red-600 transition-colors brand-font text-sm">ABOUT</a>
+                <a href="../api/docs.html" class="hover:text-red-600 transition-colors brand-font text-sm">DOCS</a>
+                <a href="../api/api.html" class="hover:text-red-600 transition-colors brand-font text-sm">API</a>
+                <button id="mobile-theme-toggle" class="flex items-center gap-2 hover:text-red-600 transition-colors brand-font text-sm">
+                    <i data-lucide="moon" class="w-5 h-5"></i>
+                    <span>TOGGLE THEME</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <header class="px-4 sm:px-6 py-8 sm:py-12 md:py-24 max-w-7xl mx-auto w-full">
+        <h1 class="text-4xl sm:text-5xl md:text-8xl font-black mb-4 sm:mb-6 leading-none">
+            P L A Y.<br><span class="text-red-600">N I C E</span> <span class="brand-font text-xs brand-font-spaced">IN THE WORKS..</span>
+        </h1>
+    </header>
+
+    <!-- <section class="px-4 sm:px-6 max-w-5xl mx-auto mb-24">
+        <h2 class="brand-font text-2xl mt-8 border-b border-current pb-2 opacity-70">1. Data Endpoint</h2>
+    </section> -->
+
+    <script src="../static/js/simple-func.js"></script>
+    <script src="../static/js/app.js"></script>
+</body>
+</html>
