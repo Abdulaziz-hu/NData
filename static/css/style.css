@@ -31,12 +31,37 @@ h1, h2, h3, .brand-font {
     text-transform: uppercase;
 }
 
-.external-link {
+.links {
     text-decoration: 2px underline;
 }
 
-.external-link:hover {
+.links:hover {
     color: var(--accent-red);
+}
+
+code {
+    padding: 4px;
+    border-radius: 3px;
+    color: var(--border);
+    background-color: var(--text-color);
+}
+
+.code-style {
+    font-family: monospace;
+    padding: 4px;
+    border: 2px solid var(--border);
+    border-radius: 3px;
+    color: var(--text-color);
+    background-color: var(--bg-color);
+}
+
+.brand-font-spaced {
+    letter-spacing: 0.3em !important;
+}
+
+.not-allowed {
+    opacity: 50%;
+    cursor: not-allowed;
 }
 
 /* --- CUSTOM SCROLLBAR --- */
