@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 - ERROR // N(DATA)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@400;500;700&display=swap');
+
+        :root {
+            --primary-bg: #f5f5f5;
+            --secondary-bg: #e0e0e0;
+            --text-color: #1a1a1a;
+            --accent-red: #d93d3d;
+            --border-color: #333;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--primary-bg);
+            color: var(--text-color);
+        }
+
+        .font-pixel {
+            font-family: 'Press Start 2P', cursive;
+            letter-spacing: -0.05em;
+            word-spacing: -0.2em;
+        }
+
+        .header-nav {
+            background-color: var(--text-color);
+            color: var(--primary-bg);
+            padding: 0.75rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .header-nav a {
+            color: var(--primary-bg);
+            text-decoration: none;
+            padding: 0.5rem 0.75rem;
+            transition: all 0.2s ease-in-out;
+            border: 1px solid transparent;
+        }
+        .header-nav a:hover {
+            color: var(--accent-red);
+            border-color: var(--accent-red);
+        }
+        .header-nav .active-link {
+            color: var(--accent-red);
+            border: 1px solid var(--accent-red);
+        }
+
+        .content-card {
+            background-color: var(--primary-bg);
+            border: 1px solid var(--border-color);
+            box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-primary {
+            background-color: var(--text-color);
+            color: var(--primary-bg);
+            border: 1px solid var(--text-color);
+            transition: all 0.2s ease-in-out;
+        }
+        .btn-primary:hover {
+            background-color: var(--accent-red);
+            border-color: var(--accent-red);
+            color: var(--primary-bg);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--text-color);
+            border: 1px solid var(--text-color);
+            transition: all 0.2s ease-in-out;
+        }
+        .btn-secondary:hover {
+            background-color: var(--secondary-bg);
+            border-color: var(--accent-red);
+            color: var(--accent-red);
+        }
+    </style>
+</head>
+<body class="flex flex-col min-h-screen">
+
+    <header class="header-nav">
+        <div class="flex items-center space-x-2">
+            <span class="font-pixel text-lg"><a href="/">N(DATA)</a></span>
+            <span class="text-xs text-gray-500 hidden sm:block" id="header-time-status"></span>
+        </div>
+        <nav class="flex space-x-4">
+            <a href="/">HOME</a>
+            <a href="#" class="border-l border-white pl-4 text-white">⟳</a>
+        </nav>
+    </header>
+
+    <main class="flex-grow flex items-center justify-center p-4">
+        <div class="max-w-xl w-full content-card rounded-none p-8 sm:p-12 text-center">
+
+            <div class="mb-8">
+                <h1 class="font-pixel text-6xl sm:text-7xl leading-none" style="line-height: 0.8em;">
+                    ERROR
+                    <br>
+                    <span class="text-red-600 inline-block mt-2">404</span>
+                </h1>
+            </div>
+
+            <h2 class="text-2xl sm:text-3xl font-bold mb-4">
+                PAGE NOT FOUND
+            </h2>
+
+            <p class="text-gray-700 mb-8 max-w-sm mx-auto">
+                The requested page could not be located. Please verify the URL or navigate to an existing page.
+            </p>
+
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <a href="/" class="px-6 py-3 text-lg font-bold btn-primary rounded-none shadow-md">
+                    RETURN TO HOME
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        function goBack() {
+            if (window.history.length > 1 && document.referrer.length > 0) {
+                window.history.back();
+            } else {
+                window.location.href = '/';
+            }
+        }
+
+        function updateHeaderTime() {
+            const now = new Date();
+            const utcTime = now.getUTCHours().toString().padStart(2, '0') + ':' +
+                            now.getUTCMinutes().toString().padStart(2, '0') + ':' +
+                            now.getUTCSeconds().toString().padStart(2, '0');
+            document.getElementById('header-time-status').textContent = `STATUS: ${utcTime} UTC`;
+        }
+
+        window.onload = function() {
+            updateHeaderTime();
+            setInterval(updateHeaderTime, 1000);
+        };
+    </script>
+
+</body>
+</html>
