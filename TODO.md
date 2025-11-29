@@ -1,4 +1,4 @@
-- [] add currency selector (USD $, SAR , YEN ¥)
+- [] add currency selector (USD $, SAR, YEN ¥)
 - [] make the README content
 - [] link and make pages:
     - [x] about
@@ -6,6 +6,7 @@
     - [~] terms of service
     - [~] api page
     - [~] api docs
-    - [] 
+    - [x] make a custom 404 page (nothing fancy) // needs implementation in a server to work
+- [] add a skeleton loader for data fetching
 - [] make the filter horizontal scrolling for future proofing
-- [] 
+- [] fix theme problem, it keeps flash banging when switching pages
