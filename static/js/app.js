@@ -317,8 +317,8 @@ class App {
             // Placeholder text if no images exist
             galleryContainer.innerHTML = `
                 <div class="w-full py-8 border-2 border-dashed border-gray-300 dark:border-gray-700 flex flex-col items-center justify-center opacity-50 select-none">
-                    <i data-lucide="image-off" class="w-8 h-8 mb-2"></i>
-                    <span class="font-mono text-xs tracking-widest uppercase">No Visual Data Available</span>
+                    <i data-lucide="image-off" class="text-gray-900 dark:text-gray-100 w-8 h-8 mb-2"></i>
+                    <span class="text-gray-900 dark:text-gray-100 font-mono text-xs tracking-widest uppercase">No Visual Data Available</span>
                 </div>
             `;
             this.currentImages = [];
