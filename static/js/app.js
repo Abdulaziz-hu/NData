@@ -70,6 +70,13 @@ class App {
         this.modalPanel = document.getElementById('modal-panel');
         this.currentSearchQuery = '';
         
+        // Lightbox properties
+        this.lightbox = document.getElementById('image-lightbox');
+        this.lightboxImage = document.getElementById('lightbox-image');
+        this.lightboxCounter = document.getElementById('lightbox-counter');
+        this.currentImages = [];
+        this.currentImageIndex = 0;
+        
         this.bindEvents();
         this.initTheme();
     }
@@ -177,10 +184,23 @@ class App {
             });
         }
 
-        // Keyboard navigation for modal
+        // Keyboard navigation for modal and lightbox
         document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && !this.modal.classList.contains('hidden')) {
-                this.closeModal();
+            if (e.key === 'Escape') {
+                if (!this.lightbox.classList.contains('hidden')) {
+                    this.closeLightbox();
+                } else if (!this.modal.classList.contains('hidden')) {
+                    this.closeModal();
+                }
+            }
+            
+            // Arrow keys for lightbox navigation
+            if (!this.lightbox.classList.contains('hidden')) {
+                if (e.key === 'ArrowLeft') {
+                    this.prevImage();
+                } else if (e.key === 'ArrowRight') {
+                    this.nextImage();
+                }
             }
         });
     }
@@ -275,11 +295,14 @@ class App {
         document.getElementById('modal-title').textContent = item.name;
         document.getElementById('modal-desc').textContent = item.description;
         
-        // Gallery Rendering
+        // Gallery Rendering with click handlers
         const galleryContainer = document.getElementById('modal-gallery');
         if (item.images && item.images.length > 0) {
-            const imagesHtml = item.images.map(imgSrc => 
-                `<img src="${imgSrc}" class="h-48 w-auto rounded border border-gray-200 dark:border-gray-800 snap-center flex-shrink-0 object-cover bg-gray-100 dark:bg-gray-800" alt="${item.name}">`
+            const imagesHtml = item.images.map((imgSrc, index) => 
+                `<img src="${imgSrc}" 
+                     class="h-48 w-auto rounded border border-gray-200 dark:border-gray-800 snap-center flex-shrink-0 object-cover bg-gray-100 dark:bg-gray-800 cursor-pointer hover:border-red-600 transition-colors" 
+                     alt="${item.name}"
+                     onclick="app.openLightbox(${index})">`
             ).join('');
             
             galleryContainer.innerHTML = `
@@ -287,6 +310,9 @@ class App {
                     ${imagesHtml}
                 </div>
             `;
+            
+            // Store images for lightbox
+            this.currentImages = item.images;
         } else {
             // Placeholder text if no images exist
             galleryContainer.innerHTML = `
@@ -295,6 +321,7 @@ class App {
                     <span class="font-mono text-xs tracking-widest uppercase">No Visual Data Available</span>
                 </div>
             `;
+            this.currentImages = [];
         }
 
         // Render Specs with fixed text colors for both light/dark modes
@@ -305,6 +332,30 @@ class App {
                 <span class="text-gray-900 dark:text-gray-100 font-bold sm:text-right text-xs sm:text-sm break-words">${this.escapeHtml(String(val))}</span>
             </div>
         `).join('');
+
+        // Render DIY Resources section
+        const diySection = document.getElementById('modal-diy-section');
+        const diyContent = document.getElementById('modal-diy-content');
+        
+        if (item.diy_resources && item.diy_resources.length > 0) {
+            diySection.classList.remove('hidden');
+            diyContent.innerHTML = item.diy_resources.map(resource => `
+                <a href="${this.escapeHtml(resource.url)}" 
+                   target="_blank" 
+                   rel="noopener noreferrer"
+                   class="flex items-start gap-3 p-3 border border-gray-200 dark:border-gray-700 hover:border-red-600 dark:hover:border-red-600 transition-colors group">
+                    <i data-lucide="${this.escapeHtml(resource.icon || 'external-link')}" class="w-5 h-5 flex-shrink-0 mt-0.5 group-hover:text-red-600"></i>
+                    <div class="flex-1 min-w-0">
+                        <h4 class="font-bold text-sm mb-1 group-hover:text-red-600 transition-colors">${this.escapeHtml(resource.title)}</h4>
+                        <p class="text-xs opacity-60 line-clamp-2">${this.escapeHtml(resource.description)}</p>
+                        ${resource.type ? `<span class="inline-block mt-2 text-xs font-mono px-2 py-0.5 bg-gray-100 dark:bg-gray-800 rounded">${this.escapeHtml(resource.type)}</span>` : ''}
+                    </div>
+                    <i data-lucide="arrow-right" class="w-4 h-4 flex-shrink-0 opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                </a>
+            `).join('');
+        } else {
+            diySection.classList.add('hidden');
+        }
 
         const jsonPre = document.getElementById('modal-json');
         jsonPre.textContent = JSON.stringify(item, null, 2);
@@ -328,6 +379,41 @@ class App {
             this.modal.classList.add('hidden');
             document.body.style.overflow = '';
         }, 300);
+    }
+
+    // Lightbox functionality
+    openLightbox(index) {
+        if (this.currentImages.length === 0) return;
+        
+        this.currentImageIndex = index;
+        this.updateLightboxImage();
+        this.lightbox.classList.remove('hidden');
+        
+        // Re-initialize icons for lightbox buttons
+        if (typeof lucide !== 'undefined') {
+            lucide.createIcons();
+        }
+    }
+
+    closeLightbox() {
+        this.lightbox.classList.add('hidden');
+    }
+
+    nextImage() {
+        if (this.currentImages.length === 0) return;
+        this.currentImageIndex = (this.currentImageIndex + 1) % this.currentImages.length;
+        this.updateLightboxImage();
+    }
+
+    prevImage() {
+        if (this.currentImages.length === 0) return;
+        this.currentImageIndex = (this.currentImageIndex - 1 + this.currentImages.length) % this.currentImages.length;
+        this.updateLightboxImage();
+    }
+
+    updateLightboxImage() {
+        this.lightboxImage.src = this.currentImages[this.currentImageIndex];
+        this.lightboxCounter.textContent = `${this.currentImageIndex + 1} / ${this.currentImages.length}`;
     }
 
     reset() {

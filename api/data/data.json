@@ -19,7 +19,23 @@
             "battery": "5000 mAh",
             "camera_main": "50MP + 50MP (Ultrawide)",
             "os": "Nothing OS 2.5 (Android 14)"
-        }
+        },
+        "diy_resources": [
+            {
+                "title": "Teardown & Screen Replacement",
+                "url": "https://www.youtube.com/watch?v=example1",
+                "icon": "wrench",
+                "description": "Step-by-step video guide on how to disassemble the unit and replace the display assembly.",
+                "type": "REPAIR GUIDE"
+            },
+            {
+                "title": "Nothing OS Firmware Archive",
+                "url": "https://github.com/example/nothing-archive",
+                "icon": "save",
+                "description": "Community maintained archive of full OTA packages and boot images.",
+                "type": "SOFTWARE"
+            }
+        ]
     },
     {
         "id": "phn-002",
@@ -40,7 +56,16 @@
             "camera_main": "50MP Octa PD wide",
             "battery": "5050 mAh",
             "ai_features": "Magic Editor, Best Take, Audio Magic Eraser"
-        }
+        },
+        "diy_resources": [
+            {
+                "title": "iFixit Repair Guides",
+                "url": "https://www.ifixit.com/Device/Google_Pixel_8_Pro",
+                "icon": "book-open",
+                "description": "Official repair manuals and parts list for the Pixel 8 Pro.",
+                "type": "MANUAL"
+            }
+        ]
     },
     {
         "id": "phn-003",
