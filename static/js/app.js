@@ -1,3 +1,16 @@
+// --- CURRENCY CONVERSION RATES ---
+const CURRENCY_RATES = {
+    USD: 1,
+    SAR: 3.75,
+    JPY: 150
+};
+
+const CURRENCY_SYMBOLS = {
+    USD: '$',
+    SAR: '﷼',
+    JPY: '¥'
+};
+
 // --- DATA LAYER ---
 class DataService {
     constructor() {
@@ -6,7 +19,6 @@ class DataService {
     }
 
     async init() {
-        // Fetch from external JSON file
         return new Promise(async (resolve, reject) => {
             try {
                 const response = await fetch('../../api/data/data.json');
@@ -38,12 +50,10 @@ class DataService {
         }
         const lowerQ = query.toLowerCase();
         return this.data.filter(item => {
-            // Search in name, brand, description
             const nameMatch = item.name.toLowerCase().includes(lowerQ);
             const brandMatch = item.brand.toLowerCase().includes(lowerQ);
             const descMatch = item.description.toLowerCase().includes(lowerQ);
             
-            // Search in specs values
             const specsMatch = Object.values(item.specs).some(val => 
                 String(val).toLowerCase().includes(lowerQ)
             );
@@ -69,6 +79,8 @@ class App {
         this.modal = document.getElementById('modal');
         this.modalPanel = document.getElementById('modal-panel');
         this.currentSearchQuery = '';
+        this.currentCurrency = 'USD';
+        this.currentProductId = null;
         
         // Lightbox properties
         this.lightbox = document.getElementById('image-lightbox');
@@ -79,6 +91,7 @@ class App {
         
         this.bindEvents();
         this.initTheme();
+        this.initCurrency();
     }
 
     async start() {
@@ -86,6 +99,10 @@ class App {
         try {
             await this.service.init();
             this.showLoader(false);
+            
+            // Check URL for product ID
+            this.checkUrlForProduct();
+            
             this.render(this.service.getAll());
             
             // Initialize Icons
@@ -115,14 +132,11 @@ class App {
         const buttons = document.querySelectorAll('#category-filters button');
         buttons.forEach(btn => {
             btn.addEventListener('click', () => {
-                // Toggle active class
                 buttons.forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
                 
-                // Filter
                 this.currentCategory = btn.dataset.cat;
                 
-                // If there's a search query, apply both filters
                 if (this.currentSearchQuery) {
                     const searchResults = this.service.search(this.currentSearchQuery);
                     const filtered = this.currentCategory === 'all' 
@@ -133,6 +147,41 @@ class App {
                     const results = this.service.getByCategory(this.currentCategory);
                     this.render(results);
                 }
+            });
+        });
+
+        // Currency Selector - Desktop
+        const currencyToggle = document.getElementById('currency-toggle');
+        const currencyDropdown = document.getElementById('currency-dropdown');
+        
+        if (currencyToggle && currencyDropdown) {
+            currencyToggle.addEventListener('click', (e) => {
+                e.stopPropagation();
+                currencyDropdown.classList.toggle('hidden');
+            });
+
+            // Close dropdown when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!currencyToggle.contains(e.target) && !currencyDropdown.contains(e.target)) {
+                    currencyDropdown.classList.add('hidden');
+                }
+            });
+
+            // Currency selection
+            const currencyButtons = currencyDropdown.querySelectorAll('button[data-currency]');
+            currencyButtons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    this.changeCurrency(btn.dataset.currency);
+                    currencyDropdown.classList.add('hidden');
+                });
+            });
+        }
+
+        // Currency Selector - Mobile
+        const mobileCurrencyButtons = document.querySelectorAll('.mobile-currency-btn');
+        mobileCurrencyButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                this.changeCurrency(btn.dataset.currency);
             });
         });
 
@@ -194,7 +243,6 @@ class App {
                 }
             }
             
-            // Arrow keys for lightbox navigation
             if (!this.lightbox.classList.contains('hidden')) {
                 if (e.key === 'ArrowLeft') {
                     this.prevImage();
@@ -203,27 +251,127 @@ class App {
                 }
             }
         });
+
+        // Handle browser back/forward buttons
+        window.addEventListener('popstate', (e) => {
+            if (e.state && e.state.productId) {
+                const item = this.service.getById(e.state.productId);
+                if (item) {
+                    this.openDetails(item, false);
+                }
+            } else {
+                this.closeModal(false);
+            }
+        });
+    }
+
+    initCurrency() {
+        const savedCurrency = localStorage.getItem('currency');
+        if (savedCurrency && CURRENCY_RATES[savedCurrency]) {
+            this.currentCurrency = savedCurrency;
+            this.updateCurrencyDisplay();
+        }
+    }
+
+    changeCurrency(currency) {
+        this.currentCurrency = currency;
+        localStorage.setItem('currency', currency);
+        this.updateCurrencyDisplay();
+        
+        // Re-render grid if items are displayed
+        if (this.service.initialized) {
+            if (this.currentSearchQuery) {
+                const searchResults = this.service.search(this.currentSearchQuery);
+                const filtered = this.currentCategory === 'all' 
+                    ? searchResults 
+                    : searchResults.filter(item => item.category === this.currentCategory);
+                this.render(filtered);
+            } else {
+                const results = this.service.getByCategory(this.currentCategory);
+                this.render(results);
+            }
+        }
+
+        // Update modal price if open
+        if (!this.modal.classList.contains('hidden') && this.currentProductId) {
+            const item = this.service.getById(this.currentProductId);
+            if (item) {
+                this.updateModalPrice(item);
+            }
+        }
+    }
+
+    updateCurrencyDisplay() {
+        const currencySymbol = document.getElementById('currency-symbol');
+        if (currencySymbol) {
+            if (this.currentCurrency === 'SAR') {
+                currencySymbol.innerHTML = '<i class="sr"></i>';
+            } else {
+                const symbol = CURRENCY_SYMBOLS[this.currentCurrency];
+                currencySymbol.textContent = symbol;
+            }
+        }
+    }
+
+    convertPrice(usdPrice) {
+        const rate = CURRENCY_RATES[this.currentCurrency];
+        const converted = usdPrice * rate;
+        return Math.round(converted);
+    }
+
+    formatPrice(usdPrice) {
+        const converted = this.convertPrice(usdPrice);
+        
+        if (this.currentCurrency === 'JPY') {
+            return `¥${converted.toLocaleString()}`;
+        } else if (this.currentCurrency === 'SAR') {
+            return `${converted.toLocaleString()} <i class="sr"></i>`;
+        } else {
+            return `${converted.toLocaleString()}`;
+        }
     }
 
     toggleTheme() {
         document.body.classList.toggle('dark-mode');
         const isDark = document.body.classList.contains('dark-mode');
         localStorage.setItem('theme', isDark ? 'dark' : 'light');
-        // Re-render icons to ensure color contrast if needed
+        
+        // Update theme toggle icons
+        const themeIcon = document.querySelector('#theme-toggle i');
+        const mobileThemeIcon = document.querySelector('#mobile-theme-toggle i');
+        
+        if (isDark) {
+            if (themeIcon) themeIcon.setAttribute('data-lucide', 'sun');
+            if (mobileThemeIcon) mobileThemeIcon.setAttribute('data-lucide', 'sun');
+        } else {
+            if (themeIcon) themeIcon.setAttribute('data-lucide', 'moon');
+            if (mobileThemeIcon) mobileThemeIcon.setAttribute('data-lucide', 'moon');
+        }
+        
         if (typeof lucide !== 'undefined') {
             lucide.createIcons();
         }
     }
 
     initTheme() {
-        // Check for saved theme preference or default to light mode
         const savedTheme = localStorage.getItem('theme');
         if (savedTheme === 'dark') {
             document.body.classList.add('dark-mode');
-        }
-        // Check for system preference if no saved theme
-        else if (!savedTheme && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        } else if (!savedTheme && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
             document.body.classList.add('dark-mode');
+        }
+        
+        // Set initial icon based on theme
+        const isDark = document.body.classList.contains('dark-mode');
+        const themeIcon = document.querySelector('#theme-toggle i');
+        const mobileThemeIcon = document.querySelector('#mobile-theme-toggle i');
+        
+        if (isDark) {
+            if (themeIcon) themeIcon.setAttribute('data-lucide', 'sun');
+            if (mobileThemeIcon) mobileThemeIcon.setAttribute('data-lucide', 'sun');
+        } else {
+            if (themeIcon) themeIcon.setAttribute('data-lucide', 'moon');
+            if (mobileThemeIcon) mobileThemeIcon.setAttribute('data-lucide', 'moon');
         }
     }
 
@@ -265,7 +413,6 @@ class App {
             card.className = 'data-card p-4 sm:p-6 flex flex-col h-full cursor-pointer';
             card.onclick = () => this.openDetails(item);
             
-            // Specs preview (first 2 keys)
             const specPreview = Object.entries(item.specs).slice(0, 2).map(([key, val]) => 
                 `<div class="flex justify-between text-xs opacity-70 font-mono mt-1">
                     <span class="uppercase truncate mr-2">${key.replace(/_/g, ' ')}</span>
@@ -276,7 +423,7 @@ class App {
             card.innerHTML = `
                 <div class="flex justify-between items-start mb-3 sm:mb-4 gap-2">
                     <span class="text-xs font-bold bg-black text-white dark:bg-white dark:text-black px-2 py-1 uppercase tracking-wider flex-shrink-0">${this.escapeHtml(item.brand)}</span>
-                    <span class="font-mono text-sm font-bold flex-shrink-0">$${item.price}</span>
+                    <span class="font-mono text-sm font-bold flex-shrink-0">${this.formatPrice(item.price)}</span>
                 </div>
                 <h3 class="text-lg sm:text-xl font-bold mb-2 glitch-hover line-clamp-2">${this.escapeHtml(item.name)}</h3>
                 <p class="text-xs sm:text-sm opacity-60 mb-4 sm:mb-6 flex-grow line-clamp-3">${this.escapeHtml(item.description)}</p>
@@ -289,7 +436,28 @@ class App {
         });
     }
 
-    openDetails(item) {
+    checkUrlForProduct() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const productId = urlParams.get('product');
+        
+        if (productId) {
+            const item = this.service.getById(productId);
+            if (item) {
+                this.openDetails(item, false);
+            }
+        }
+    }
+
+    openDetails(item, updateUrl = true) {
+        this.currentProductId = item.id;
+        
+        // Update URL if requested
+        if (updateUrl) {
+            const url = new URL(window.location);
+            url.searchParams.set('product', item.id);
+            window.history.pushState({ productId: item.id }, '', url);
+        }
+        
         // Populate Modal Headers
         document.getElementById('modal-category').textContent = item.category.toUpperCase();
         document.getElementById('modal-title').textContent = item.name;
@@ -311,10 +479,8 @@ class App {
                 </div>
             `;
             
-            // Store images for lightbox
             this.currentImages = item.images;
         } else {
-            // Placeholder text if no images exist
             galleryContainer.innerHTML = `
                 <div class="w-full py-8 border-2 border-dashed border-gray-300 dark:border-gray-700 flex flex-col items-center justify-center opacity-50 select-none">
                     <i data-lucide="image-off" class="text-gray-900 dark:text-gray-100 w-8 h-8 mb-2"></i>
@@ -324,14 +490,23 @@ class App {
             this.currentImages = [];
         }
 
-        // Render Specs with fixed text colors for both light/dark modes
+        // Render Specs with price
         const specsContainer = document.getElementById('modal-specs');
-        specsContainer.innerHTML = Object.entries(item.specs).map(([key, val]) => `
+        const priceSpec = `
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-4 border-b border-gray-200 dark:border-gray-700 py-2">
+                <span class="text-gray-600 dark:text-gray-400 uppercase text-xs sm:text-sm font-mono tracking-wide">PRICE</span>
+                <span class="text-gray-900 dark:text-gray-100 font-bold sm:text-right text-xs sm:text-sm break-words" id="modal-price">${this.formatPrice(item.price)}</span>
+            </div>
+        `;
+        
+        const specsHtml = Object.entries(item.specs).map(([key, val]) => `
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-4 border-b border-gray-200 dark:border-gray-700 py-2">
                 <span class="text-gray-600 dark:text-gray-400 uppercase text-xs sm:text-sm font-mono tracking-wide">${this.escapeHtml(key.replace(/_/g, ' '))}</span>
                 <span class="text-gray-900 dark:text-gray-100 font-bold sm:text-right text-xs sm:text-sm break-words">${this.escapeHtml(String(val))}</span>
             </div>
         `).join('');
+        
+        specsContainer.innerHTML = priceSpec + specsHtml;
 
         // Render DIY Resources section
         const diySection = document.getElementById('modal-diy-section');
@@ -373,12 +548,75 @@ class App {
         }
     }
 
-    closeModal() {
+    updateModalPrice(item) {
+        const priceElement = document.getElementById('modal-price');
+        if (priceElement) {
+            priceElement.textContent = this.formatPrice(item.price);
+        }
+    }
+
+    closeModal(updateUrl = true) {
         this.modalPanel.classList.add('translate-x-full');
         setTimeout(() => {
             this.modal.classList.add('hidden');
             document.body.style.overflow = '';
         }, 300);
+        
+        this.currentProductId = null;
+        
+        // Remove product from URL if requested
+        if (updateUrl) {
+            const url = new URL(window.location);
+            url.searchParams.delete('product');
+            window.history.pushState({}, '', url);
+        }
+    }
+
+    shareProduct() {
+        const url = window.location.href;
+        
+        // Try to use native share API if available
+        if (navigator.share) {
+            const item = this.service.getById(this.currentProductId);
+            navigator.share({
+                title: item.name,
+                text: item.description,
+                url: url
+            }).catch(err => {
+                // If share fails, fall back to copy
+                this.copyProductLink(url);
+            });
+        } else {
+            // Fallback to copying link
+            this.copyProductLink(url);
+        }
+    }
+
+    async copyProductLink(url) {
+        const success = await this.copyToClipboardLogic(url);
+        
+        if (success) {
+            // Visual feedback
+            const shareBtn = event.target.closest('button');
+            if (shareBtn) {
+                const icon = shareBtn.querySelector('i');
+                if (icon) {
+                    icon.setAttribute('data-lucide', 'check');
+                    if (typeof lucide !== 'undefined') {
+                        lucide.createIcons();
+                    }
+                    
+                    setTimeout(() => {
+                        icon.setAttribute('data-lucide', 'share-2');
+                        if (typeof lucide !== 'undefined') {
+                            lucide.createIcons();
+                        }
+                    }, 2000);
+                }
+            }
+        } else {
+            alert('Failed to copy link. Please copy manually from the address bar.');
+        }
     }
 
     // Lightbox functionality
@@ -389,7 +627,6 @@ class App {
         this.updateLightboxImage();
         this.lightbox.classList.remove('hidden');
         
-        // Re-initialize icons for lightbox buttons
         if (typeof lucide !== 'undefined') {
             lucide.createIcons();
         }
@@ -429,10 +666,8 @@ class App {
     }
 
     // --- HELPER: COPY TO CLIPBOARD ---
-    // Handles both Secure Context (HTTPS) and fallback (HTTP/Local)
     async copyToClipboardLogic(text) {
         try {
-            // 1. Try modern API first (requires secure context usually)
             if (navigator.clipboard && window.isSecureContext) {
                 await navigator.clipboard.writeText(text);
                 return true;
@@ -440,12 +675,10 @@ class App {
                 throw new Error('Clipboard API unavailable');
             }
         } catch (err) {
-            // 2. Fallback for local files or non-secure contexts
             try {
                 const textArea = document.createElement("textarea");
                 textArea.value = text;
                 
-                // Ensure textarea is not visible but part of DOM
                 textArea.style.position = "fixed";
                 textArea.style.left = "-9999px";
                 textArea.style.top = "0";
@@ -469,11 +702,9 @@ class App {
         const success = await this.copyToClipboardLogic(text);
         
         if (success) {
-            // Find the button that was clicked
             const button = event.target.closest('button') || event.target;
             const originalText = button.textContent;
             
-            // Visual feedback
             button.textContent = 'COPIED!';
             button.style.color = 'var(--accent-red)';
             

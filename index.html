@@ -19,6 +19,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="https://fonts.googleapis.com/css2?family=DotGothic16&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/saudi-riyal-symbol@latest/dist/saudi-riyal-symbol.css">
+    <link rel="stylesheet" href="https://unpkg.com/saudi-riyal-symbol@latest/dist/saudi-riyal-symbol.min.css">
 
     <script src="https://unpkg.com/lucide@latest"></script>
 
@@ -38,6 +40,28 @@
             <a href="./pages/updates.html" class="hover:text-red-600 transition-colors brand-font text-sm">UPDATES</a>
             <a href="./api/docs.html" class="hover:text-red-600 transition-colors brand-font text-sm">DOCS</a>
             <a href="./api/api.html" class="hover:text-red-600 transition-colors brand-font text-sm">API</a>
+            
+            <!-- Currency Selector -->
+            <div class="relative currency-selector">
+                <button id="currency-toggle" class="p-2 hover:bg-gray-300 dark:hover:bg-gray-800 rounded-full transition flex items-center gap-1">
+                    <span id="currency-symbol" class="text-sm font-mono">$</span>
+                </button>
+                <div id="currency-dropdown" class="hidden absolute right-0 mt-2 dark:bg-zinc-900 border border-gray-300 dark:border-gray-700 rounded shadow-lg min-w-[120px] z-50">
+                    <button data-currency="USD" class="w-full px-4 py-2 text-left hover:text-red-500 hover:bg-black dark:hover:bg-black transition flex items-center gap-2 text-sm font-mono">
+                        <span>$</span>
+                        <span>USD</span>
+                    </button>
+                    <button data-currency="SAR" class="w-full px-4 py-2 text-left hover:text-red-500 hover:bg-black dark:hover:bg-black transition flex items-center gap-2 text-sm font-mono">
+                        <i class="sr"></i>
+                        <span>SAR</span>
+                    </button>
+                    <button data-currency="JPY" class="w-full px-4 py-2 text-left hover:text-red-500 hover:bg-black dark:hover:bg-black transition flex items-center gap-2 text-sm font-mono">
+                        <span>¥</span>
+                        <span>JPY</span>
+                    </button>
+                </div>
+            </div>
+            
             <button id="theme-toggle" class="p-2 hover:bg-gray-300 dark:hover:bg-gray-800 rounded-full transition">
                 <i data-lucide="moon" class="w-5 h-5"></i>
             </button>
@@ -60,7 +84,27 @@
                 <a href="./pages/updates.html" class="hover:text-red-600 transition-colors brand-font text-sm">UPDATES</a>
                 <a href="./api/docs.html" class="hover:text-red-600 transition-colors brand-font text-sm">DOCS</a>
                 <a href="./api/api.html" class="hover:text-red-600 transition-colors brand-font text-sm">API</a>
-                <button id="mobile-theme-toggle" class="flex items-center gap-2 hover:text-red-600 transition-colors brand-font text-sm">
+                
+                <!-- Mobile Currency Selector -->
+                <div class="border-t border-gray-300 dark:border-gray-700 pt-4">
+                    <span class="text-xs opacity-50 font-mono mb-2 block">CURRENCY</span>
+                    <div class="flex flex-col gap-2">
+                        <button data-currency="USD" class="mobile-currency-btn flex items-center gap-2 hover:text-red-500 transition-colors brand-font text-sm">
+                            <span>$</span>
+                            <span>USD</span>
+                        </button>
+                        <button data-currency="SAR" class="mobile-currency-btn flex items-center gap-2 hover:text-red-500 transition-colors brand-font text-sm">
+                            <i class="sr"></i>
+                            <span>SAR</span>
+                        </button>
+                        <button data-currency="JPY" class="mobile-currency-btn flex items-center gap-2 hover:text-red-500 transition-colors brand-font text-sm">
+                            <span>¥</span>
+                            <span>JPY</span>
+                        </button>
+                    </div>
+                </div>
+                
+                <button id="mobile-theme-toggle" class="flex items-center gap-2 hover:text-red-600 transition-colors brand-font text-sm border-t border-gray-300 dark:border-gray-700 pt-4">
                     <i data-lucide="moon" class="w-5 h-5"></i>
                     <span>TOGGLE THEME</span>
                 </button>
@@ -86,14 +130,16 @@
 
     <section class="px-4 sm:px-6 py-4 sticky top-16 sm:top-20 z-40 bg-opacity-90 backdrop-blur-md border-y border-gray-300 dark:border-gray-800 transition-colors" style="background-color: var(--bg-color);">
         <div class="max-w-7xl mx-auto flex flex-col sm:flex-row flex-wrap gap-4 items-start sm:items-center justify-between">
-            <div class="flex flex-wrap gap-2 w-full sm:w-auto" id="category-filters">
-                <button class="btn-raw active text-xs sm:text-sm" data-cat="all">ALL</button>
-                <button class="btn-raw text-xs sm:text-sm" data-cat="smartphones">PHONES</button>
-                <button class="btn-raw text-xs sm:text-sm" data-cat="laptops">LAPTOPS</button>
-                <button class="btn-raw text-xs sm:text-sm" data-cat="wearables">AUDIO/WEAR</button>
-                <button class="btn-raw text-xs sm:text-sm" data-cat="components">COMPONENTS</button>
-                <button class="btn-raw text-xs sm:text-sm" data-cat="tablets">TABLETS</button>
-                <button class="btn-raw text-xs sm:text-sm" data-cat="cameras">CAMERAS</button>
+            <div class="overflow-x-auto w-full sm:w-auto pb-2 sm:pb-0 no-scrollbar">
+                <div class="flex gap-2 min-w-max" id="category-filters">
+                    <button class="btn-raw active text-xs sm:text-sm" data-cat="all">ALL</button>
+                    <button class="btn-raw text-xs sm:text-sm" data-cat="smartphones">PHONES</button>
+                    <button class="btn-raw text-xs sm:text-sm" data-cat="laptops">LAPTOPS</button>
+                    <button class="btn-raw text-xs sm:text-sm" data-cat="wearables">AUDIO/WEAR</button>
+                    <button class="btn-raw text-xs sm:text-sm" data-cat="components">COMPONENTS</button>
+                    <button class="btn-raw text-xs sm:text-sm" data-cat="tablets">TABLETS</button>
+                    <button class="btn-raw text-xs sm:text-sm" data-cat="cameras">CAMERAS</button>
+                </div>
             </div>
             <div class="flex items-center gap-2 text-xs font-mono opacity-60">
                 <span id="item-count">0</span> ITEMS INDEXED
@@ -102,8 +148,18 @@
     </section>
 
     <main class="flex-grow px-4 sm:px-6 py-8 sm:py-12 max-w-7xl mx-auto w-full">
-        <div id="loader" class="flex justify-center py-20 hidden">
-            <div class="loader"></div>
+        <div id="loader" class="hidden py-20">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
+                <!-- Skeleton Cards -->
+                <div class="skeleton-card"></div>
+                <div class="skeleton-card"></div>
+                <div class="skeleton-card"></div>
+                <div class="skeleton-card"></div>
+                <div class="skeleton-card"></div>
+                <div class="skeleton-card"></div>
+                <div class="skeleton-card"></div>
+                <div class="skeleton-card"></div>
+            </div>
         </div>
         
         <div id="grid-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
@@ -152,9 +208,14 @@
                         <span class="font-mono text-xs opacity-80" id="modal-category">CATEGORY</span>
                         <h2 class="text-2xl sm:text-3xl font-bold mt-1 leading-none break-words" id="modal-title">TITLE</h2>
                     </div>
-                    <button onclick="app.closeModal()" class="hover:rotate-90 transition-transform flex-shrink-0">
-                        <i data-lucide="x" class="w-6 h-6 sm:w-8 sm:h-8"></i>
-                    </button>
+                    <div class="flex items-center gap-2">
+                        <button onclick="app.shareProduct()" class="hover:scale-110 transition-transform" title="Share Product">
+                            <i data-lucide="share-2" class="w-6 h-6 sm:w-7 sm:h-7"></i>
+                        </button>
+                        <button onclick="app.closeModal()" class="hover:rotate-90 transition-transform flex-shrink-0">
+                            <i data-lucide="x" class="w-6 h-6 sm:w-8 sm:h-8"></i>
+                        </button>
+                    </div>
                 </div>
                 
                 <div class="flex-grow p-4 sm:p-6 custom-scrollbar">

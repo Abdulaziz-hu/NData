@@ -1,10 +1,5 @@
 ## Functions
-- [] add currency selector (USD $, SAR[using the provided svg], YEN ¥)
 - [] add a skeleton loader for data fetching
-- [] make the filter horizontal scrolling for future proofing
-- [] modals:
-    - [] ensure that when a modal is opened, it is injected in the URL
-    - [] add a button for sharing or copy link
 
 ## Pages
 - [] link and make pages:
@@ -30,3 +25,11 @@
 - [] fix theme problem, it keeps flash banging when switching pages
 
 ## Other
+
+## DONE
+
+- [x] make the filter have horizontal scrolling for future proofing
+- [x] modals:
+    - [x] ensure that when a modal is opened, it is injected in the URL
+    - [x] add a button for sharing or copy link in the product modal
+- [x] add currency selector (USD $, SAR[using the provided svg], YEN ¥)
