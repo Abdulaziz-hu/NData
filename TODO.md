@@ -17,9 +17,11 @@
     - [] 502 bad gateway (proxy issue)
     - [] 503 service unavailable (server overload or maintenance)
     - [] 504 gateway timeout
+- [] update all the information in all pages and replace all placeholder content with real content
 
 ## Files
 - [] make the README file
+- [] make an excel or csv file for content mangement
 
 ## Known Bugs & Problems
 - [] fix theme problem, it keeps flash banging when switching pages
