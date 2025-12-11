@@ -28,6 +28,7 @@
 - [] fix theme problem, it keeps flash banging when switching pages
 
 ## Other
+- [] buy this domain name for the website through Hostinger (ndatadb.com)
 
 ## DONE
 
