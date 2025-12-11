@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Disclaimers | N(DATA)</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {}
+            }
+        }
+    </script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=DotGothic16&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <link rel="stylesheet" href="../static/css/style.css">
+</head>
+<body class="min-h-screen flex flex-col">
+
+    <nav class="sticky top-0 z-50 glass-panel px-4 sm:px-6 py-4 flex justify-between items-center">
+        <div class="flex items-center gap-2 sm:gap-3 group cursor-pointer" onclick="app.reset()">
+            <div class="w-6 h-6 sm:w-8 sm:h-8 bg-red-600 rounded-full group-hover:scale-110 transition-transform"></div>
+            <span class="text-xl sm:text-2xl brand-font font-bold tracking-tighter"><a href="../index.html">N(DATA)</a></span>
+        </div>
+        
+        <div class="hidden md:flex items-center gap-6">
+            <a href="../index.html" class="hover:text-red-600 transition-colors brand-font text-sm">HOME</a>
+            <a href="./about.html" class="hover:text-red-600 transition-colors brand-font text-sm">ABOUT</a>
+            <a href="./updates.html" class="hover:text-red-600 transition-colors brand-font text-sm">UPDATES</a>
+            <a href="../docs.html" class="hover:text-red-600 transition-colors brand-font text-sm">DOCS</a>
+            <a href="../api.html" class="hover:text-red-600 transition-colors brand-font text-sm">API</a>
+            <button id="theme-toggle" class="p-2 hover:bg-gray-300 dark:hover:bg-gray-800 rounded-full transition">
+                <i data-lucide="moon" class="w-5 h-5"></i>
+            </button>
+        </div>
+        
+        <button class="md:hidden p-2" id="mobile-menu-btn">
+            <i data-lucide="menu" class="w-6 h-6"></i>
+        </button>
+    </nav>
+
+    <div id="mobile-menu" class="fixed inset-0 z-[60] hidden md:hidden">
+        <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" id="mobile-menu-backdrop"></div>
+        <div class="absolute right-0 top-0 h-full w-64 glass-panel transform transition-transform duration-300 translate-x-full" id="mobile-menu-panel">
+            <div class="p-6 flex flex-col gap-6">
+                <button id="mobile-menu-close" class="self-end">
+                    <i data-lucide="x" class="w-6 h-6"></i>
+                </button>
+                <a href="../index.html" class="hover:text-red-600 transition-colors brand-font text-sm">HOME</a>
+                <a href="./about.html" class="hover:text-red-600 transition-colors brand-font text-sm">ABOUT</a>
+                <a href="./updates.html" class="hover:text-red-600 transition-colors brand-font text-sm">UPDATES</a>
+                <a href="../docs.html" class="hover:text-red-600 transition-colors brand-font text-sm">DOCS</a>
+                <a href="../api.html" class="hover:text-red-600 transition-colors brand-font text-sm">API</a>
+                <button id="mobile-theme-toggle" class="flex items-center gap-2 hover:text-red-600 transition-colors brand-font text-sm">
+                    <i data-lucide="moon" class="w-5 h-5"></i>
+                    <span>TOGGLE THEME</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <header class="px-4 sm:px-6 py-8 sm:py-12 md:py-24 max-w-7xl mx-auto w-full">
+        <h1 class="text-4xl sm:text-5xl md:text-8xl font-black mb-4 sm:mb-6 leading-none">
+            O F F I C I A L .<br><span class="text-red-600">D I S C L A I M E R S .</span>
+        </h1>
+    </header>
+
+    <main>
+    <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+
+        <section class="px-4 sm:px-6 max-w-5xl mx-auto mb-10">
+            <h2 class="brand-font text-2xl mt-8 border-b border-current pb-2 opacity-70">1. Prices</h2>
+            <p class="text-lg mt-4 leading-relaxed">
+                All prices in the database are based on the official release price. Meaning, if prices of a product have been increased or decreased, we will do our best to update the data. So, prices are different sometimes based on time, place, and seller because we are a community-driven database, and it takes some time to update all the prices and details.
+            </p>
+        </section>
+
+        <section class="px-4 sm:px-6 max-w-5xl mx-auto mb-10">
+            <h2 class="brand-font text-2xl mt-8 border-b border-current pb-2 opacity-70">2. Data Accuracy and Completeness</h2>
+            <p class="text-lg mt-4 leading-relaxed">
+                The information provided on N(DATA) is for general informational purposes only. While we strive to ensure the data is accurate and up-to-date, we make no representations or warranties of any kind, express or implied, about the completeness, accuracy, reliability, suitability, or availability of the information contained in the database.
+            </p>
+            <p class="text-lg mt-4 leading-relaxed">
+                Any reliance you place on such information is therefore strictly at your own risk. It is recommended that users cross-reference critical specifications with official manufacturer documentation before making purchasing or engineering decisions.
+            </p>
+        </section>
+
+        <section class="px-4 sm:px-6 max-w-5xl mx-auto mb-10">
+            <h2 class="brand-font text-2xl mt-8 border-b border-current pb-2 opacity-70">3. DIY and Third-Party Resources</h2>
+            <p class="text-lg mt-4 leading-relaxed">
+                The <code>diy_resources</code> section of our data contains links to external, third-party websites, including repair guides, firmware archives, and manuals. These links are provided solely as a convenience to the user.
+            </p>
+            <p class="text-lg mt-4 leading-relaxed">
+                N(DATA) has no control over the nature, content, and availability of those sites. We do not endorse or make any representations about them. Furthermore, attempting product repair or modification based on external guides is done entirely at your own risk. N(DATA) and its contributors shall not be responsible or liable for any damage, loss of data, or injury resulting from following any guide linked through this service.
+            </p>
+        </section>
+
+        <section class="px-4 sm:px-6 max-w-5xl mx-auto mb-10">
+            <h2 class="brand-font text-2xl mt-8 border-b border-current pb-2 opacity-70">4. API and Service Availability</h2>
+            <p class="text-lg mt-4 leading-relaxed">
+                The N(DATA) API and website service are provided on an "as is" and "as available" basis. While we strive for high uptime and performance, N(DATA) does not warrant that the service will be uninterrupted, error-free, or continuously available. We reserve the right to temporarily or permanently modify, suspend, or discontinue the API or website service without notice.
+            </p>
+        </section>
+
+        <section class="px-4 sm:px-6 max-w-5xl mx-auto mb-24">
+            <h2 class="brand-font text-2xl mt-8 border-b border-current pb-2 opacity-70">5. Intellectual Property and Open Source License</h2>
+            <p class="text-lg mt-4 leading-relaxed">
+                The underlying database structure and code for the N(DATA) project are open source and licensed under the MIT License. This gives you broad rights to use, modify, and distribute the software. However, the data itself (product names, specifications, images) is collected from publicly available sources and remains the intellectual property of the respective manufacturers and original content creators.
+            </p>
+            <p class="text-lg mt-4 leading-relaxed">
+                When reusing N(DATA) content, please comply with the terms of the <a href="./mit-license.html" class="links">MIT License</a> for the code base, and ensure any specific content reuse adheres to fair use principles and the copyrights of the product manufacturers.
+            </p>
+        </section>
+
+    </div>
+</main>
+
+    <script src="../static/js/simple-func.js"></script>
+    <script src="../static/js/app.js"></script>
+</body>
+</html>
