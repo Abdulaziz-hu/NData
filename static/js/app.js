@@ -89,6 +89,9 @@ class App {
         this.currentImages = [];
         this.currentImageIndex = 0;
         
+        // DIY section state
+        this.diyExpanded = false;
+        
         this.bindEvents();
         this.initTheme();
         this.initCurrency();
@@ -451,6 +454,9 @@ class App {
     openDetails(item, updateUrl = true) {
         this.currentProductId = item.id;
         
+        // Reset DIY section state
+        this.diyExpanded = false;
+        
         // Update URL if requested
         if (updateUrl) {
             const url = new URL(window.location);
@@ -508,7 +514,7 @@ class App {
         
         specsContainer.innerHTML = priceSpec + specsHtml;
 
-        // Render DIY Resources section
+        // Render DIY Resources section (collapsed by default)
         const diySection = document.getElementById('modal-diy-section');
         const diyContent = document.getElementById('modal-diy-content');
         
@@ -528,6 +534,8 @@ class App {
                     <i data-lucide="arrow-right" class="w-4 h-4 flex-shrink-0 opacity-0 group-hover:opacity-100 transition-opacity"></i>
                 </a>
             `).join('');
+            // Make sure content is hidden by default
+            diyContent.classList.add('hidden');
         } else {
             diySection.classList.add('hidden');
         }
@@ -548,10 +556,25 @@ class App {
         }
     }
 
+    toggleDiySection() {
+        const diyContent = document.getElementById('modal-diy-content');
+        const chevron = document.getElementById('diy-chevron');
+        
+        this.diyExpanded = !this.diyExpanded;
+        
+        if (this.diyExpanded) {
+            diyContent.classList.remove('hidden');
+            chevron.style.transform = 'rotate(180deg)';
+        } else {
+            diyContent.classList.add('hidden');
+            chevron.style.transform = 'rotate(0deg)';
+        }
+    }
+
     updateModalPrice(item) {
         const priceElement = document.getElementById('modal-price');
         if (priceElement) {
-            priceElement.textContent = this.formatPrice(item.price);
+            priceElement.innerHTML = this.formatPrice(item.price);
         }
     }
 

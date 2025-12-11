@@ -193,8 +193,12 @@
                     <span class="opacity-40 mb-2">LEGAL</span>
                     <a href="./pages/privacy.html" class="hover:underline">Privacy</a>
                     <a href="./pages/terms-of-service.html" class="hover:underline">Terms of Service</a>
-                    <a href="./pages/report-forum.html" class="hover:underline">Report</a>
                     <a href="./pages/mit-license.html" class="hover:underline">MIT License</a>
+                </div>
+                <div class="flex flex-col gap-2">
+                    <span class="opacity-40 mb-2">OTHER</span>
+                    <a href="./pages/report-forum.html" class="hover:underline">Report</a>
+                    <a href="./pages/disclaimers.html" class="hover:underline">Disclaimers</a>
                 </div>
             </div>
         </div>
@@ -235,8 +239,11 @@
                     </div>
 
                     <div id="modal-diy-section" class="mt-8 sm:mt-10 hidden">
-                        <h3 class="text-gray-900 dark:text-gray-100 border-b border-current pb-2 text-xs sm:text-sm opacity-50 mb-4">DIY RESOURCES & GUIDES</h3>
-                        <div id="modal-diy-content" class="text-gray-900 dark:text-gray-100 space-y-3">
+                        <button onclick="app.toggleDiySection()" class="brand-font w-full flex items-center justify-between text-gray-900 dark:text-gray-100 border-b border-current pb-2 text-xs sm:text-sm opacity-50 mb-4 hover:opacity-100 transition-opacity cursor-pointer">
+                            <span>DIY RESOURCES & GUIDES</span>
+                            <i data-lucide="chevron-down" id="diy-chevron" class="w-4 h-4 transition-transform"></i>
+                        </button>
+                        <div id="modal-diy-content" class="text-gray-900 dark:text-gray-100 space-y-3 hidden">
                         </div>
                     </div>
 
