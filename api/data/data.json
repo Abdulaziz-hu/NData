@@ -1,6 +1,6 @@
 [
     {
-        "id": "phn-001",
+        "id": "phn-000001",
         "name": "Phone (2a)",
         "brand": "Nothing",
         "category": "smartphones",
@@ -38,7 +38,7 @@
         ]
     },
     {
-        "id": "phn-002",
+        "id": "phn-000002",
         "name": "Pixel 8 Pro",
         "brand": "Google",
         "category": "smartphones",
@@ -68,7 +68,7 @@
         ]
     },
     {
-        "id": "phn-003",
+        "id": "phn-000003",
         "name": "Galaxy S24 Ultra",
         "brand": "Samsung",
         "category": "smartphones",
@@ -86,7 +86,7 @@
         }
     },
     {
-        "id": "phn-004",
+        "id": "phn-000004",
         "name": "iPhone 15 Pro Max",
         "brand": "Apple",
         "category": "smartphones",
@@ -107,7 +107,7 @@
         }
     },
     {
-        "id": "phn-005",
+        "id": "phn-000005",
         "name": "OnePlus 12",
         "brand": "OnePlus",
         "category": "smartphones",
@@ -125,7 +125,7 @@
         }
     },
     {
-        "id": "phn-006",
+        "id": "phn-000006",
         "name": "Xperia 1 VI",
         "brand": "Sony",
         "category": "smartphones",
@@ -143,7 +143,7 @@
         }
     },
     {
-        "id": "phn-007",
+        "id": "phn-000007",
         "name": "Find X7 Ultra",
         "brand": "OPPO",
         "category": "smartphones",
@@ -161,7 +161,7 @@
         }
     },
     {
-        "id": "phn-008",
+        "id": "phn-000008",
         "name": "Xiaomi 14 Ultra",
         "brand": "Xiaomi",
         "category": "smartphones",
@@ -179,7 +179,7 @@
         }
     },
     {
-        "id": "lap-001",
+        "id": "lap-000001",
         "name": "Blade 14 (2024)",
         "brand": "Razer",
         "category": "laptops",
@@ -199,7 +199,7 @@
         }
     },
     {
-        "id": "lap-002",
+        "id": "lap-000002",
         "name": "MacBook Pro 16",
         "brand": "Apple",
         "category": "laptops",
@@ -216,7 +216,7 @@
         }
     },
     {
-        "id": "lap-003",
+        "id": "lap-000003",
         "name": "XPS 13 Plus",
         "brand": "Dell",
         "category": "laptops",
@@ -233,7 +233,7 @@
         }
     },
     {
-        "id": "lap-004",
+        "id": "lap-000004",
         "name": "ThinkPad X1 Carbon Gen 12",
         "brand": "Lenovo",
         "category": "laptops",
@@ -251,7 +251,7 @@
         }
     },
     {
-        "id": "lap-005",
+        "id": "lap-000005",
         "name": "ROG Zephyrus G16",
         "brand": "ASUS",
         "category": "laptops",
@@ -268,7 +268,7 @@
         }
     },
     {
-        "id": "lap-006",
+        "id": "lap-000006",
         "name": "Surface Laptop Studio 2",
         "brand": "Microsoft",
         "category": "laptops",
@@ -285,7 +285,7 @@
         }
     },
     {
-        "id": "lap-007",
+        "id": "lap-000007",
         "name": "Spectre x360 14",
         "brand": "HP",
         "category": "laptops",
@@ -302,7 +302,7 @@
         }
     },
     {
-        "id": "lap-008",
+        "id": "lap-000008",
         "name": "Zenbook Pro 14 OLED",
         "brand": "ASUS",
         "category": "laptops",
@@ -319,7 +319,7 @@
         }
     },
     {
-        "id": "wear-001",
+        "id": "wear-000001",
         "name": "Ear (2)",
         "brand": "Nothing",
         "category": "wearables",
@@ -338,7 +338,7 @@
         }
     },
     {
-        "id": "wear-002",
+        "id": "wear-000002",
         "name": "WH-1000XM5",
         "brand": "Sony",
         "category": "wearables",
@@ -354,7 +354,7 @@
         }
     },
     {
-        "id": "wear-003",
+        "id": "wear-000003",
         "name": "Apple Watch Ultra 2",
         "brand": "Apple",
         "category": "wearables",
@@ -370,7 +370,7 @@
         }
     },
     {
-        "id": "wear-004",
+        "id": "wear-000004",
         "name": "AirPods Pro (2nd Gen)",
         "brand": "Apple",
         "category": "wearables",
@@ -386,7 +386,7 @@
         }
     },
     {
-        "id": "wear-005",
+        "id": "wear-000005",
         "name": "Galaxy Buds2 Pro",
         "brand": "Samsung",
         "category": "wearables",
@@ -402,7 +402,7 @@
         }
     },
     {
-        "id": "wear-006",
+        "id": "wear-000006",
         "name": "Momentum 4 Wireless",
         "brand": "Sennheiser",
         "category": "wearables",
@@ -418,7 +418,7 @@
         }
     },
     {
-        "id": "wear-007",
+        "id": "wear-000007",
         "name": "Pixel Watch 2",
         "brand": "Google",
         "category": "wearables",
@@ -434,7 +434,7 @@
         }
     },
     {
-        "id": "wear-008",
+        "id": "wear-000008",
         "name": "Galaxy Watch6 Classic",
         "brand": "Samsung",
         "category": "wearables",
@@ -450,7 +450,7 @@
         }
     },
     {
-        "id": "comp-001",
+        "id": "comp-000001",
         "name": "RTX 4090 Founders Edition",
         "brand": "NVIDIA",
         "category": "components",
@@ -467,7 +467,7 @@
         }
     },
     {
-        "id": "comp-002",
+        "id": "comp-000002",
         "name": "Ryzen 7 7800X3D",
         "brand": "AMD",
         "category": "components",
@@ -484,7 +484,7 @@
         }
     },
     {
-        "id": "comp-003",
+        "id": "comp-000003",
         "name": "990 PRO SSD",
         "brand": "Samsung",
         "category": "components",
@@ -500,7 +500,7 @@
         }
     },
     {
-        "id": "comp-004",
+        "id": "comp-000004",
         "name": "Core i9-14900K",
         "brand": "Intel",
         "category": "components",
@@ -517,7 +517,7 @@
         }
     },
     {
-        "id": "comp-005",
+        "id": "comp-000005",
         "name": "Radeon RX 7900 XTX",
         "brand": "AMD",
         "category": "components",
@@ -534,7 +534,7 @@
         }
     },
     {
-        "id": "comp-006",
+        "id": "comp-000006",
         "name": "Vengeance RGB DDR5",
         "brand": "Corsair",
         "category": "components",
@@ -550,7 +550,7 @@
         }
     },
     {
-        "id": "comp-007",
+        "id": "comp-000007",
         "name": "Crucial T700 PCIe 5.0",
         "brand": "Crucial",
         "category": "components",
@@ -566,7 +566,7 @@
         }
     },
     {
-        "id": "comp-008",
+        "id": "comp-000008",
         "name": "ROG Thor 1200W Platinum II",
         "brand": "ASUS",
         "category": "components",
@@ -582,7 +582,7 @@
         }
     },
     {
-        "id": "tab-001",
+        "id": "tab-000001",
         "name": "iPad Pro 12.9 (M2)",
         "brand": "Apple",
         "category": "tablets",
@@ -599,7 +599,7 @@
         }
     },
     {
-        "id": "tab-002",
+        "id": "tab-000002",
         "name": "Galaxy Tab S9 Ultra",
         "brand": "Samsung",
         "category": "tablets",
@@ -616,7 +616,7 @@
         }
     },
     {
-        "id": "tab-003",
+        "id": "tab-000003",
         "name": "Surface Pro 9",
         "brand": "Microsoft",
         "category": "tablets",
@@ -633,7 +633,7 @@
         }
     },
     {
-        "id": "tab-004",
+        "id": "tab-000004",
         "name": "Pixel Tablet",
         "brand": "Google",
         "category": "tablets",
@@ -650,7 +650,7 @@
         }
     },
     {
-        "id": "tab-005",
+        "id": "tab-000005",
         "name": "MatePad Pro 13.2",
         "brand": "Huawei",
         "category": "tablets",
@@ -667,7 +667,7 @@
         }
     },
     {
-        "id": "cam-001",
+        "id": "cam-000001",
         "name": "Alpha 7 IV",
         "brand": "Sony",
         "category": "cameras",
@@ -683,7 +683,7 @@
         }
     },
     {
-        "id": "cam-002",
+        "id": "cam-000002",
         "name": "EOS R5 Mark II",
         "brand": "Canon",
         "category": "cameras",
@@ -699,7 +699,7 @@
         }
     },
     {
-        "id": "cam-003",
+        "id": "cam-000003",
         "name": "Z9",
         "brand": "Nikon",
         "category": "cameras",
@@ -715,7 +715,7 @@
         }
     },
     {
-        "id": "cam-004",
+        "id": "cam-000004",
         "name": "Lumix GH6",
         "brand": "Panasonic",
         "category": "cameras",
@@ -731,7 +731,7 @@
         }
     },
     {
-        "id": "cam-005",
+        "id": "cam-000005",
         "name": "X-T5",
         "brand": "Fujifilm",
         "category": "cameras",
@@ -747,7 +747,7 @@
         }
     },
     {
-        "id": "cam-006",
+        "id": "cam-000006",
         "name": "Action 4",
         "brand": "DJI",
         "category": "cameras",
@@ -763,7 +763,7 @@
         }
     },
     {
-        "id": "cam-007",
+        "id": "cam-000007",
         "name": "Pocket 3",
         "brand": "DJI",
         "category": "cameras",
@@ -779,7 +779,7 @@
         }
     },
     {
-        "id": "cam-008",
+        "id": "cam-000008",
         "name": "Instax Mini Evo",
         "brand": "Fujifilm",
         "category": "cameras",
