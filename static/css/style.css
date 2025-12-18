@@ -3,6 +3,8 @@
     --bg-color: #e6e6e6;
     --text-color: #1a1a1a;
     --accent-red: #d71920;
+    --code-color: #d79222;
+    --code-bg-color: rgb(83, 77, 77);
     --dot-matrix: 'DotGothic16', sans-serif;
     --sans: 'Inter', sans-serif;
     --glass: rgba(255, 255, 255, 0.4);
@@ -18,6 +20,8 @@
     --text-color: #f0f0f0;
     --glass: rgba(20, 20, 20, 0.6);
     --border: #333;
+    --code-color: #f1a326;
+    --code-bg-color: rgb(54, 51, 51);
 }
 
 body {
@@ -53,10 +57,12 @@ h1, h2, h3, .brand-font {
 }
 
 code {
-    padding: 4px;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 16px;
+    padding: 2px;
     border-radius: 3px;
-    color: var(--border);
-    background-color: var(--text-color);
+    color: var(--code-color);
+    background-color: var(--code-bg-color);
 }
 
 .code-style {
