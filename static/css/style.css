@@ -7,6 +7,9 @@
     --sans: 'Inter', sans-serif;
     --glass: rgba(255, 255, 255, 0.4);
     --border: #ccc;
+    /* Custom Cursor Variables */
+    /* --cursor-default: url("https://cdn.shopify.com/oxygen-v2/43495/38485/80939/2731222/assets/community_edition-DOgUasVx.svg") 16 16, auto;
+    --cursor-pointer: url("https://cdn.shopify.com/oxygen-v2/43495/38485/80939/2731222/assets/community_edition_left-DhyKu2OY.svg") 16 16, pointer; */
 }
 
 /* Dark Mode */
@@ -23,7 +26,17 @@ body {
     font-family: var(--sans);
     transition: background-color 0.3s ease, color 0.3s ease;
     overflow-x: hidden;
+    /* Apply custom default cursor */
+    /* cursor: var(--cursor-default); */
 }
+
+/* Apply custom pointer cursor to interactive elements */
+/* a:not(.not-allowed), 
+button:not(.not-allowed), 
+[onclick]:not(.not-allowed),
+.data-card:not(.not-allowed) {
+    cursor: var(--cursor-pointer);
+} */
 
 h1, h2, h3, .brand-font {
     font-family: var(--dot-matrix);
@@ -61,7 +74,8 @@ code {
 
 .not-allowed {
     opacity: 50%;
-    cursor: not-allowed;
+    /* Override custom pointer for not-allowed */
+    cursor: not-allowed !important;
 }
 
 /* --- CUSTOM SCROLLBAR --- */

@@ -1,4 +1,5 @@
 ## Functions
+- [] migrate from JSON to SQL
 - [] add a skeleton loader for data fetching
 - [] add a button for loading more that will load 20 more products (the page will only show the latest added 20 products automatically)
 
