@@ -1,7 +1,8 @@
 ## Functions
-- [] migrate from JSON to SQL
+- [] migrate from JSON to SQL for better future (optional but recommended)
 - [] add a skeleton loader for data fetching
 - [] add a button for loading more that will load 20 more products (the page will only show the latest added 20 products automatically)
+- [] make a modal popup for credits with links (libraries used, etc.)
 
 ## Pages
 - [] link and make pages:
@@ -19,20 +20,21 @@
     - [] 502 bad gateway (proxy issue)
     - [] 503 service unavailable (server overload or maintenance)
     - [] 504 gateway timeout
-- [] update all the information in all pages and replace all placeholder content with real content
+- [~] update all the information in all pages and replace all placeholder content with real content
 
 ## Files
-- [] make the README file
-- [] make an excel or csv file for content mangement
+
 
 ## Known Bugs & Problems
 - [] fix theme problem, it keeps flash banging when switching pages
 
 ## Other
-- [] buy this domain name for the website through Hostinger (ndatadb.com)
+- [] buy this domain name for the website through Hostinger or Vercel (ndatadb.com)
+- [] deploy the website in Vercel
 
 ## DONE
 
+- [x] make the README file
 - [x] make the filter have horizontal scrolling for future proofing
 - [x] modals:
     - [x] ensure that when a modal is opened, it is injected in the URL

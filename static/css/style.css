@@ -3,8 +3,9 @@
     --bg-color: #e6e6e6;
     --text-color: #1a1a1a;
     --accent-red: #d71920;
-    --code-color: #d79222;
-    --code-bg-color: rgb(83, 77, 77);
+    --code-text: #1a1a1a;
+    --code-bg: #ffffff;
+    --code-shadow: #bcbcbc;
     --dot-matrix: 'DotGothic16', sans-serif;
     --sans: 'Inter', sans-serif;
     --glass: rgba(255, 255, 255, 0.4);
@@ -20,8 +21,9 @@
     --text-color: #f0f0f0;
     --glass: rgba(20, 20, 20, 0.6);
     --border: #333;
-    --code-color: #f1a326;
-    --code-bg-color: rgb(54, 51, 51);
+    --code-text: #ffffff;
+    --code-bg: #1a1a1a;
+    --code-shadow: #000000;
 }
 
 body {
@@ -57,21 +59,26 @@ h1, h2, h3, .brand-font {
 }
 
 code {
-    font-family: 'Courier New', Courier, monospace;
-    font-size: 16px;
-    padding: 2px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.85em;
+    font-weight: 600;
+    padding: 1px 5px;
+    margin: 0 3px;
     border-radius: 3px;
-    color: var(--code-color);
-    background-color: var(--code-bg-color);
+    position: relative;
+    display: inline-block;
+    color: var(--code-text);
+    background: var(--code-bg);
+    border: 1px solid var(--code-shadow);
+    box-shadow: 0px 2px 0px var(--code-shadow);
+    line-height: 1.2;
+    transform: translateY(-1px);
 }
 
-.code-style {
-    font-family: monospace;
-    padding: 4px;
-    border: 2px solid var(--border);
-    border-radius: 3px;
-    color: var(--text-color);
-    background-color: var(--bg-color);
+
+code:hover {
+    border-color: var(--accent-red);
+    transition: all 0.2s ease;
 }
 
 .brand-font-spaced {
