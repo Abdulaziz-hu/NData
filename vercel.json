@@ -1,15 +1,9 @@
 {
   "cleanUrls": true,
   "rewrites": [
-    { "source": "/401", "destination": "/error-pages/401.html" },
-    { "source": "/403", "destination": "/error-pages/403.html" },
-    { "source": "/404", "destination": "/error-pages/404.html" },
-    { "source": "/408", "destination": "/error-pages/408.html" },
-    { "source": "/500", "destination": "/error-pages/500.html" },
-    { "source": "/503", "destination": "/error-pages/503.html" },
     {
       "source": "/(.*)",
-      "destination": "/error-pages/404.html",
+      "destination": "/404.html",
       "status": 404
     }
   ]
