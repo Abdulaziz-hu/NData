@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function() {
         lucide.createIcons();
     }
     
-    // Initialize theme BEFORE anything else to prevent flash
+    // Sync body class from the pre-flash html class, then clean up
     initializeTheme();
     
     // Theme toggle functionality
@@ -16,8 +16,6 @@ document.addEventListener('DOMContentLoaded', function() {
         document.body.classList.toggle('dark-mode');
         const isDark = document.body.classList.contains('dark-mode');
         localStorage.setItem('theme', isDark ? 'dark' : 'light');
-        
-        // Update icon based on theme
         updateThemeIcons(isDark);
     }
     
@@ -33,7 +31,6 @@ document.addEventListener('DOMContentLoaded', function() {
             if (mobileThemeIcon) mobileThemeIcon.setAttribute('data-lucide', 'moon');
         }
         
-        // Re-render icons
         if (typeof lucide !== 'undefined') {
             lucide.createIcons();
         }
@@ -41,14 +38,14 @@ document.addEventListener('DOMContentLoaded', function() {
     
     function initializeTheme() {
         const savedTheme = localStorage.getItem('theme');
-        if (savedTheme === 'dark') {
-            document.body.classList.add('dark-mode');
-        } else if (!savedTheme && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const isDark = savedTheme === 'dark' || (!savedTheme && prefersDark);
+
+        if (isDark) {
             document.body.classList.add('dark-mode');
         }
-        
-        // Set initial icon based on theme
-        const isDark = document.body.classList.contains('dark-mode');
+        // Remove pre-flash class from <html> now that body is ready
+        document.documentElement.classList.remove('dark-mode-pre');
         updateThemeIcons(isDark);
     }
     

@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- THEME FLASH PREVENTION: inline script runs before body renders -->
+    <script>
+        (function() {
+            var saved = localStorage.getItem('theme');
+            if (saved === 'dark' || (!saved && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.classList.add('dark-mode-pre');
+            }
+        })();
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tech Archive | N(DATA)</title>
@@ -117,6 +126,12 @@
         <h1 class="text-4xl sm:text-5xl md:text-8xl font-black mb-4 sm:mb-6 leading-none">
             P U R E.<br><span class="text-red-600">R A W.</span><br>D A T A.
         </h1>
+
+        <!-- VERSION NUMBER -->
+            <p style="font-size: 16px; opacity: 0.3; font-weight: 300; font-family: monospace;">
+                Version <span id="app-version">0.0.0</span>
+            </p>
+        
         <p class="text-base sm:text-lg md:text-xl max-w-2xl opacity-70 mb-6 sm:mb-8">
             An free repository of technical specifications. No clutter. Just data.
             Accessible via our web interface or Github repository.
@@ -166,6 +181,12 @@
         <div id="grid-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
         </div>
         
+        <div id="load-more-container" class="hidden text-center py-8">
+            <button id="load-more-btn" class="btn-raw inline-flex items-center gap-2 px-6 py-3 text-sm">
+                <i data-lucide="chevron-down" class="w-4 h-4"></i> LOAD MORE
+            </button>
+        </div>
+        
         <div id="no-results" class="hidden text-center py-20">
             <h3 class="text-2xl sm:text-3xl mb-2">No Results</h3>
             <p class="opacity-60 font-mono text-sm sm:text-base">Try checking for typos or using different search terms.</p>
@@ -180,6 +201,10 @@
                     Open source tech specification database. <br>
                     Designed for transparency. Built for speed. <br>
                     Website design inspired by <a href="https://nothing.tech/" target="_blank" class="links">Nothing <i class="fa fa-external-link" aria-hidden="true"></i></a> ❤️.
+                </p>
+                <!-- VERSION NUMBER -->
+                <p style="font-size: 11px; opacity: 0.3; font-weight: 300; font-family: monospace;">
+                    Version <span id="app-version">0.0.0</span>
                 </p>
             </div>
             <div class="flex gap-6 sm:gap-8 text-xs sm:text-sm font-mono">
@@ -200,6 +225,7 @@
                     <span class="opacity-40 mb-2">OTHER</span>
                     <a href="./pages/report-forum.html" class="hover:underline">Report</a>
                     <a href="./pages/disclaimers.html" class="hover:underline">Disclaimers</a>
+                    <button onclick="app.openCreditsModal()" class="hover:underline text-left hover:text-red-600 transition-colors text-xs sm:text-sm">Credits</button>
                 </div>
             </div>
         </div>
@@ -280,6 +306,105 @@
         </div>
     </div>
 
+
+    <!-- CREDITS MODAL -->
+    <div id="credits-modal" class="fixed inset-0 z-[200] hidden flex items-center justify-center p-4">
+        <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" onclick="app.closeCreditsModal()"></div>
+        <div id="credits-modal-panel" class="relative w-full max-w-lg max-h-[90vh] overflow-y-auto glass-panel border border-gray-300 dark:border-gray-700 shadow-2xl opacity-0 scale-95 transition-all duration-200 custom-scrollbar" style="background-color: var(--bg-color); color: var(--text-color);">
+            <div class="sticky top-0 z-10 px-6 py-4 border-b border-gray-200 dark:border-gray-800 flex justify-between items-center" style="background-color: var(--bg-color);">
+                <h2 class="brand-font text-xl font-bold">CREDITS</h2>
+                <button onclick="app.closeCreditsModal()" class="hover:rotate-90 transition-transform hover:text-red-600">
+                    <i data-lucide="x" class="w-6 h-6"></i>
+                </button>
+            </div>
+            <div class="p-6 space-y-8">
+
+                <section>
+                    <h3 class="brand-font text-xs opacity-50 mb-4 tracking-widest">LIBRARIES & FRAMEWORKS</h3>
+                    <div class="space-y-3">
+                        <a href="https://tailwindcss.com" target="_blank" rel="noopener" class="flex items-center justify-between p-3 border border-gray-200 dark:border-gray-700 hover:border-red-600 transition-colors group">
+                            <div>
+                                <p class="font-bold text-sm group-hover:text-red-600 transition-colors">Tailwind CSS</p>
+                                <p class="text-xs opacity-60">Utility-first CSS framework for styling</p>
+                            </div>
+                            <i data-lucide="external-link" class="w-4 h-4 opacity-40 group-hover:opacity-100 group-hover:text-red-600 flex-shrink-0"></i>
+                        </a>
+                        <a href="https://lucide.dev" target="_blank" rel="noopener" class="flex items-center justify-between p-3 border border-gray-200 dark:border-gray-700 hover:border-red-600 transition-colors group">
+                            <div>
+                                <p class="font-bold text-sm group-hover:text-red-600 transition-colors">Lucide Icons</p>
+                                <p class="text-xs opacity-60">Beautiful & consistent icon library</p>
+                            </div>
+                            <i data-lucide="external-link" class="w-4 h-4 opacity-40 group-hover:opacity-100 group-hover:text-red-600 flex-shrink-0"></i>
+                        </a>
+                        <a href="https://fontawesome.com" target="_blank" rel="noopener" class="flex items-center justify-between p-3 border border-gray-200 dark:border-gray-700 hover:border-red-600 transition-colors group">
+                            <div>
+                                <p class="font-bold text-sm group-hover:text-red-600 transition-colors">Font Awesome 4</p>
+                                <p class="text-xs opacity-60">Icon toolkit used for supplemental icons</p>
+                            </div>
+                            <i data-lucide="external-link" class="w-4 h-4 opacity-40 group-hover:opacity-100 group-hover:text-red-600 flex-shrink-0"></i>
+                        </a>
+                        <a href="https://github.com/Hussseinkizz/saudi-riyal-symbol" target="_blank" rel="noopener" class="flex items-center justify-between p-3 border border-gray-200 dark:border-gray-700 hover:border-red-600 transition-colors group">
+                            <div>
+                                <p class="font-bold text-sm group-hover:text-red-600 transition-colors">Saudi Riyal Symbol</p>
+                                <p class="text-xs opacity-60">NPM package for the SAR currency symbol</p>
+                            </div>
+                            <i data-lucide="external-link" class="w-4 h-4 opacity-40 group-hover:opacity-100 group-hover:text-red-600 flex-shrink-0"></i>
+                        </a>
+                    </div>
+                </section>
+
+                <section>
+                    <h3 class="brand-font text-xs opacity-50 mb-4 tracking-widest">FONTS</h3>
+                    <div class="space-y-3">
+                        <a href="https://fonts.google.com/specimen/DotGothic16" target="_blank" rel="noopener" class="flex items-center justify-between p-3 border border-gray-200 dark:border-gray-700 hover:border-red-600 transition-colors group">
+                            <div>
+                                <p class="font-bold text-sm group-hover:text-red-600 transition-colors">DotGothic16</p>
+                                <p class="text-xs opacity-60">Google Fonts — primary brand/display font</p>
+                            </div>
+                            <i data-lucide="external-link" class="w-4 h-4 opacity-40 group-hover:opacity-100 group-hover:text-red-600 flex-shrink-0"></i>
+                        </a>
+                        <a href="https://fonts.google.com/specimen/Inter" target="_blank" rel="noopener" class="flex items-center justify-between p-3 border border-gray-200 dark:border-gray-700 hover:border-red-600 transition-colors group">
+                            <div>
+                                <p class="font-bold text-sm group-hover:text-red-600 transition-colors">Inter</p>
+                                <p class="text-xs opacity-60">Google Fonts — body and UI text</p>
+                            </div>
+                            <i data-lucide="external-link" class="w-4 h-4 opacity-40 group-hover:opacity-100 group-hover:text-red-600 flex-shrink-0"></i>
+                        </a>
+                    </div>
+                </section>
+
+                <section>
+                    <h3 class="brand-font text-xs opacity-50 mb-4 tracking-widest">INSPIRATION</h3>
+                    <div class="space-y-3">
+                        <a href="https://nothing.tech" target="_blank" rel="noopener" class="flex items-center justify-between p-3 border border-gray-200 dark:border-gray-700 hover:border-red-600 transition-colors group">
+                            <div>
+                                <p class="font-bold text-sm group-hover:text-red-600 transition-colors">Nothing Technology</p>
+                                <p class="text-xs opacity-60">Design language & aesthetic inspiration ❤️</p>
+                            </div>
+                            <i data-lucide="external-link" class="w-4 h-4 opacity-40 group-hover:opacity-100 group-hover:text-red-600 flex-shrink-0"></i>
+                        </a>
+                    </div>
+                </section>
+
+                <section>
+                    <h3 class="brand-font text-xs opacity-50 mb-4 tracking-widest">LICENSE</h3>
+                    <p class="text-xs opacity-70 leading-relaxed">
+                        N(DATA) is open source and released under the 
+                        <a href="./pages/mit-license.html" class="text-red-600 hover:underline" onclick="app.closeCreditsModal()">MIT License</a>. 
+                        All third-party libraries are used under their respective licenses.
+                        <br>
+                        <!-- VERSION NUMBER -->
+                        <p style="font-size: 11px; opacity: 0.3; font-weight: 300; font-family: monospace;">
+                            Version <span id="app-version">0.0.0</span>
+                        </p>
+                    </p>
+                </section>
+
+            </div>
+        </div>
+    </div>
+
     <script src="./static/js/app.js"></script>
+    <script src="./static/js/version.js"></script>
 </body>
 </html>

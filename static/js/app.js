@@ -91,6 +91,11 @@ class App {
         
         // DIY section state
         this.diyExpanded = false;
+
+        // Pagination
+        this.PAGE_SIZE = 20;
+        this.currentPage = 1;
+        this.currentItems = [];
         
         this.bindEvents();
         this.initTheme();
@@ -163,14 +168,12 @@ class App {
                 currencyDropdown.classList.toggle('hidden');
             });
 
-            // Close dropdown when clicking outside
             document.addEventListener('click', (e) => {
                 if (!currencyToggle.contains(e.target) && !currencyDropdown.contains(e.target)) {
                     currencyDropdown.classList.add('hidden');
                 }
             });
 
-            // Currency selection
             const currencyButtons = currencyDropdown.querySelectorAll('button[data-currency]');
             currencyButtons.forEach(btn => {
                 btn.addEventListener('click', () => {
@@ -243,6 +246,11 @@ class App {
                     this.closeLightbox();
                 } else if (!this.modal.classList.contains('hidden')) {
                     this.closeModal();
+                } else {
+                    const creditsModal = document.getElementById('credits-modal');
+                    if (creditsModal && !creditsModal.classList.contains('hidden')) {
+                        this.closeCreditsModal();
+                    }
                 }
             }
             
@@ -266,6 +274,14 @@ class App {
                 this.closeModal(false);
             }
         });
+
+        // Load more button
+        const loadMoreBtn = document.getElementById('load-more-btn');
+        if (loadMoreBtn) {
+            loadMoreBtn.addEventListener('click', () => {
+                this.loadMore();
+            });
+        }
     }
 
     initCurrency() {
@@ -281,7 +297,6 @@ class App {
         localStorage.setItem('currency', currency);
         this.updateCurrencyDisplay();
         
-        // Re-render grid if items are displayed
         if (this.service.initialized) {
             if (this.currentSearchQuery) {
                 const searchResults = this.service.search(this.currentSearchQuery);
@@ -295,7 +310,6 @@ class App {
             }
         }
 
-        // Update modal price if open
         if (!this.modal.classList.contains('hidden') && this.currentProductId) {
             const item = this.service.getById(this.currentProductId);
             if (item) {
@@ -339,7 +353,6 @@ class App {
         const isDark = document.body.classList.contains('dark-mode');
         localStorage.setItem('theme', isDark ? 'dark' : 'light');
         
-        // Update theme toggle icons
         const themeIcon = document.querySelector('#theme-toggle i');
         const mobileThemeIcon = document.querySelector('#mobile-theme-toggle i');
         
@@ -357,15 +370,18 @@ class App {
     }
 
     initTheme() {
+        // The pre-flash class on <html> was already applied by inline script.
+        // Here we sync the body class to match, and remove the pre-flash class.
         const savedTheme = localStorage.getItem('theme');
-        if (savedTheme === 'dark') {
-            document.body.classList.add('dark-mode');
-        } else if (!savedTheme && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const isDark = savedTheme === 'dark' || (!savedTheme && prefersDark);
+
+        if (isDark) {
             document.body.classList.add('dark-mode');
         }
+        // Remove pre-flash class now that body is ready
+        document.documentElement.classList.remove('dark-mode-pre');
         
-        // Set initial icon based on theme
-        const isDark = document.body.classList.contains('dark-mode');
         const themeIcon = document.querySelector('#theme-toggle i');
         const mobileThemeIcon = document.querySelector('#mobile-theme-toggle i');
         
@@ -382,6 +398,8 @@ class App {
         if (show) {
             this.loader.classList.remove('hidden');
             this.grid.classList.add('hidden');
+            const loadMoreContainer = document.getElementById('load-more-container');
+            if (loadMoreContainer) loadMoreContainer.classList.add('hidden');
         } else {
             this.loader.classList.add('hidden');
             this.grid.classList.remove('hidden');
@@ -398,45 +416,97 @@ class App {
     }
 
     render(items) {
+        this.currentItems = items;
+        this.currentPage = 1;
         this.grid.innerHTML = '';
         this.itemCount.textContent = items.length;
         
         const noResults = document.getElementById('no-results');
+        const loadMoreContainer = document.getElementById('load-more-container');
+
         if (items.length === 0) {
             noResults.classList.remove('hidden');
             this.grid.classList.add('hidden');
+            if (loadMoreContainer) loadMoreContainer.classList.add('hidden');
             return;
         } else {
             noResults.classList.add('hidden');
             this.grid.classList.remove('hidden');
         }
 
-        items.forEach(item => {
-            const card = document.createElement('div');
-            card.className = 'data-card p-4 sm:p-6 flex flex-col h-full cursor-pointer';
-            card.onclick = () => this.openDetails(item);
-            
-            const specPreview = Object.entries(item.specs).slice(0, 2).map(([key, val]) => 
-                `<div class="flex justify-between text-xs opacity-70 font-mono mt-1">
-                    <span class="uppercase truncate mr-2">${key.replace(/_/g, ' ')}</span>
-                    <span class="text-right flex-shrink-0">${val}</span>
-                </div>`
-            ).join('');
+        // Show only first page (20 items)
+        const pageItems = items.slice(0, this.PAGE_SIZE);
+        pageItems.forEach(item => this._appendCard(item));
 
-            card.innerHTML = `
-                <div class="flex justify-between items-start mb-3 sm:mb-4 gap-2">
-                    <span class="text-xs font-bold bg-black text-white dark:bg-white dark:text-black px-2 py-1 uppercase tracking-wider flex-shrink-0">${this.escapeHtml(item.brand)}</span>
-                    <span class="font-mono text-sm font-bold flex-shrink-0">${this.formatPrice(item.price)}</span>
-                </div>
-                <h3 class="text-lg sm:text-xl font-bold mb-2 glitch-hover line-clamp-2">${this.escapeHtml(item.name)}</h3>
-                <p class="text-xs sm:text-sm opacity-60 mb-4 sm:mb-6 flex-grow line-clamp-3">${this.escapeHtml(item.description)}</p>
-                
-                <div class="mt-auto pt-3 sm:pt-4 border-t border-gray-200 dark:border-gray-800">
-                    ${specPreview}
-                </div>
-            `;
-            this.grid.appendChild(card);
-        });
+        // Show/hide load more button
+        if (loadMoreContainer) {
+            if (items.length > this.PAGE_SIZE) {
+                loadMoreContainer.classList.remove('hidden');
+                this._updateLoadMoreBtn();
+            } else {
+                loadMoreContainer.classList.add('hidden');
+            }
+        }
+    }
+
+    loadMore() {
+        this.currentPage++;
+        const start = (this.currentPage - 1) * this.PAGE_SIZE;
+        const end = this.currentPage * this.PAGE_SIZE;
+        const nextItems = this.currentItems.slice(start, end);
+
+        nextItems.forEach(item => this._appendCard(item));
+
+        const loadMoreContainer = document.getElementById('load-more-container');
+        if (end >= this.currentItems.length) {
+            if (loadMoreContainer) loadMoreContainer.classList.add('hidden');
+        } else {
+            this._updateLoadMoreBtn();
+        }
+
+        if (typeof lucide !== 'undefined') {
+            lucide.createIcons();
+        }
+    }
+
+    _updateLoadMoreBtn() {
+        const shown = Math.min(this.currentPage * this.PAGE_SIZE, this.currentItems.length);
+        const remaining = this.currentItems.length - shown;
+        const loadMoreBtn = document.getElementById('load-more-btn');
+        if (loadMoreBtn) {
+            const next = Math.min(remaining, this.PAGE_SIZE);
+            loadMoreBtn.innerHTML = `<i data-lucide="chevron-down" class="w-4 h-4"></i> LOAD ${next} MORE <span class="opacity-50 font-mono text-xs">(${remaining} remaining)</span>`;
+            if (typeof lucide !== 'undefined') {
+                lucide.createIcons();
+            }
+        }
+    }
+
+    _appendCard(item) {
+        const card = document.createElement('div');
+        card.className = 'data-card p-4 sm:p-6 flex flex-col h-full cursor-pointer';
+        card.onclick = () => this.openDetails(item);
+        
+        const specPreview = Object.entries(item.specs).slice(0, 2).map(([key, val]) => 
+            `<div class="flex justify-between text-xs opacity-70 font-mono mt-1">
+                <span class="uppercase truncate mr-2">${key.replace(/_/g, ' ')}</span>
+                <span class="text-right flex-shrink-0">${val}</span>
+            </div>`
+        ).join('');
+
+        card.innerHTML = `
+            <div class="flex justify-between items-start mb-3 sm:mb-4 gap-2">
+                <span class="text-xs font-bold bg-black text-white dark:bg-white dark:text-black px-2 py-1 uppercase tracking-wider flex-shrink-0">${this.escapeHtml(item.brand)}</span>
+                <span class="font-mono text-sm font-bold flex-shrink-0">${this.formatPrice(item.price)}</span>
+            </div>
+            <h3 class="text-lg sm:text-xl font-bold mb-2 glitch-hover line-clamp-2">${this.escapeHtml(item.name)}</h3>
+            <p class="text-xs sm:text-sm opacity-60 mb-4 sm:mb-6 flex-grow line-clamp-3">${this.escapeHtml(item.description)}</p>
+            
+            <div class="mt-auto pt-3 sm:pt-4 border-t border-gray-200 dark:border-gray-800">
+                ${specPreview}
+            </div>
+        `;
+        this.grid.appendChild(card);
     }
 
     checkUrlForProduct() {
@@ -454,22 +524,18 @@ class App {
     openDetails(item, updateUrl = true) {
         this.currentProductId = item.id;
         
-        // Reset DIY section state
         this.diyExpanded = false;
         
-        // Update URL if requested
         if (updateUrl) {
             const url = new URL(window.location);
             url.searchParams.set('product', item.id);
             window.history.pushState({ productId: item.id }, '', url);
         }
         
-        // Populate Modal Headers
         document.getElementById('modal-category').textContent = item.category.toUpperCase();
         document.getElementById('modal-title').textContent = item.name;
         document.getElementById('modal-desc').textContent = item.description;
         
-        // Gallery Rendering with click handlers
         const galleryContainer = document.getElementById('modal-gallery');
         if (item.images && item.images.length > 0) {
             const imagesHtml = item.images.map((imgSrc, index) => 
@@ -496,7 +562,6 @@ class App {
             this.currentImages = [];
         }
 
-        // Render Specs with price
         const specsContainer = document.getElementById('modal-specs');
         const priceSpec = `
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-4 border-b border-gray-200 dark:border-gray-700 py-2">
@@ -514,7 +579,6 @@ class App {
         
         specsContainer.innerHTML = priceSpec + specsHtml;
 
-        // Render DIY Resources section (collapsed by default)
         const diySection = document.getElementById('modal-diy-section');
         const diyContent = document.getElementById('modal-diy-content');
         
@@ -534,7 +598,6 @@ class App {
                     <i data-lucide="arrow-right" class="w-4 h-4 flex-shrink-0 opacity-0 group-hover:opacity-100 transition-opacity"></i>
                 </a>
             `).join('');
-            // Make sure content is hidden by default
             diyContent.classList.add('hidden');
         } else {
             diySection.classList.add('hidden');
@@ -543,14 +606,12 @@ class App {
         const jsonPre = document.getElementById('modal-json');
         jsonPre.textContent = JSON.stringify(item, null, 2);
 
-        // Animation Open
         this.modal.classList.remove('hidden');
         setTimeout(() => {
             this.modalPanel.classList.remove('translate-x-full');
         }, 10);
         document.body.style.overflow = 'hidden';
 
-        // Re-initialize icons
         if (typeof lucide !== 'undefined') {
             lucide.createIcons();
         }
@@ -587,7 +648,6 @@ class App {
         
         this.currentProductId = null;
         
-        // Remove product from URL if requested
         if (updateUrl) {
             const url = new URL(window.location);
             url.searchParams.delete('product');
@@ -595,10 +655,40 @@ class App {
         }
     }
 
+    // --- CREDITS MODAL ---
+    openCreditsModal() {
+        const creditsModal = document.getElementById('credits-modal');
+        const creditsPanel = document.getElementById('credits-modal-panel');
+        if (!creditsModal || !creditsPanel) return;
+
+        creditsModal.classList.remove('hidden');
+        setTimeout(() => {
+            creditsPanel.classList.remove('opacity-0', 'scale-95');
+            creditsPanel.classList.add('opacity-100', 'scale-100');
+        }, 10);
+        document.body.style.overflow = 'hidden';
+
+        if (typeof lucide !== 'undefined') {
+            lucide.createIcons();
+        }
+    }
+
+    closeCreditsModal() {
+        const creditsModal = document.getElementById('credits-modal');
+        const creditsPanel = document.getElementById('credits-modal-panel');
+        if (!creditsModal || !creditsPanel) return;
+
+        creditsPanel.classList.remove('opacity-100', 'scale-100');
+        creditsPanel.classList.add('opacity-0', 'scale-95');
+        setTimeout(() => {
+            creditsModal.classList.add('hidden');
+            document.body.style.overflow = '';
+        }, 200);
+    }
+
     shareProduct() {
         const url = window.location.href;
         
-        // Try to use native share API if available
         if (navigator.share) {
             const item = this.service.getById(this.currentProductId);
             navigator.share({
@@ -606,11 +696,9 @@ class App {
                 text: item.description,
                 url: url
             }).catch(err => {
-                // If share fails, fall back to copy
                 this.copyProductLink(url);
             });
         } else {
-            // Fallback to copying link
             this.copyProductLink(url);
         }
     }
@@ -619,7 +707,6 @@ class App {
         const success = await this.copyToClipboardLogic(url);
         
         if (success) {
-            // Visual feedback
             const shareBtn = event.target.closest('button');
             if (shareBtn) {
                 const icon = shareBtn.querySelector('i');
@@ -642,7 +729,6 @@ class App {
         }
     }
 
-    // Lightbox functionality
     openLightbox(index) {
         if (this.currentImages.length === 0) return;
         
@@ -688,7 +774,6 @@ class App {
         this.render(this.service.getAll());
     }
 
-    // --- HELPER: COPY TO CLIPBOARD ---
     async copyToClipboardLogic(text) {
         try {
             if (navigator.clipboard && window.isSecureContext) {

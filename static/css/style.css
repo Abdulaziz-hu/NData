@@ -370,3 +370,25 @@ a, button {
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
     background: var(--text-color);
 }
+/* --- THEME FLASH PREVENTION --- */
+/* Applied to <html> via inline script before body renders */
+html.dark-mode-pre body {
+    background-color: #0f0f0f;
+    color: #f0f0f0;
+}
+
+/* Credits Modal */
+#credits-modal {
+    z-index: 200;
+}
+#credits-modal-panel {
+    background: var(--bg-color);
+    color: var(--text-color);
+}
+
+/* Load More Button */
+#load-more-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}

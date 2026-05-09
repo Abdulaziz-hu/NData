@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- THEME FLASH PREVENTION: inline script runs before body renders -->
+    <script>
+        (function() {
+            var saved = localStorage.getItem('theme');
+            if (saved === 'dark' || (!saved && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.classList.add('dark-mode-pre');
+            }
+        })();
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Docs. | N(DATA)</title>
@@ -123,5 +132,6 @@
 
     <script src="../static/js/simple-func.js"></script>
     <script src="../static/js/app.js"></script>
+    <script src="../static/js/version.js"></script>
 </body>
 </html>
