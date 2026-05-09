@@ -1,8 +1,8 @@
-# N(DATA) - PURE. RAW. DATA.
+# N(DATA) PURE. RAW. DATA.
 
 An open-source repository providing technical specifications for electronics. The project is designed for transparency, offering raw, organized data accessible via a dedicated web interface and a comprehensive JSON API.
 
-## 🚀 Overview
+## Overview
 
 N(DATA) serves as a single, uncluttered source for technical specifications across various consumer electronic categories. The core philosophy is **"No clutter. Just data."** Every product entry is standardized, categorized, and assigned a unique identifier to facilitate easy searching and data integration.
 
@@ -13,7 +13,7 @@ N(DATA) serves as a single, uncluttered source for technical specifications acro
 * **Open API:** The entire dataset is accessible via a simple JSON API.
 * **Focus on DIY:** Entries often include a dedicated section for `diy_resources`, linking to repair guides, firmware archives, and official manuals.
 
-## 📦 Data Structure and Organization
+## Data Structure and Organization
 
 Products are organized using a simple naming convention, category grouping, and a unique, sequential ID system to prevent duplication across hundreds of thousands of records. The sequential ID uses a six-digit format to ensure future scalability and handling of up to 999,999 products per category.
 
@@ -40,27 +40,27 @@ Products are organized using a simple naming convention, category grouping, and 
 | `tab` | Tablets | `tab-000005` |
 | `cam` | Cameras | `cam-000007` |
 
-## 🔗 API and Documentation
+## API and Documentation
 
 The entire dataset is designed to be consumed via a simple JSON API.
 
-* **API Endpoint:** Consult the full [API Documentation](./api/docs.html) for specific endpoint details, filtering parameters, and response schema.
-* **Live Data:** Access the raw, unfiltered JSON data directly via the [API Page](./api/api.html).
+* **API Endpoint:** Consult the full [API Documentation](https://ndata.abdulazizhu.com/api/docs) for specific endpoint details, filtering parameters, and response schema.
+* **Live Data:** Access the raw, unfiltered JSON data directly via the [API Page](https://ndata.abdulazizhu.com/api/api).
 
-## 🤝 Contributing
+## Contributing
 
 N(DATA) is an open-source initiative and welcomes contributions to expand the database, improve accuracy, or enhance the overall project infrastructure.
 
-* **Report Errors:** If you find a data inaccuracy or a broken link, please use the [Report Forum](./pages/report-forum.html).
+* **Report Errors:** If you find a data inaccuracy or a broken link, please use the [Report Forum](https://ndata.abdulazizhu.com/pages/report-forum).
 * **Code Contributions:** Submit pull requests and view the code repository on [GitHub](https://github.com/Abdulaziz-hu/NData).
 
-## 📝 License
+## License
 
 This project is released under the **MIT License**.
 
 The full license is provided below:
 
-```text
+```
 Copyright 2025 Abdulaziz-Hu
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the “Software”), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
@@ -68,3 +68,4 @@ Permission is hereby granted, free of charge, to any person obtaining a copy of 
 The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+```

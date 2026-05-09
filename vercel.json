@@ -1,3 +1,32 @@
 {
-  "cleanUrls": true
+  "cleanUrls": true,
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/error-pages/404.html",
+      "status": 404
+    }
+  ],
+  "errors": [
+    {
+      "status": 401,
+      "dest": "/error-pages/401.html"
+    },
+    {
+      "status": 403,
+      "dest": "/error-pages/403.html"
+    },
+    {
+      "status": 408,
+      "dest": "/error-pages/408.html"
+    },
+    {
+      "status": 500,
+      "dest": "/error-pages/500.html"
+    },
+    {
+      "status": 503,
+      "dest": "/error-pages/503.html"
+    }
+  ]
 }
