@@ -13,7 +13,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tech Archive | N(DATA)</title>
-    <link rel="icon" href="./assets/logos/svg/ndata_logo.svg">
+    <link rel="icon" href="/assets/logos/svg/ndata_logo.svg">
     
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -34,22 +34,22 @@
 
     <script src="https://unpkg.com/lucide@latest"></script>
 
-    <link rel="stylesheet" href="./static/css/style.css">
+    <link rel="stylesheet" href="/static/css/style.css">
 </head>
 <body class="min-h-screen flex flex-col">
 
     <nav class="sticky top-0 z-50 glass-panel px-4 sm:px-6 py-4 flex justify-between items-center">
         <div class="flex items-center gap-2 sm:gap-3 group cursor-pointer" onclick="app.reset()">
             <div class="w-6 h-6 sm:w-8 sm:h-8 bg-red-600 rounded-full group-hover:scale-110 transition-transform"></div>
-            <span class="text-xl sm:text-2xl brand-font font-bold tracking-tighter"><a href="./index.html">N(DATA)</a></span>
+            <span class="text-xl sm:text-2xl brand-font font-bold tracking-tighter"><a href="/index">N(DATA)</a></span>
         </div>
         
         <div class="hidden md:flex items-center gap-6">
-            <a href="./index.html" class="underline decoration-red-600 decoration-2 underline-offset-4 hover:text-red-600 transition-colors brand-font text-sm">HOME</a>
-            <a href="./pages/about.html" class="hover:text-red-600 transition-colors brand-font text-sm">ABOUT</a>
-            <a href="./pages/updates.html" class="hover:text-red-600 transition-colors brand-font text-sm">UPDATES</a>
-            <a href="./api/docs.html" class="hover:text-red-600 transition-colors brand-font text-sm">DOCS</a>
-            <a href="./api/api.html" class="hover:text-red-600 transition-colors brand-font text-sm">API</a>
+            <a href="/" class="underline decoration-red-600 decoration-2 underline-offset-4 hover:text-red-600 transition-colors brand-font text-sm">HOME</a>
+            <a href="/pages/about" class="hover:text-red-600 transition-colors brand-font text-sm">ABOUT</a>
+            <a href="/pages/updates" class="hover:text-red-600 transition-colors brand-font text-sm">UPDATES</a>
+            <a href="/api/docs" class="hover:text-red-600 transition-colors brand-font text-sm">DOCS</a>
+            <a href="/api/api" class="hover:text-red-600 transition-colors brand-font text-sm">API</a>
             
             <!-- Currency Selector -->
             <div class="relative currency-selector">
@@ -89,11 +89,11 @@
                 <button id="mobile-menu-close" class="self-end">
                     <i data-lucide="x" class="w-6 h-6"></i>
                 </button>
-                <a href="./index.html" class="underline decoration-red-600 decoration-2 underline-offset-4 hover:text-red-600 transition-colors brand-font text-sm">HOME</a>
-                <a href="./pages/about.html" class="hover:text-red-600 transition-colors brand-font text-sm">ABOUT</a>
-                <a href="./pages/updates.html" class="hover:text-red-600 transition-colors brand-font text-sm">UPDATES</a>
-                <a href="./api/docs.html" class="hover:text-red-600 transition-colors brand-font text-sm">DOCS</a>
-                <a href="./api/api.html" class="hover:text-red-600 transition-colors brand-font text-sm">API</a>
+                <a href="/" class="underline decoration-red-600 decoration-2 underline-offset-4 hover:text-red-600 transition-colors brand-font text-sm">HOME</a>
+                <a href="/pages/about" class="hover:text-red-600 transition-colors brand-font text-sm">ABOUT</a>
+                <a href="/pages/updates" class="hover:text-red-600 transition-colors brand-font text-sm">UPDATES</a>
+                <a href="/api/docs" class="hover:text-red-600 transition-colors brand-font text-sm">DOCS</a>
+                <a href="/api/api" class="hover:text-red-600 transition-colors brand-font text-sm">API</a>
                 
                 <!-- Mobile Currency Selector -->
                 <div class="border-t border-gray-300 dark:border-gray-700 pt-4">
@@ -211,20 +211,20 @@
                 <div class="flex flex-col gap-2">
                     <span class="opacity-40 mb-2">PROJECT</span>
                     <a href="https://github.com/Abdulaziz-hu/NData" target="_blank" class="hover:underline">GitHub</a>
-                    <a href="./pages/updates.html" class="hover:underline">Updates</a>
-                    <a href="./api/docs.html" class="hover:underline">API Docs</a>
+                    <a href="/pages/updates" class="hover:underline">Updates</a>
+                    <a href="/api/docs" class="hover:underline">API Docs</a>
                     <a href="https://github.com/Abdulaziz-hu/NData?tab=readme-ov-file#-contributing" target="_blank" class="hover:underline">Contribute</a>
                 </div>
                 <div class="flex flex-col gap-2">
                     <span class="opacity-40 mb-2">LEGAL</span>
-                    <a href="./pages/privacy.html" class="hover:underline">Privacy</a>
-                    <a href="./pages/terms-of-service.html" class="hover:underline">Terms of Service</a>
-                    <a href="./pages/mit-license.html" class="hover:underline">MIT License</a>
+                    <a href="/pages/privacy" class="hover:underline">Privacy</a>
+                    <a href="/pages/terms-of-service" class="hover:underline">Terms of Service</a>
+                    <a href="/pages/mit-license" class="hover:underline">MIT License</a>
                 </div>
                 <div class="flex flex-col gap-2">
                     <span class="opacity-40 mb-2">OTHER</span>
-                    <a href="./pages/report-forum.html" class="hover:underline">Report</a>
-                    <a href="./pages/disclaimers.html" class="hover:underline">Disclaimers</a>
+                    <a href="/pages/report-forum" class="hover:underline">Report</a>
+                    <a href="/pages/disclaimers" class="hover:underline">Disclaimers</a>
                     <button onclick="app.openCreditsModal()" class="hover:underline text-left hover:text-red-600 transition-colors text-xs sm:text-sm">Credits</button>
                 </div>
             </div>
@@ -390,7 +390,7 @@
                     <h3 class="brand-font text-xs opacity-50 mb-4 tracking-widest">LICENSE</h3>
                     <p class="text-xs opacity-70 leading-relaxed">
                         N(DATA) is open source and released under the 
-                        <a href="./pages/mit-license.html" class="text-red-600 hover:underline" onclick="app.closeCreditsModal()">MIT License</a>. 
+                        <a href="/pages/mit-license" class="text-red-600 hover:underline" onclick="app.closeCreditsModal()">MIT License</a>. 
                         All third-party libraries are used under their respective licenses.
                         <br>
                         <!-- VERSION NUMBER -->
@@ -404,7 +404,7 @@
         </div>
     </div>
 
-    <script src="./static/js/app.js"></script>
-    <script src="./static/js/version.js"></script>
+    <script src="/static/js/app.js"></script>
+    <script src="/static/js/version.js"></script>
 </body>
 </html>
