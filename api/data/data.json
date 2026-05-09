@@ -1,0 +1,797 @@
+[
+    {
+        "id": "phn-000001",
+        "name": "Phone (2a)",
+        "brand": "Nothing",
+        "category": "smartphones",
+        "price": 349,
+        "description": "A uniquely designed smartphone focusing on transparency and core functionality.",
+        "images": [
+            "https://placehold.co/600x400/black/white?text=Phone(2a)+Front",
+            "https://placehold.co/600x400/black/white?text=Phone(2a)+Back",
+            "https://placehold.co/600x400/black/white?text=Glyph+Interface"
+        ],
+        "specs": {
+            "processor": "MediaTek Dimensity 7200 Pro",
+            "ram": "12GB",
+            "storage": "256GB",
+            "display": "6.7-inch Flexible AMOLED 120Hz",
+            "battery": "5000 mAh",
+            "camera_main": "50MP + 50MP (Ultrawide)",
+            "os": "Nothing OS 2.5 (Android 14)"
+        },
+        "diy_resources": [
+            {
+                "title": "Teardown & Screen Replacement",
+                "url": "https://www.youtube.com/watch?v=example1",
+                "icon": "wrench",
+                "description": "Step-by-step video guide on how to disassemble the unit and replace the display assembly.",
+                "type": "REPAIR GUIDE"
+            },
+            {
+                "title": "Nothing OS Firmware Archive",
+                "url": "https://github.com/example/nothing-archive",
+                "icon": "save",
+                "description": "Community maintained archive of full OTA packages and boot images.",
+                "type": "SOFTWARE"
+            }
+        ]
+    },
+    {
+        "id": "phn-000002",
+        "name": "Pixel 8 Pro",
+        "brand": "Google",
+        "category": "smartphones",
+        "price": 999,
+        "description": "Google's AI-first phone with the Tensor G3 chip and Magic Editor.",
+        "images": [
+            "https://placehold.co/600x400/222/white?text=Pixel+8+Pro+Blue",
+            "https://placehold.co/600x400/222/white?text=Pixel+Camera+Bar"
+        ],
+        "specs": {
+            "processor": "Google Tensor G3",
+            "ram": "12GB LPDDR5X",
+            "storage": "128GB",
+            "display": "6.7-inch Super Actua LTPO",
+            "camera_main": "50MP Octa PD wide",
+            "battery": "5050 mAh",
+            "ai_features": "Magic Editor, Best Take, Audio Magic Eraser"
+        },
+        "diy_resources": [
+            {
+                "title": "iFixit Repair Guides",
+                "url": "https://www.ifixit.com/Device/Google_Pixel_8_Pro",
+                "icon": "book-open",
+                "description": "Official repair manuals and parts list for the Pixel 8 Pro.",
+                "type": "MANUAL"
+            }
+        ]
+    },
+    {
+        "id": "phn-000003",
+        "name": "Galaxy S24 Ultra",
+        "brand": "Samsung",
+        "category": "smartphones",
+        "price": 1299,
+        "description": "Titanium exterior, Galaxy AI, and the Snapdragon 8 Gen 3 for Galaxy.",
+        "images": [],
+        "specs": {
+            "processor": "Snapdragon 8 Gen 3",
+            "ram": "12GB",
+            "display": "6.8-inch QHD+ Dynamic AMOLED 2X",
+            "camera_main": "200MP Wide",
+            "stylus": "Built-in S Pen",
+            "material": "Titanium Frame",
+            "battery": "5000 mAh"
+        }
+    },
+    {
+        "id": "phn-000004",
+        "name": "iPhone 15 Pro Max",
+        "brand": "Apple",
+        "category": "smartphones",
+        "price": 1199,
+        "description": "The most powerful iPhone ever with titanium design and A17 Pro chip.",
+        "images": [
+            "https://placehold.co/600x400/555/white?text=Titanium+Natural",
+            "https://placehold.co/600x400/555/white?text=Action+Button"
+        ],
+        "specs": {
+            "processor": "A17 Pro (3nm)",
+            "ram": "8GB",
+            "storage": "256GB",
+            "display": "6.7-inch Super Retina XDR",
+            "camera_main": "48MP Main + 12MP Telephoto (5x)",
+            "battery": "4441 mAh",
+            "material": "Grade 5 Titanium"
+        }
+    },
+    {
+        "id": "phn-000005",
+        "name": "OnePlus 12",
+        "brand": "OnePlus",
+        "category": "smartphones",
+        "price": 799,
+        "description": "Flagship killer with Hasselblad camera system and 100W charging.",
+        "images": [],
+        "specs": {
+            "processor": "Snapdragon 8 Gen 3",
+            "ram": "16GB LPDDR5X",
+            "storage": "512GB UFS 4.0",
+            "display": "6.82-inch LTPO AMOLED 120Hz",
+            "camera_main": "50MP Sony LYT-808",
+            "charging": "100W SUPERVOOC",
+            "battery": "5400 mAh"
+        }
+    },
+    {
+        "id": "phn-000006",
+        "name": "Xperia 1 VI",
+        "brand": "Sony",
+        "category": "smartphones",
+        "price": 1399,
+        "description": "Pro-grade content creation phone with 4K 120Hz HDR display.",
+        "images": [],
+        "specs": {
+            "processor": "Snapdragon 8 Gen 3",
+            "ram": "12GB",
+            "storage": "256GB",
+            "display": "6.5-inch 4K HDR OLED 120Hz",
+            "camera_main": "48MP Triple Camera System",
+            "audio": "3.5mm jack, Hi-Res Audio",
+            "battery": "5000 mAh"
+        }
+    },
+    {
+        "id": "phn-000007",
+        "name": "Find X7 Ultra",
+        "brand": "OPPO",
+        "category": "smartphones",
+        "price": 1099,
+        "description": "Dual periscope telephoto system with Hasselblad collaboration.",
+        "images": [],
+        "specs": {
+            "processor": "Snapdragon 8 Gen 3",
+            "ram": "16GB",
+            "storage": "512GB",
+            "display": "6.82-inch LTPO AMOLED",
+            "camera_main": "50MP Sony LYT-900",
+            "telephoto": "Dual Periscope (3x + 6x)",
+            "battery": "5000 mAh"
+        }
+    },
+    {
+        "id": "phn-000008",
+        "name": "Xiaomi 14 Ultra",
+        "brand": "Xiaomi",
+        "category": "smartphones",
+        "price": 1299,
+        "description": "Leica quad-camera system with 1-inch main sensor.",
+        "images": [],
+        "specs": {
+            "processor": "Snapdragon 8 Gen 3",
+            "ram": "16GB",
+            "storage": "512GB",
+            "display": "6.73-inch LTPO AMOLED 120Hz",
+            "camera_main": "50MP 1-inch Sony LYT-900",
+            "camera_system": "Leica Summilux Quad Camera",
+            "battery": "5300 mAh"
+        }
+    },
+    {
+        "id": "lap-000001",
+        "name": "Blade 14 (2024)",
+        "brand": "Razer",
+        "category": "laptops",
+        "price": 2199,
+        "description": "Ultra-compact 14-inch gaming powerhouse featuring AMD Ryzen 9 and RTX 4070.",
+        "images": [
+            "https://placehold.co/600x400/0f0/black?text=Razer+Blade+14",
+            "https://placehold.co/600x400/0f0/black?text=Chroma+Keyboard"
+        ],
+        "specs": {
+            "processor": "AMD Ryzen 9 8945HS",
+            "gpu": "NVIDIA GeForce RTX 4070",
+            "ram": "32GB DDR5-5600",
+            "storage": "1TB PCIe Gen4 NVMe",
+            "display": "14-inch QHD+ 240Hz OLED",
+            "weight": "1.84 kg"
+        }
+    },
+    {
+        "id": "lap-000002",
+        "name": "MacBook Pro 16",
+        "brand": "Apple",
+        "category": "laptops",
+        "price": 2499,
+        "description": "The ultimate creative workstation with the M3 Max chip.",
+        "images": [],
+        "specs": {
+            "processor": "Apple M3 Max (16-core CPU)",
+            "gpu": "40-core GPU",
+            "ram": "48GB Unified Memory",
+            "storage": "1TB SSD",
+            "display": "16.2-inch Liquid Retina XDR",
+            "battery_life": "Up to 22 hours"
+        }
+    },
+    {
+        "id": "lap-000003",
+        "name": "XPS 13 Plus",
+        "brand": "Dell",
+        "category": "laptops",
+        "price": 1399,
+        "description": "Futuristic design with a seamless glass haptic touchpad.",
+        "images": [],
+        "specs": {
+            "processor": "Intel Core Ultra 7 155H",
+            "ram": "16GB LPDDR5x",
+            "storage": "512GB M.2 PCIe NVMe",
+            "display": "13.4 FHD+ InfinityEdge",
+            "touchbar": "Capacitive touch function row",
+            "weight": "1.24 kg"
+        }
+    },
+    {
+        "id": "lap-000004",
+        "name": "ThinkPad X1 Carbon Gen 12",
+        "brand": "Lenovo",
+        "category": "laptops",
+        "price": 1899,
+        "description": "Business ultrabook with military-grade durability and exceptional battery life.",
+        "images": [],
+        "specs": {
+            "processor": "Intel Core Ultra 7 165U",
+            "ram": "32GB LPDDR5x",
+            "storage": "1TB PCIe Gen 4",
+            "display": "14-inch 2.8K OLED",
+            "weight": "1.12 kg",
+            "battery_life": "Up to 15 hours",
+            "durability": "MIL-STD-810H"
+        }
+    },
+    {
+        "id": "lap-000005",
+        "name": "ROG Zephyrus G16",
+        "brand": "ASUS",
+        "category": "laptops",
+        "price": 2599,
+        "description": "Slim gaming laptop with ROG Nebula Display and RTX 4090.",
+        "images": [],
+        "specs": {
+            "processor": "Intel Core Ultra 9 185H",
+            "gpu": "NVIDIA GeForce RTX 4090",
+            "ram": "32GB DDR5",
+            "storage": "2TB PCIe Gen4",
+            "display": "16-inch 2.5K 240Hz Mini-LED",
+            "weight": "1.95 kg"
+        }
+    },
+    {
+        "id": "lap-000006",
+        "name": "Surface Laptop Studio 2",
+        "brand": "Microsoft",
+        "category": "laptops",
+        "price": 2399,
+        "description": "Versatile creator laptop with unique hinge design and RTX 4060.",
+        "images": [],
+        "specs": {
+            "processor": "Intel Core i7-13700H",
+            "gpu": "NVIDIA GeForce RTX 4060",
+            "ram": "32GB LPDDR5x",
+            "storage": "1TB NVMe",
+            "display": "14.4-inch PixelSense 120Hz",
+            "form_factor": "Dynamic woven hinge"
+        }
+    },
+    {
+        "id": "lap-000007",
+        "name": "Spectre x360 14",
+        "brand": "HP",
+        "category": "laptops",
+        "price": 1699,
+        "description": "Premium 2-in-1 convertible with gem-cut design and OLED display.",
+        "images": [],
+        "specs": {
+            "processor": "Intel Core Ultra 7 155H",
+            "ram": "16GB LPDDR5",
+            "storage": "512GB PCIe NVMe",
+            "display": "13.5-inch 3K2K OLED Touch",
+            "form_factor": "360-degree convertible",
+            "weight": "1.39 kg"
+        }
+    },
+    {
+        "id": "lap-000008",
+        "name": "Zenbook Pro 14 OLED",
+        "brand": "ASUS",
+        "category": "laptops",
+        "price": 1599,
+        "description": "Creator laptop with stunning OLED display and powerful specs.",
+        "images": [],
+        "specs": {
+            "processor": "Intel Core Ultra 9 185H",
+            "gpu": "NVIDIA GeForce RTX 4060",
+            "ram": "32GB LPDDR5x",
+            "storage": "1TB PCIe 4.0",
+            "display": "14.5-inch 2.8K OLED 120Hz",
+            "color_accuracy": "100% DCI-P3"
+        }
+    },
+    {
+        "id": "wear-000001",
+        "name": "Ear (2)",
+        "brand": "Nothing",
+        "category": "wearables",
+        "price": 149,
+        "description": "Hi-Res Audio certified wireless earbuds with personalized ANC.",
+        "images": [
+            "https://placehold.co/600x400/ddd/333?text=Ear(2)+Case",
+            "https://placehold.co/600x400/ddd/333?text=Buds+Detail"
+        ],
+        "specs": {
+            "driver": "11.6mm custom driver",
+            "codec": "LHDC 5.0",
+            "anc": "Up to 40dB",
+            "battery_case": "36 hours",
+            "rating": "IP54"
+        }
+    },
+    {
+        "id": "wear-000002",
+        "name": "WH-1000XM5",
+        "brand": "Sony",
+        "category": "wearables",
+        "price": 399,
+        "description": "Industry-leading noise canceling headphones with Auto NC Optimizer.",
+        "images": [],
+        "specs": {
+            "processor": "Integrated Processor V1",
+            "battery": "30 hours",
+            "drivers": "30mm carbon fiber",
+            "connectivity": "Bluetooth 5.2, Multipoint",
+            "weight": "250g"
+        }
+    },
+    {
+        "id": "wear-000003",
+        "name": "Apple Watch Ultra 2",
+        "brand": "Apple",
+        "category": "wearables",
+        "price": 799,
+        "description": "Rugged, capable, and built to meet the demands of endurance athletes.",
+        "images": [],
+        "specs": {
+            "chip": "S9 SiP",
+            "brightness": "3000 nits",
+            "battery": "Up to 36 hours (normal), 72 hours (low power)",
+            "water_resistance": "100m",
+            "features": "Double tap gesture, On-device Siri"
+        }
+    },
+    {
+        "id": "wear-000004",
+        "name": "AirPods Pro (2nd Gen)",
+        "brand": "Apple",
+        "category": "wearables",
+        "price": 249,
+        "description": "Next-level ANC with Adaptive Audio and USB-C charging.",
+        "images": [],
+        "specs": {
+            "chip": "H2",
+            "anc": "2x more effective",
+            "battery": "6 hours (ANC on), 30 hours (with case)",
+            "audio": "Adaptive Audio, Transparency Mode",
+            "connector": "USB-C"
+        }
+    },
+    {
+        "id": "wear-000005",
+        "name": "Galaxy Buds2 Pro",
+        "brand": "Samsung",
+        "category": "wearables",
+        "price": 229,
+        "description": "Hi-Fi sound with 360 Audio and intelligent ANC.",
+        "images": [],
+        "specs": {
+            "driver": "10mm 2-way",
+            "anc": "Intelligent ANC",
+            "battery": "8 hours (ANC off), 29 hours (with case)",
+            "audio": "24-bit Hi-Fi, 360 Audio",
+            "codec": "SSC HiFi"
+        }
+    },
+    {
+        "id": "wear-000006",
+        "name": "Momentum 4 Wireless",
+        "brand": "Sennheiser",
+        "category": "wearables",
+        "price": 349,
+        "description": "Audiophile-grade wireless headphones with incredible 60-hour battery.",
+        "images": [],
+        "specs": {
+            "driver": "42mm transducer",
+            "battery": "60 hours",
+            "anc": "Adaptive Noise Cancellation",
+            "codec": "aptX Adaptive, AAC",
+            "weight": "293g"
+        }
+    },
+    {
+        "id": "wear-000007",
+        "name": "Pixel Watch 2",
+        "brand": "Google",
+        "category": "wearables",
+        "price": 349,
+        "description": "Google's smartwatch with Fitbit integration and stress management.",
+        "images": [],
+        "specs": {
+            "processor": "Snapdragon W5",
+            "display": "1.2-inch AMOLED",
+            "battery": "24 hours",
+            "sensors": "Heart rate, SpO2, Skin temperature",
+            "features": "Fitbit integration, Safety Check"
+        }
+    },
+    {
+        "id": "wear-000008",
+        "name": "Galaxy Watch6 Classic",
+        "brand": "Samsung",
+        "category": "wearables",
+        "price": 429,
+        "description": "Premium smartwatch with rotating bezel and comprehensive health tracking.",
+        "images": [],
+        "specs": {
+            "processor": "Exynos W930",
+            "display": "1.5-inch Super AMOLED",
+            "battery": "Up to 40 hours",
+            "bezel": "Physical rotating bezel",
+            "durability": "5ATM + IP68, Sapphire Crystal"
+        }
+    },
+    {
+        "id": "comp-000001",
+        "name": "RTX 4090 Founders Edition",
+        "brand": "NVIDIA",
+        "category": "components",
+        "price": 1599,
+        "description": "The apex of GPU performance for 4K gaming and AI workloads.",
+        "images": [],
+        "specs": {
+            "vram": "24GB GDDR6X",
+            "cuda_cores": 16384,
+            "boost_clock": "2.52 GHz",
+            "architecture": "Ada Lovelace",
+            "tdp": "450W",
+            "connectors": "1x HDMI 2.1, 3x DisplayPort 1.4a"
+        }
+    },
+    {
+        "id": "comp-000002",
+        "name": "Ryzen 7 7800X3D",
+        "brand": "AMD",
+        "category": "components",
+        "price": 449,
+        "description": "The world's best gaming processor with 3D V-Cache technology.",
+        "images": [],
+        "specs": {
+            "cores": "8 Cores, 16 Threads",
+            "base_clock": "4.2GHz",
+            "boost_clock": "5.0GHz",
+            "l3_cache": "96MB",
+            "tdp": "120W",
+            "socket": "AM5"
+        }
+    },
+    {
+        "id": "comp-000003",
+        "name": "990 PRO SSD",
+        "brand": "Samsung",
+        "category": "components",
+        "price": 169,
+        "description": "Blazing fast PCIe 4.0 NVMe SSD for enthusiasts.",
+        "images": [],
+        "specs": {
+            "capacity": "2TB",
+            "read_speed": "7450 MB/s",
+            "write_speed": "6900 MB/s",
+            "interface": "PCIe Gen 4.0 x4",
+            "cache": "2GB Low Power DDR4 SDRAM"
+        }
+    },
+    {
+        "id": "comp-000004",
+        "name": "Core i9-14900K",
+        "brand": "Intel",
+        "category": "components",
+        "price": 589,
+        "description": "Flagship desktop processor with 24 cores and 6.0 GHz boost.",
+        "images": [],
+        "specs": {
+            "cores": "24 Cores (8P + 16E)",
+            "threads": "32 Threads",
+            "base_clock": "3.2 GHz",
+            "max_turbo": "6.0 GHz",
+            "cache": "36MB Intel Smart Cache",
+            "tdp": "125W Base, 253W Max"
+        }
+    },
+    {
+        "id": "comp-000005",
+        "name": "Radeon RX 7900 XTX",
+        "brand": "AMD",
+        "category": "components",
+        "price": 999,
+        "description": "High-performance GPU with 24GB memory for 4K gaming.",
+        "images": [],
+        "specs": {
+            "vram": "24GB GDDR6",
+            "compute_units": "96",
+            "game_clock": "2.3 GHz",
+            "boost_clock": "2.5 GHz",
+            "architecture": "RDNA 3",
+            "tdp": "355W"
+        }
+    },
+    {
+        "id": "comp-000006",
+        "name": "Vengeance RGB DDR5",
+        "brand": "Corsair",
+        "category": "components",
+        "price": 199,
+        "description": "High-speed DDR5 memory with dynamic RGB lighting.",
+        "images": [],
+        "specs": {
+            "capacity": "32GB (2x16GB)",
+            "speed": "6000MHz",
+            "latency": "CL30",
+            "voltage": "1.35V",
+            "rgb": "10-Zone RGB lighting"
+        }
+    },
+    {
+        "id": "comp-000007",
+        "name": "Crucial T700 PCIe 5.0",
+        "brand": "Crucial",
+        "category": "components",
+        "price": 399,
+        "description": "Next-gen PCIe 5.0 SSD with record-breaking speeds.",
+        "images": [],
+        "specs": {
+            "capacity": "2TB",
+            "read_speed": "12400 MB/s",
+            "write_speed": "11800 MB/s",
+            "interface": "PCIe Gen 5.0 x4",
+            "controller": "Phison E26"
+        }
+    },
+    {
+        "id": "comp-000008",
+        "name": "ROG Thor 1200W Platinum II",
+        "brand": "ASUS",
+        "category": "components",
+        "price": 399,
+        "description": "Premium PSU with OLED power display and 80+ Platinum.",
+        "images": [],
+        "specs": {
+            "wattage": "1200W",
+            "efficiency": "80+ Platinum",
+            "modular": "Fully Modular",
+            "oled_display": "Real-time power monitoring",
+            "warranty": "10 years"
+        }
+    },
+    {
+        "id": "tab-000001",
+        "name": "iPad Pro 12.9 (M2)",
+        "brand": "Apple",
+        "category": "tablets",
+        "price": 1099,
+        "description": "Ultimate tablet with M2 chip and stunning Liquid Retina XDR display.",
+        "images": [],
+        "specs": {
+            "processor": "Apple M2",
+            "ram": "8GB",
+            "storage": "128GB",
+            "display": "12.9-inch Liquid Retina XDR",
+            "connectivity": "Wi-Fi 6E, 5G",
+            "pencil": "Apple Pencil (2nd Gen)"
+        }
+    },
+    {
+        "id": "tab-000002",
+        "name": "Galaxy Tab S9 Ultra",
+        "brand": "Samsung",
+        "category": "tablets",
+        "price": 1199,
+        "description": "Massive 14.6-inch AMOLED display with S Pen included.",
+        "images": [],
+        "specs": {
+            "processor": "Snapdragon 8 Gen 2",
+            "ram": "12GB",
+            "storage": "256GB",
+            "display": "14.6-inch Dynamic AMOLED 2X 120Hz",
+            "battery": "11200 mAh",
+            "s_pen": "Included in box"
+        }
+    },
+    {
+        "id": "tab-000003",
+        "name": "Surface Pro 9",
+        "brand": "Microsoft",
+        "category": "tablets",
+        "price": 999,
+        "description": "Versatile 2-in-1 with Intel or ARM processor options.",
+        "images": [],
+        "specs": {
+            "processor": "Intel Core i7-1255U",
+            "ram": "16GB LPDDR5",
+            "storage": "256GB",
+            "display": "13-inch PixelSense 120Hz",
+            "battery": "Up to 15.5 hours",
+            "kickstand": "Built-in adjustable kickstand"
+        }
+    },
+    {
+        "id": "tab-000004",
+        "name": "Pixel Tablet",
+        "brand": "Google",
+        "category": "tablets",
+        "price": 499,
+        "description": "Smart home hub and tablet in one with charging speaker dock.",
+        "images": [],
+        "specs": {
+            "processor": "Google Tensor G2",
+            "ram": "8GB",
+            "storage": "128GB",
+            "display": "11-inch LCD",
+            "hub_mode": "Charging speaker dock included",
+            "assistant": "Built-in Google Assistant"
+        }
+    },
+    {
+        "id": "tab-000005",
+        "name": "MatePad Pro 13.2",
+        "brand": "Huawei",
+        "category": "tablets",
+        "price": 899,
+        "description": "Premium productivity tablet with OLED display and M-Pencil.",
+        "images": [],
+        "specs": {
+            "processor": "Kirin 9000s",
+            "ram": "12GB",
+            "storage": "512GB",
+            "display": "13.2-inch OLED 144Hz",
+            "stylus": "M-Pencil (3rd Gen)",
+            "keyboard": "Magnetic keyboard support"
+        }
+    },
+    {
+        "id": "cam-000001",
+        "name": "Alpha 7 IV",
+        "brand": "Sony",
+        "category": "cameras",
+        "price": 2499,
+        "description": "Versatile full-frame mirrorless camera for photo and video.",
+        "images": [],
+        "specs": {
+            "sensor": "33MP Full-Frame Exmor R",
+            "video": "4K 60p 10-bit 4:2:2",
+            "autofocus": "759-point phase detection",
+            "stabilization": "5-axis in-body stabilization",
+            "viewfinder": "3.69m-dot OLED EVF"
+        }
+    },
+    {
+        "id": "cam-000002",
+        "name": "EOS R5 Mark II",
+        "brand": "Canon",
+        "category": "cameras",
+        "price": 4299,
+        "description": "Professional mirrorless with 8K video and advanced AI features.",
+        "images": [],
+        "specs": {
+            "sensor": "45MP Full-Frame CMOS",
+            "video": "8K 60p RAW, 4K 120p",
+            "autofocus": "Dual Pixel CMOS AF II",
+            "stabilization": "8-stops in-body stabilization",
+            "processor": "DIGIC X"
+        }
+    },
+    {
+        "id": "cam-000003",
+        "name": "Z9",
+        "brand": "Nikon",
+        "category": "cameras",
+        "price": 5499,
+        "description": "Flagship mirrorless for professionals with 8K video.",
+        "images": [],
+        "specs": {
+            "sensor": "45.7MP Stacked CMOS",
+            "video": "8K 30p, 4K 120p",
+            "autofocus": "493-point AF system",
+            "fps": "20 fps mechanical, 120 fps electronic",
+            "buffer": "Up to 1000 RAW images"
+        }
+    },
+    {
+        "id": "cam-000004",
+        "name": "Lumix GH6",
+        "brand": "Panasonic",
+        "category": "cameras",
+        "price": 2199,
+        "description": "Hybrid camera optimized for video with unlimited recording.",
+        "images": [],
+        "specs": {
+            "sensor": "25.2MP Live MOS",
+            "video": "5.7K 60p, 4K 120p 10-bit",
+            "stabilization": "7.5-stops in-body",
+            "recording": "Unlimited recording time",
+            "codec": "ProRes, H.265, H.264"
+        }
+    },
+    {
+        "id": "cam-000005",
+        "name": "X-T5",
+        "brand": "Fujifilm",
+        "category": "cameras",
+        "price": 1699,
+        "description": "Retro-styled APS-C camera with 40MP sensor and film simulations.",
+        "images": [],
+        "specs": {
+            "sensor": "40.2MP X-Trans CMOS 5 HR",
+            "video": "6.2K 30p",
+            "autofocus": "425-point phase detection",
+            "stabilization": "7-stops in-body",
+            "film_simulations": "19 unique modes"
+        }
+    },
+    {
+        "id": "cam-000006",
+        "name": "Action 4",
+        "brand": "DJI",
+        "category": "cameras",
+        "price": 399,
+        "description": "Rugged action camera with 4K 120fps and 10m waterproof.",
+        "images": [],
+        "specs": {
+            "sensor": "1/1.3-inch CMOS",
+            "video": "4K 120fps, 2.7K 240fps",
+            "stabilization": "RockSteady 3.0+",
+            "waterproof": "10m without case",
+            "screen": "Dual touchscreens"
+        }
+    },
+    {
+        "id": "cam-000007",
+        "name": "Pocket 3",
+        "brand": "DJI",
+        "category": "cameras",
+        "price": 549,
+        "description": "3-axis gimbal camera with face tracking and 4K 120fps.",
+        "images": [],
+        "specs": {
+            "sensor": "1-inch CMOS",
+            "video": "4K 120fps",
+            "gimbal": "3-axis mechanical",
+            "tracking": "ActiveTrack 6.0",
+            "screen": "2-inch rotating touchscreen"
+        }
+    },
+    {
+        "id": "cam-000008",
+        "name": "Instax Mini Evo",
+        "brand": "Fujifilm",
+        "category": "cameras",
+        "price": 199,
+        "description": "Hybrid instant camera with digital preview and lens effects.",
+        "images": [],
+        "specs": {
+            "type": "Hybrid Instant",
+            "output": "Instax Mini film",
+            "effects": "10 lens effects, 10 film effects",
+            "screen": "3-inch LCD",
+            "connectivity": "Bluetooth, smartphone printing"
+        }
+    }
+]

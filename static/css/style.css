@@ -46,7 +46,7 @@ button:not(.not-allowed),
 
 h1, h2, h3, .brand-font {
     font-family: var(--dot-matrix);
-    letter-spacing: -0.05em;
+    /* letter-spacing: -0.05em; */
     text-transform: uppercase;
 }
 
