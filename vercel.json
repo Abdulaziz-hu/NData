@@ -1,32 +1,16 @@
 {
   "cleanUrls": true,
   "rewrites": [
+    { "source": "/401", "destination": "/error-pages/401.html" },
+    { "source": "/403", "destination": "/error-pages/403.html" },
+    { "source": "/404", "destination": "/error-pages/404.html" },
+    { "source": "/408", "destination": "/error-pages/408.html" },
+    { "source": "/500", "destination": "/error-pages/500.html" },
+    { "source": "/503", "destination": "/error-pages/503.html" },
     {
       "source": "/(.*)",
       "destination": "/error-pages/404.html",
       "status": 404
-    }
-  ],
-  "errors": [
-    {
-      "status": 401,
-      "dest": "/error-pages/401.html"
-    },
-    {
-      "status": 403,
-      "dest": "/error-pages/403.html"
-    },
-    {
-      "status": 408,
-      "dest": "/error-pages/408.html"
-    },
-    {
-      "status": 500,
-      "dest": "/error-pages/500.html"
-    },
-    {
-      "status": 503,
-      "dest": "/error-pages/503.html"
     }
   ]
 }
