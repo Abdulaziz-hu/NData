@@ -18,11 +18,16 @@
 - [ ] **More Prefixes:** Add more prefixes/categories.
 - [ ] **Google Forums:** Use Google Forums to make pages such as Report, etc.
 - [ ] **Status Page:** Use [Statuspage](https://www.atlassian.com/software/statuspage) for the website.
-- [ ] **Fix Broken Links:** Some links are broken or misslinked.
+- [ ] **Multi-language Dropdown:** Add options for Arabic, Japanese, German, etc.
+    - *Note: I can handle the Arabic, but I'll need help translating the rest!*
+- [ ] **Translation Files:** Create JSON files for each language (e.g., `root/lang/en.json`, `ar.json`, `jp.json`).
+- [ ] **Content Folders:** Set up the structure for updates, blogs, and news under `content/`.
+    - Format: `root/content/news/en/YYYY/MM/DD/slug.md`
+- [ ] **Remove Placeholders:** Replace all placeholder files with actual content.
 
 ## Done (keep for 1 week)
 
-- [ ] 
+- [x] **Fix Broken Links:** Some links are broken or misslinked.
 
 ---
 
