@@ -392,3 +392,128 @@ html.dark-mode-pre body {
     align-items: center;
     gap: 0.5rem;
 }
+
+/* --- HALFTONE SHADER EFFECT ON CARD IMAGES --- */
+.halftone-overlay {
+    background-image: radial-gradient(circle, var(--text-color) 1px, transparent 1px);
+    background-size: 6px 6px;
+    opacity: 0.35;
+    transition: opacity 0.35s ease;
+    mix-blend-mode: multiply;
+}
+.dark-mode .halftone-overlay {
+    mix-blend-mode: screen;
+    opacity: 0.25;
+}
+.card-image-wrap:hover .halftone-overlay {
+    opacity: 0;
+}
+.card-image-track {
+    transition: transform 0.4s ease;
+}
+
+/* --- CARD ACTION BUTTONS --- */
+.card-action-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--text-color);
+    cursor: pointer;
+    transition: all 0.2s;
+    border-radius: 2px;
+}
+.card-action-btn:hover {
+    border-color: var(--text-color);
+    background: var(--text-color);
+    color: var(--bg-color);
+}
+.card-action-btn.active {
+    border-color: var(--accent-red);
+    background: var(--accent-red);
+    color: white;
+}
+
+/* --- LANG DROPDOWN --- */
+#lang-dropdown {
+    z-index: 60;
+}
+.active-lang {
+    color: var(--accent-red) !important;
+    font-weight: bold;
+}
+
+/* --- SORT BUTTONS --- */
+.sort-bar {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+[data-sort].active {
+    background: var(--text-color);
+    color: var(--bg-color);
+}
+
+/* --- BOOKMARKS / COMPARE MODAL --- */
+.overlay-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 150;
+}
+.overlay-modal-panel {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    max-width: 640px;
+    max-height: 80vh;
+    overflow-y: auto;
+    background: var(--bg-color);
+    border: 1px solid var(--border);
+    box-shadow: 4px 4px 0px var(--text-color);
+}
+.compare-modal-panel {
+    max-width: 900px;
+}
+
+/* --- BADGE --- */
+.nav-badge {
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    background: var(--accent-red);
+    color: white;
+    font-size: 9px;
+    font-family: monospace;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+}
+
+/* --- STICKY SEARCH BAR --- */
+.sticky-search-wrap {
+    position: sticky;
+    top: 64px;
+    z-index: 40;
+    background: var(--bg-color);
+    backdrop-filter: blur(12px);
+}
+
+/* --- KEYBOARD HINT --- */
+.kbd-hint {
+    font-family: monospace;
+    font-size: 10px;
+    opacity: 0.4;
+    border: 1px solid var(--border);
+    padding: 1px 5px;
+    border-radius: 3px;
+    user-select: none;
+}

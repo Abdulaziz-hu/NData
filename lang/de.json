@@ -1,0 +1,97 @@
+{
+  "nav": {
+    "home": "START",
+    "about": "UBER UNS",
+    "updates": "UPDATES",
+    "docs": "DOCS",
+    "api": "API",
+    "currency": "WAHRUNG",
+    "toggle_theme": "THEME WECHSELN",
+    "language": "SPRACHE"
+  },
+  "hero": {
+    "line1": "REIN.",
+    "line2": "ROH.",
+    "line3": "DATEN.",
+    "description": "Ein kostenloses Repository fur technische Daten. Kein Durcheinander. Nur Daten. Zuganglich uber unser Web-Interface oder das Github-Repository.",
+    "search_placeholder": "DATENBANK SUCHEN..."
+  },
+  "filters": {
+    "all": "ALLE",
+    "smartphones": "HANDYS",
+    "laptops": "LAPTOPS",
+    "wearables": "AUDIO/WEAR",
+    "components": "BAUTEILE",
+    "tablets": "TABLETS",
+    "cameras": "KAMERAS",
+    "gaming": "GAMING",
+    "monitors": "MONITORE",
+    "networking": "NETZWERK",
+    "items_indexed": "EINTR. INDEXIERT",
+    "sort_price_asc": "PREIS: AUFST.",
+    "sort_price_desc": "PREIS: ABST.",
+    "sort_date_new": "NEUESTE",
+    "sort_date_old": "ALTESTE"
+  },
+  "card": {
+    "copy_specs": "KOPIEREN",
+    "copied": "KOPIERT!",
+    "bookmark": "Merken",
+    "bookmarked": "Gemerkt",
+    "compare": "Vergleich"
+  },
+  "modal": {
+    "category": "KATEGORIE",
+    "technical_specifications": "TECHNISCHE DATEN",
+    "diy_resources": "DIY-RESSOURCEN & ANLEITUNGEN",
+    "raw_json": "ROH JSON",
+    "copy": "KOPIEREN",
+    "no_images": "Keine Bilddaten verfugbar",
+    "price": "PREIS",
+    "share": "Produkt teilen"
+  },
+  "compare": {
+    "title": "VERGLEICH",
+    "empty": "Artikel zum Vergleich hinzufugen (max. 4)",
+    "clear": "ALLE LOSCHEN",
+    "close": "SCHLIESSEN"
+  },
+  "bookmarks": {
+    "title": "LESEZEICHEN",
+    "empty": "Noch keine Lesezeichen. Klicke auf das Lesezeichen-Symbol.",
+    "clear": "ALLE LOSCHEN",
+    "close": "SCHLIESSEN"
+  },
+  "load_more": "MEHR LADEN",
+  "no_results": {
+    "title": "Keine Ergebnisse",
+    "description": "Rechtschreibung pruefen oder andere Suchbegriffe versuchen."
+  },
+  "footer": {
+    "description": "Open-Source-Datenbank fur technische Daten. Fur Transparenz entwickelt. Fur Geschwindigkeit gebaut.",
+    "inspired_by": "Design inspiriert von",
+    "project": "PROJEKT",
+    "legal": "RECHTLICHES",
+    "other": "SONSTIGES",
+    "github": "GitHub",
+    "updates": "Updates",
+    "api_docs": "API-Docs",
+    "contribute": "Beitragen",
+    "privacy": "Datenschutz",
+    "terms": "Nutzungsbedingungen",
+    "license": "MIT-Lizenz",
+    "report": "Melden",
+    "disclaimers": "Haftungsausschluss",
+    "credits": "Credits"
+  },
+  "credits": {
+    "title": "CREDITS",
+    "libraries": "BIBLIOTHEKEN & FRAMEWORKS",
+    "fonts": "SCHRIFTEN",
+    "inspiration": "INSPIRATION",
+    "license": "LIZENZ"
+  },
+  "keyboard": {
+    "hint": "/ zum Suchen drucken"
+  }
+}

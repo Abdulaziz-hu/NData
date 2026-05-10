@@ -1,7 +1,7 @@
 // Change this variable to update the version everywhere
-const currentVersion = "1.10.1";
+const currentVersion = "1.11.0";
 
-// This finds every element with the ID and updates it automatically
+// Find every element with the ID and update it
 document.querySelectorAll('#app-version').forEach(el => {
     el.textContent = currentVersion;
 });

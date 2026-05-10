@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- THEME FLASH PREVENTION: inline script runs before body renders -->
     <script>
         (function() {
             var saved = localStorage.getItem('theme');
@@ -12,126 +11,359 @@
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Docs. | N(DATA)</title>
+    <title>Docs | N(DATA)</title>
     <link rel="icon" href="/assets/logos/svg/ndata_logo.svg">
-    
     <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {}
-            }
-        }
-    </script>
-    
+    <script>tailwind.config = { darkMode: 'class', theme: { extend: {} } }</script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="https://fonts.googleapis.com/css2?family=DotGothic16&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-
     <script src="https://unpkg.com/lucide@latest"></script>
-
     <link rel="stylesheet" href="/static/css/style.css">
+    <style>
+        .docs-section { border-left: 2px solid var(--accent-red); padding-left: 1.25rem; margin-bottom: 2.5rem; }
+        .docs-code { background: var(--code-bg); border: 1px solid var(--code-shadow); box-shadow: 0 2px 0 var(--code-shadow); padding: 1rem 1.25rem; font-family: 'Courier New', monospace; font-size: 0.8rem; overflow-x: auto; margin: 0.75rem 0; }
+        .docs-code .kw { color: var(--accent-red); }
+        .docs-code .str { color: #22c55e; }
+        .docs-code .num { color: #60a5fa; }
+        .docs-code .cmt { opacity: 0.4; }
+        .docs-table { width: 100%; border-collapse: collapse; font-size: 0.8rem; }
+        .docs-table th, .docs-table td { border: 1px solid var(--border); padding: 0.5rem 0.75rem; text-align: left; vertical-align: top; }
+        .docs-table th { font-family: var(--dot-matrix); background: var(--text-color); color: var(--bg-color); font-size: 0.7rem; letter-spacing: 0.05em; }
+        .docs-table tr:hover td { background: rgba(128,128,128,0.06); }
+        .type-badge { display: inline-block; font-family: monospace; font-size: 0.7rem; padding: 1px 6px; border-radius: 2px; }
+        .type-str { background: rgba(34,197,94,0.15); color: #16a34a; }
+        .dark-mode .type-str { color: #4ade80; background: rgba(34,197,94,0.2); }
+        .type-num { background: rgba(96,165,250,0.15); color: #2563eb; }
+        .dark-mode .type-num { color: #60a5fa; background: rgba(96,165,250,0.2); }
+        .type-arr { background: rgba(251,146,60,0.15); color: #ea580c; }
+        .dark-mode .type-arr { color: #fb923c; background: rgba(251,146,60,0.2); }
+        .type-obj { background: rgba(168,85,247,0.15); color: #7c3aed; }
+        .dark-mode .type-obj { color: #c084fc; background: rgba(168,85,247,0.2); }
+        .endpoint-badge { display: inline-block; font-family: monospace; font-size: 0.7rem; font-weight: bold; padding: 2px 8px; margin-right: 8px; background: rgba(34,197,94,0.2); color: #16a34a; border-radius: 2px; }
+        .dark-mode .endpoint-badge { color: #4ade80; }
+        .toc-link { display: block; padding: 0.25rem 0; font-family: monospace; font-size: 0.8rem; opacity: 0.6; hover: opacity-100; transition: opacity 0.2s; }
+        .toc-link:hover { opacity: 1; color: var(--accent-red); }
+    </style>
 </head>
 <body class="min-h-screen flex flex-col">
 
     <nav class="sticky top-0 z-50 glass-panel px-4 sm:px-6 py-4 flex justify-between items-center">
-        <div class="flex items-center gap-2 sm:gap-3 group cursor-pointer" onclick="app.reset()">
+        <div class="flex items-center gap-2 sm:gap-3 group cursor-pointer" onclick="window.location='/'">
             <div class="w-6 h-6 sm:w-8 sm:h-8 bg-red-600 rounded-full group-hover:scale-110 transition-transform"></div>
             <span class="text-xl sm:text-2xl brand-font font-bold tracking-tighter"><a href="/">N(DATA)</a></span>
         </div>
-        
         <div class="hidden md:flex items-center gap-6">
             <a href="/" class="hover:text-red-600 transition-colors brand-font text-sm">HOME</a>
             <a href="/pages/about" class="hover:text-red-600 transition-colors brand-font text-sm">ABOUT</a>
             <a href="/pages/updates" class="hover:text-red-600 transition-colors brand-font text-sm">UPDATES</a>
             <a href="/api/docs" class="underline decoration-red-600 decoration-2 underline-offset-4 hover:text-red-600 transition-colors brand-font text-sm">DOCS</a>
             <a href="/api/api" class="hover:text-red-600 transition-colors brand-font text-sm">API</a>
-            
-            <!-- Currency Selector -->
-            <div class="relative currency-selector">
-                <button id="currency-toggle" class="p-2 hover:bg-gray-300 dark:hover:bg-gray-800 rounded-full transition flex items-center gap-1">
-                    <span id="currency-symbol" class="text-sm font-mono">$</span>
-                </button>
-                <div id="currency-dropdown" class="hidden absolute right-0 mt-2 text-red-500 bg-gray-300 dark:bg-zinc-900 border border-gray-300 dark:border-gray-700 rounded shadow-lg min-w-[120px] z-50">
-                    <button data-currency="USD" class="w-full px-4 py-2 text-left hover:text-red-500 hover:bg-black dark:hover:bg-black transition flex items-center gap-2 text-sm font-mono">
-                        <span>$</span>
-                        <span>USD</span>
-                    </button>
-                    <button data-currency="SAR" class="w-full px-4 py-2 text-left hover:text-red-500 hover:bg-black dark:hover:bg-black transition flex items-center gap-2 text-sm font-mono">
-                        <i class="sr"></i>
-                        <span>SAR</span>
-                    </button>
-                    <button data-currency="JPY" class="w-full px-4 py-2 text-left hover:text-red-500 hover:bg-black dark:hover:bg-black transition flex items-center gap-2 text-sm font-mono">
-                        <span>¥</span>
-                        <span>JPY</span>
-                    </button>
-                </div>
-            </div>
-            
             <button id="theme-toggle" class="p-2 hover:bg-gray-300 dark:hover:bg-gray-800 rounded-full transition">
-                <i data-lucide="moon" class="w-5 h-5"></i>
+                <i data-lucide="moon" data-theme-icon class="w-5 h-5"></i>
             </button>
         </div>
-        
         <button class="md:hidden p-2" id="mobile-menu-btn">
             <i data-lucide="menu" class="w-6 h-6"></i>
         </button>
     </nav>
-
     <div id="mobile-menu" class="fixed inset-0 z-[60] hidden md:hidden">
         <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" id="mobile-menu-backdrop"></div>
         <div class="absolute right-0 top-0 h-full w-64 glass-panel transform transition-transform duration-300 translate-x-full" id="mobile-menu-panel">
             <div class="p-6 flex flex-col gap-6">
-                <button id="mobile-menu-close" class="self-end">
-                    <i data-lucide="x" class="w-6 h-6"></i>
-                </button>
+                <button id="mobile-menu-close" class="self-end"><i data-lucide="x" class="w-6 h-6"></i></button>
                 <a href="/" class="hover:text-red-600 transition-colors brand-font text-sm">HOME</a>
                 <a href="/pages/about" class="hover:text-red-600 transition-colors brand-font text-sm">ABOUT</a>
                 <a href="/pages/updates" class="hover:text-red-600 transition-colors brand-font text-sm">UPDATES</a>
                 <a href="/api/docs" class="underline decoration-red-600 decoration-2 underline-offset-4 hover:text-red-600 transition-colors brand-font text-sm">DOCS</a>
                 <a href="/api/api" class="hover:text-red-600 transition-colors brand-font text-sm">API</a>
-                
-                <!-- Mobile Currency Selector -->
-                <div class="border-t border-gray-300 dark:border-gray-700 pt-4">
-                    <span class="text-xs opacity-50 font-mono mb-2 block">CURRENCY</span>
-                    <div class="flex flex-col gap-2">
-                        <button data-currency="USD" class="mobile-currency-btn flex items-center gap-2 hover:text-red-500 transition-colors brand-font text-sm">
-                            <span>$</span>
-                            <span>USD</span>
-                        </button>
-                        <button data-currency="SAR" class="mobile-currency-btn flex items-center gap-2 hover:text-red-500 transition-colors brand-font text-sm">
-                            <i class="sr"></i>
-                            <span>SAR</span>
-                        </button>
-                        <button data-currency="JPY" class="mobile-currency-btn flex items-center gap-2 hover:text-red-500 transition-colors brand-font text-sm">
-                            <span>¥</span>
-                            <span>JPY</span>
-                        </button>
-                    </div>
-                </div>
-                
                 <button id="mobile-theme-toggle" class="flex items-center gap-2 hover:text-red-600 transition-colors brand-font text-sm border-t border-gray-300 dark:border-gray-700 pt-4">
-                    <i data-lucide="moon" class="w-5 h-5"></i>
+                    <i data-lucide="moon" data-theme-icon class="w-5 h-5"></i>
                     <span>TOGGLE THEME</span>
                 </button>
             </div>
         </div>
     </div>
 
-    <header class="px-4 sm:px-6 py-8 sm:py-12 md:py-24 max-w-7xl mx-auto w-full">
-        <h1 class="text-4xl sm:text-5xl md:text-8xl font-black mb-4 sm:mb-6 leading-none">
-            A P I.<br><span class="text-red-600">D O C S</span> <span class="brand-font text-xs brand-font-spaced">IN THE WORKS..</span>
+    <header class="px-4 sm:px-6 py-10 sm:py-16 md:py-20 max-w-7xl mx-auto w-full">
+        <h1 class="text-4xl sm:text-5xl md:text-7xl font-black mb-4 sm:mb-6 leading-none">
+            A P I.<br><span class="text-red-600">D O C S.</span>
         </h1>
+        <p class="text-base sm:text-lg max-w-2xl opacity-70 mb-2">
+            Everything you need to pull raw data from N(DATA). No auth required. No rate limits.
+        </p>
+        <p style="font-size:14px;opacity:0.3;font-family:monospace;">
+            Version <span id="app-version">0.0.0</span>
+        </p>
     </header>
 
-    <!-- <section class="px-4 sm:px-6 max-w-5xl mx-auto mb-24">
-        <h2 class="brand-font text-2xl mt-8 border-b border-current pb-2 opacity-70">1. Data Endpoint</h2>
-    </section> -->
+    <div class="max-w-7xl mx-auto w-full px-4 sm:px-6 flex flex-col lg:flex-row gap-10 pb-20">
+
+        <!-- TOC sidebar -->
+        <aside class="lg:w-56 flex-shrink-0">
+            <div class="sticky top-24">
+                <p class="brand-font text-xs opacity-40 mb-3 tracking-widest">ON THIS PAGE</p>
+                <a href="#overview" class="toc-link">Overview</a>
+                <a href="#endpoint" class="toc-link">Data Endpoint</a>
+                <a href="#schema" class="toc-link">Schema</a>
+                <a href="#categories" class="toc-link">Categories</a>
+                <a href="#examples" class="toc-link">Code Examples</a>
+                <a href="#filtering" class="toc-link">Client Filtering</a>
+                <a href="#changelog" class="toc-link">Changelog</a>
+            </div>
+        </aside>
+
+        <main class="flex-1 min-w-0">
+
+            <!-- OVERVIEW -->
+            <div id="overview" class="docs-section">
+                <h2 class="brand-font text-xl sm:text-2xl mb-3">1. Overview</h2>
+                <p class="text-sm opacity-70 leading-relaxed mb-3">
+                    N(DATA) exposes its entire product archive as a single, publicly accessible JSON file.
+                    There is no authentication, no API key, and no rate limit. You fetch the file, you get all the data.
+                </p>
+                <p class="text-sm opacity-70 leading-relaxed">
+                    The data lives at a static path on the same domain. This design keeps things simple and fast for everyone.
+                    The file is updated whenever new items are added to the archive.
+                </p>
+            </div>
+
+            <!-- ENDPOINT -->
+            <div id="endpoint" class="docs-section">
+                <h2 class="brand-font text-xl sm:text-2xl mb-3">2. Data Endpoint</h2>
+                <p class="text-sm opacity-70 mb-3">One endpoint. Returns the full product array as JSON.</p>
+                <div class="docs-code">
+                    <span class="kw">GET</span> /api/data/data.json
+                </div>
+                <p class="text-sm opacity-70 mb-3">Response is an array of product objects. HTTP 200 on success.</p>
+
+                <p class="text-xs font-mono opacity-50 mb-2 mt-4">RESPONSE HEADERS</p>
+                <div class="docs-code">
+                    Content-Type: application/json<br>
+                    Access-Control-Allow-Origin: *
+                </div>
+
+                <p class="text-xs font-mono opacity-50 mb-2 mt-4">UPDATES ENDPOINT</p>
+                <div class="docs-code">
+                    <span class="kw">GET</span> /api/data/updates-data.json
+                </div>
+                <p class="text-sm opacity-70">Changelog and update records for the archive.</p>
+            </div>
+
+            <!-- SCHEMA -->
+            <div id="schema" class="docs-section">
+                <h2 class="brand-font text-xl sm:text-2xl mb-3">3. Data Schema</h2>
+                <p class="text-sm opacity-70 mb-4">Each item in the array follows this structure:</p>
+
+                <div class="overflow-x-auto mb-6">
+                    <table class="docs-table">
+                        <thead>
+                            <tr>
+                                <th>Field</th>
+                                <th>Type</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><code>id</code></td>
+                                <td><span class="type-badge type-str">string</span></td>
+                                <td>Unique identifier. Format: <code>prefix-NNNNNN</code> (e.g. <code>phn-000001</code>). Auto-assigned if not present in source data.</td>
+                            </tr>
+                            <tr>
+                                <td><code>name</code></td>
+                                <td><span class="type-badge type-str">string</span></td>
+                                <td>Full product name.</td>
+                            </tr>
+                            <tr>
+                                <td><code>brand</code></td>
+                                <td><span class="type-badge type-str">string</span></td>
+                                <td>Manufacturer or brand name.</td>
+                            </tr>
+                            <tr>
+                                <td><code>category</code></td>
+                                <td><span class="type-badge type-str">string</span></td>
+                                <td>Product category slug. See Categories section.</td>
+                            </tr>
+                            <tr>
+                                <td><code>price</code></td>
+                                <td><span class="type-badge type-num">number</span></td>
+                                <td>Base price in USD at time of indexing.</td>
+                            </tr>
+                            <tr>
+                                <td><code>description</code></td>
+                                <td><span class="type-badge type-str">string</span></td>
+                                <td>Short product description.</td>
+                            </tr>
+                            <tr>
+                                <td><code>images</code></td>
+                                <td><span class="type-badge type-arr">array</span></td>
+                                <td>Array of image URLs. May be empty.</td>
+                            </tr>
+                            <tr>
+                                <td><code>specs</code></td>
+                                <td><span class="type-badge type-obj">object</span></td>
+                                <td>Key-value map of technical specifications. Keys use snake_case. Values are strings.</td>
+                            </tr>
+                            <tr>
+                                <td><code>diy_resources</code></td>
+                                <td><span class="type-badge type-arr">array</span></td>
+                                <td>Optional. Array of repair/guide objects with <code>title</code>, <code>url</code>, <code>description</code>, <code>icon</code>, and <code>type</code> fields.</td>
+                            </tr>
+                            <tr>
+                                <td><code>date_added</code></td>
+                                <td><span class="type-badge type-str">string</span></td>
+                                <td>Optional. ISO date string (YYYY-MM-DD) when item was indexed.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <p class="text-xs font-mono opacity-50 mb-2">EXAMPLE OBJECT</p>
+                <div class="docs-code">
+{<br>
+&nbsp;&nbsp;<span class="str">"id"</span>: <span class="str">"phn-000001"</span>,<br>
+&nbsp;&nbsp;<span class="str">"name"</span>: <span class="str">"Phone (2a)"</span>,<br>
+&nbsp;&nbsp;<span class="str">"brand"</span>: <span class="str">"Nothing"</span>,<br>
+&nbsp;&nbsp;<span class="str">"category"</span>: <span class="str">"smartphones"</span>,<br>
+&nbsp;&nbsp;<span class="str">"price"</span>: <span class="num">349</span>,<br>
+&nbsp;&nbsp;<span class="str">"description"</span>: <span class="str">"A uniquely designed smartphone..."</span>,<br>
+&nbsp;&nbsp;<span class="str">"images"</span>: [<span class="str">"https://..."</span>],<br>
+&nbsp;&nbsp;<span class="str">"specs"</span>: {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="str">"processor"</span>: <span class="str">"MediaTek Dimensity 7200 Pro"</span>,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="str">"ram"</span>: <span class="str">"12GB"</span>,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="str">"display"</span>: <span class="str">"6.7-inch AMOLED 120Hz"</span><br>
+&nbsp;&nbsp;},<br>
+&nbsp;&nbsp;<span class="str">"diy_resources"</span>: [<br>
+&nbsp;&nbsp;&nbsp;&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="str">"title"</span>: <span class="str">"Teardown Guide"</span>,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="str">"url"</span>: <span class="str">"https://..."</span>,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="str">"icon"</span>: <span class="str">"wrench"</span>,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="str">"description"</span>: <span class="str">"Step-by-step teardown."</span>,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="str">"type"</span>: <span class="str">"REPAIR GUIDE"</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;]<br>
+}
+                </div>
+            </div>
+
+            <!-- CATEGORIES -->
+            <div id="categories" class="docs-section">
+                <h2 class="brand-font text-xl sm:text-2xl mb-3">4. Categories</h2>
+                <p class="text-sm opacity-70 mb-4">Valid values for the <code>category</code> field:</p>
+                <div class="overflow-x-auto">
+                    <table class="docs-table">
+                        <thead><tr><th>Slug</th><th>Label</th></tr></thead>
+                        <tbody>
+                            <tr><td><code>smartphones</code></td><td>Smartphones and mobile phones</td></tr>
+                            <tr><td><code>laptops</code></td><td>Laptops and portable computers</td></tr>
+                            <tr><td><code>tablets</code></td><td>Tablets and e-readers</td></tr>
+                            <tr><td><code>wearables</code></td><td>Smartwatches, earbuds, and audio gear</td></tr>
+                            <tr><td><code>components</code></td><td>CPUs, GPUs, RAM, storage</td></tr>
+                            <tr><td><code>cameras</code></td><td>Digital cameras and lenses</td></tr>
+                            <tr><td><code>gaming</code></td><td>Consoles, handhelds, and peripherals</td></tr>
+                            <tr><td><code>monitors</code></td><td>Displays and projectors</td></tr>
+                            <tr><td><code>networking</code></td><td>Routers, switches, and access points</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- EXAMPLES -->
+            <div id="examples" class="docs-section">
+                <h2 class="brand-font text-xl sm:text-2xl mb-3">5. Code Examples</h2>
+
+                <p class="text-xs font-mono opacity-50 mb-2">JAVASCRIPT (FETCH)</p>
+                <div class="docs-code">
+<span class="cmt">// Fetch all items</span><br>
+<span class="kw">const</span> res = <span class="kw">await</span> fetch(<span class="str">'/api/data/data.json'</span>);<br>
+<span class="kw">const</span> items = <span class="kw">await</span> res.json();<br><br>
+<span class="cmt">// Filter by category</span><br>
+<span class="kw">const</span> phones = items.filter(i => i.category === <span class="str">'smartphones'</span>);<br><br>
+<span class="cmt">// Get by ID</span><br>
+<span class="kw">const</span> item = items.find(i => i.id === <span class="str">'phn-000001'</span>);
+                </div>
+
+                <p class="text-xs font-mono opacity-50 mb-2 mt-4">PYTHON (REQUESTS)</p>
+                <div class="docs-code">
+<span class="kw">import</span> requests<br><br>
+res = requests.get(<span class="str">'https://your-domain.com/api/data/data.json'</span>)<br>
+items = res.json()<br><br>
+<span class="cmt"># Filter by brand</span><br>
+samsung = [i <span class="kw">for</span> i <span class="kw">in</span> items <span class="kw">if</span> i[<span class="str">'brand'</span>] == <span class="str">'Samsung'</span>]<br><br>
+<span class="cmt"># Sort by price</span><br>
+by_price = sorted(items, key=<span class="kw">lambda</span> x: x[<span class="str">'price'</span>])
+                </div>
+
+                <p class="text-xs font-mono opacity-50 mb-2 mt-4">CURL</p>
+                <div class="docs-code">
+curl https://your-domain.com/api/data/data.json<br>
+<span class="cmt"># Pretty print with jq</span><br>
+curl https://your-domain.com/api/data/data.json | jq '.[0]'
+                </div>
+            </div>
+
+            <!-- CLIENT FILTERING -->
+            <div id="filtering" class="docs-section">
+                <h2 class="brand-font text-xl sm:text-2xl mb-3">6. Client-Side Filtering</h2>
+                <p class="text-sm opacity-70 mb-3 leading-relaxed">
+                    Since the API returns all data in one request, filtering and searching happen on the client side.
+                    Below are common patterns:
+                </p>
+                <div class="docs-code">
+<span class="cmt">// Search across name, brand, description, and specs</span><br>
+<span class="kw">function</span> search(items, query) {<br>
+&nbsp;&nbsp;<span class="kw">const</span> q = query.toLowerCase();<br>
+&nbsp;&nbsp;<span class="kw">return</span> items.filter(item =&gt; {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">const</span> fields = [item.name, item.brand, item.description];<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">const</span> specVals = Object.values(item.specs || {});<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">return</span> [...fields, ...specVals].some(v =&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;String(v).toLowerCase().includes(q)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;);<br>
+&nbsp;&nbsp;});<br>
+}<br><br>
+<span class="cmt">// Sort by price ascending</span><br>
+items.sort((a, b) =&gt; a.price - b.price);
+                </div>
+            </div>
+
+            <!-- CHANGELOG -->
+            <div id="changelog" class="docs-section">
+                <h2 class="brand-font text-xl sm:text-2xl mb-3">7. Changelog</h2>
+                <div class="space-y-4">
+                    <div class="border border-gray-200 dark:border-gray-700 p-4">
+                        <div class="flex items-center gap-3 mb-1">
+                            <span class="font-mono text-xs font-bold text-red-600">v1.11.0</span>
+                            <span class="font-mono text-xs opacity-40">2026-05-10</span>
+                        </div>
+                        <p class="text-xs opacity-70">Added bookmarks, compare (up to 4 items), sort by price/date, halftone card image shaders, auto image scroll on hover, keyboard shortcut (/), multi-language support (EN/AR/JP/DE), auto ID assignment, new categories (gaming, monitors, networking), EUR and GBP currencies, full docs and API pages.</p>
+                    </div>
+                    <div class="border border-gray-200 dark:border-gray-700 p-4">
+                        <div class="flex items-center gap-3 mb-1">
+                            <span class="font-mono text-xs font-bold">v1.10.1</span>
+                            <span class="font-mono text-xs opacity-40">2026-05-09</span>
+                        </div>
+                        <p class="text-xs opacity-70">Previous release. Base feature set with search, category filters, product modal, lightbox, dark mode, currency conversion.</p>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <footer class="border-t border-gray-300 dark:border-gray-800 px-4 sm:px-6 py-8 mt-auto">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-start gap-6">
+            <p class="text-xs opacity-40 font-mono">N(DATA) - Open source tech archive. MIT License.</p>
+            <div class="flex gap-6 text-xs font-mono opacity-50">
+                <a href="/" class="hover:opacity-100 hover:text-red-600 transition-all">Home</a>
+                <a href="/api/api" class="hover:opacity-100 hover:text-red-600 transition-all">API Page</a>
+                <a href="https://github.com/Abdulaziz-hu/NData" target="_blank" class="hover:opacity-100 hover:text-red-600 transition-all">GitHub</a>
+            </div>
+        </div>
+    </footer>
 
     <script src="/static/js/simple-func.js"></script>
-    <script src="/static/js/app.js"></script>
     <script src="/static/js/version.js"></script>
 </body>
 </html>

@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- THEME FLASH PREVENTION: inline script runs before body renders -->
     <script>
         (function() {
             var saved = localStorage.getItem('theme');
@@ -12,154 +11,370 @@
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>API Overview | N(DATA)</title>
+    <title>API Explorer | N(DATA)</title>
     <link rel="icon" href="/assets/logos/svg/ndata_logo.svg">
-    
     <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {}
-            }
-        }
-    </script>
-    
+    <script>tailwind.config = { darkMode: 'class', theme: { extend: {} } }</script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="https://fonts.googleapis.com/css2?family=DotGothic16&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-
     <script src="https://unpkg.com/lucide@latest"></script>
-
     <link rel="stylesheet" href="/static/css/style.css">
+    <style>
+        .api-panel { background: var(--code-bg); border: 1px solid var(--border); box-shadow: 2px 2px 0 var(--code-shadow); }
+        .api-input { background: transparent; border: 1px solid var(--border); padding: 0.5rem 0.75rem; font-family: monospace; font-size: 0.85rem; width: 100%; color: var(--text-color); outline: none; transition: border-color 0.2s; }
+        .api-input:focus { border-color: var(--accent-red); }
+        .api-select { background: var(--bg-color); border: 1px solid var(--border); padding: 0.4rem 0.6rem; font-family: monospace; font-size: 0.8rem; color: var(--text-color); cursor: pointer; }
+        .api-select:focus { outline: 1px solid var(--accent-red); }
+        .result-box { background: var(--bg-color); border: 1px solid var(--border); font-family: 'Courier New', monospace; font-size: 0.75rem; padding: 1rem; overflow: auto; max-height: 500px; white-space: pre; word-break: break-all; }
+        .stat-card { border: 1px solid var(--border); padding: 1rem; text-align: center; }
+        .method-badge { display: inline-block; font-family: monospace; font-size: 0.7rem; font-weight: bold; padding: 2px 8px; background: rgba(34,197,94,0.2); color: #16a34a; border-radius: 2px; margin-right: 8px; }
+        .dark-mode .method-badge { color: #4ade80; }
+        #json-output { color: var(--text-color); }
+        .json-key { color: #dc2626; }
+        .json-str { color: #16a34a; }
+        .dark-mode .json-str { color: #4ade80; }
+        .json-num { color: #2563eb; }
+        .dark-mode .json-num { color: #60a5fa; }
+        .json-bool { color: #9333ea; }
+    </style>
 </head>
 <body class="min-h-screen flex flex-col">
 
     <nav class="sticky top-0 z-50 glass-panel px-4 sm:px-6 py-4 flex justify-between items-center">
-        <div class="flex items-center gap-2 sm:gap-3 group cursor-pointer" onclick="app.reset()">
+        <div class="flex items-center gap-2 sm:gap-3 group cursor-pointer" onclick="window.location='/'">
             <div class="w-6 h-6 sm:w-8 sm:h-8 bg-red-600 rounded-full group-hover:scale-110 transition-transform"></div>
             <span class="text-xl sm:text-2xl brand-font font-bold tracking-tighter"><a href="/">N(DATA)</a></span>
         </div>
-        
         <div class="hidden md:flex items-center gap-6">
             <a href="/" class="hover:text-red-600 transition-colors brand-font text-sm">HOME</a>
             <a href="/pages/about" class="hover:text-red-600 transition-colors brand-font text-sm">ABOUT</a>
             <a href="/pages/updates" class="hover:text-red-600 transition-colors brand-font text-sm">UPDATES</a>
             <a href="/api/docs" class="hover:text-red-600 transition-colors brand-font text-sm">DOCS</a>
             <a href="/api/api" class="underline decoration-red-600 decoration-2 underline-offset-4 hover:text-red-600 transition-colors brand-font text-sm">API</a>
-            
-            <!-- Currency Selector -->
-            <div class="relative currency-selector">
-                <button id="currency-toggle" class="p-2 hover:bg-gray-300 dark:hover:bg-gray-800 rounded-full transition flex items-center gap-1">
-                    <span id="currency-symbol" class="text-sm font-mono">$</span>
-                </button>
-                <div id="currency-dropdown" class="hidden absolute right-0 mt-2 text-red-500 bg-gray-300 dark:bg-zinc-900 border border-gray-300 dark:border-gray-700 rounded shadow-lg min-w-[120px] z-50">
-                    <button data-currency="USD" class="w-full px-4 py-2 text-left hover:text-red-500 hover:bg-black dark:hover:bg-black transition flex items-center gap-2 text-sm font-mono">
-                        <span>$</span>
-                        <span>USD</span>
-                    </button>
-                    <button data-currency="SAR" class="w-full px-4 py-2 text-left hover:text-red-500 hover:bg-black dark:hover:bg-black transition flex items-center gap-2 text-sm font-mono">
-                        <i class="sr"></i>
-                        <span>SAR</span>
-                    </button>
-                    <button data-currency="JPY" class="w-full px-4 py-2 text-left hover:text-red-500 hover:bg-black dark:hover:bg-black transition flex items-center gap-2 text-sm font-mono">
-                        <span>¥</span>
-                        <span>JPY</span>
-                    </button>
-                </div>
-            </div>
-            
             <button id="theme-toggle" class="p-2 hover:bg-gray-300 dark:hover:bg-gray-800 rounded-full transition">
-                <i data-lucide="moon" class="w-5 h-5"></i>
+                <i data-lucide="moon" data-theme-icon class="w-5 h-5"></i>
             </button>
         </div>
-        
         <button class="md:hidden p-2" id="mobile-menu-btn">
             <i data-lucide="menu" class="w-6 h-6"></i>
         </button>
     </nav>
-
     <div id="mobile-menu" class="fixed inset-0 z-[60] hidden md:hidden">
         <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" id="mobile-menu-backdrop"></div>
         <div class="absolute right-0 top-0 h-full w-64 glass-panel transform transition-transform duration-300 translate-x-full" id="mobile-menu-panel">
             <div class="p-6 flex flex-col gap-6">
-                <button id="mobile-menu-close" class="self-end">
-                    <i data-lucide="x" class="w-6 h-6"></i>
-                </button>
+                <button id="mobile-menu-close" class="self-end"><i data-lucide="x" class="w-6 h-6"></i></button>
                 <a href="/" class="hover:text-red-600 transition-colors brand-font text-sm">HOME</a>
                 <a href="/pages/about" class="hover:text-red-600 transition-colors brand-font text-sm">ABOUT</a>
                 <a href="/pages/updates" class="hover:text-red-600 transition-colors brand-font text-sm">UPDATES</a>
                 <a href="/api/docs" class="hover:text-red-600 transition-colors brand-font text-sm">DOCS</a>
                 <a href="/api/api" class="underline decoration-red-600 decoration-2 underline-offset-4 hover:text-red-600 transition-colors brand-font text-sm">API</a>
-                
-                <!-- Mobile Currency Selector -->
-                <div class="border-t border-gray-300 dark:border-gray-700 pt-4">
-                    <span class="text-xs opacity-50 font-mono mb-2 block">CURRENCY</span>
-                    <div class="flex flex-col gap-2">
-                        <button data-currency="USD" class="mobile-currency-btn flex items-center gap-2 hover:text-red-500 transition-colors brand-font text-sm">
-                            <span>$</span>
-                            <span>USD</span>
-                        </button>
-                        <button data-currency="SAR" class="mobile-currency-btn flex items-center gap-2 hover:text-red-500 transition-colors brand-font text-sm">
-                            <i class="sr"></i>
-                            <span>SAR</span>
-                        </button>
-                        <button data-currency="JPY" class="mobile-currency-btn flex items-center gap-2 hover:text-red-500 transition-colors brand-font text-sm">
-                            <span>¥</span>
-                            <span>JPY</span>
-                        </button>
-                    </div>
-                </div>
-                
                 <button id="mobile-theme-toggle" class="flex items-center gap-2 hover:text-red-600 transition-colors brand-font text-sm border-t border-gray-300 dark:border-gray-700 pt-4">
-                    <i data-lucide="moon" class="w-5 h-5"></i>
+                    <i data-lucide="moon" data-theme-icon class="w-5 h-5"></i>
                     <span>TOGGLE THEME</span>
                 </button>
             </div>
         </div>
     </div>
 
-    <header class="px-4 sm:px-6 py-8 sm:py-12 md:py-24 max-w-7xl mx-auto w-full">
-        <h1 class="text-4xl sm:text-5xl md:text-8xl font-black mb-4 sm:mb-6 leading-none">
-            A P I .<br><span class="text-red-600">U S A G E .</span> <span class="brand-font text-xs brand-font-spaced">IN THE WORKS..</span>
+    <header class="px-4 sm:px-6 py-10 sm:py-16 md:py-20 max-w-7xl mx-auto w-full">
+        <h1 class="text-4xl sm:text-5xl md:text-7xl font-black mb-4 sm:mb-6 leading-none">
+            A P I.<br><span class="text-red-600">E X P L O R E R.</span>
         </h1>
-        <!-- <p>N(DATA) is powered by a single, publicly accessible JSON file that serves as its conceptual API.</p> -->
+        <p class="text-base sm:text-lg max-w-2xl opacity-70 mb-2">
+            Test the live data endpoint directly in your browser. Filter, search, and download results.
+        </p>
+        <p style="font-size:14px;opacity:0.3;font-family:monospace;">
+            Version <span id="app-version">0.0.0</span>
+        </p>
     </header>
 
-    <!-- <section class="px-4 sm:px-6 max-w-5xl mx-auto mb-24">
-        <h2 class="brand-font text-2xl mt-8 border-b border-current pb-2 opacity-70">1. Data Endpoint</h2>
-            <p>The entire product archive is available via a simple GET request:</p> <br>
-            <div class="p-3 sm:p-4 rounded text-xs overflow-x-auto code-style">
-                <span class="text-red-500">GET</span> /data.json
+    <main class="max-w-7xl mx-auto w-full px-4 sm:px-6 pb-20 flex flex-col gap-10">
+
+        <!-- Stats row -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4" id="stats-row">
+            <div class="stat-card"><p class="brand-font text-xs opacity-40 mb-1">TOTAL ITEMS</p><p id="stat-total" class="text-3xl font-black">-</p></div>
+            <div class="stat-card"><p class="brand-font text-xs opacity-40 mb-1">CATEGORIES</p><p id="stat-cats" class="text-3xl font-black">-</p></div>
+            <div class="stat-card"><p class="brand-font text-xs opacity-40 mb-1">BRANDS</p><p id="stat-brands" class="text-3xl font-black">-</p></div>
+            <div class="stat-card"><p class="brand-font text-xs opacity-40 mb-1">AVG. PRICE (USD)</p><p id="stat-price" class="text-3xl font-black">-</p></div>
+        </div>
+
+        <!-- Endpoint info -->
+        <div class="api-panel p-5">
+            <p class="brand-font text-xs opacity-40 mb-3 tracking-widest">LIVE ENDPOINT</p>
+            <div class="flex flex-wrap gap-3 items-center mb-4">
+                <span class="method-badge">GET</span>
+                <code id="endpoint-url" class="text-sm font-mono break-all">/api/data/data.json</code>
+                <button onclick="apiExplorer.copyEndpoint()" class="btn-raw text-xs px-3 py-1 ml-auto flex-shrink-0">COPY URL</button>
+                <a href="/api/data/data.json" target="_blank" class="btn-raw text-xs px-3 py-1 flex-shrink-0">OPEN RAW</a>
+            </div>
+            <p class="text-xs opacity-50 font-mono">No authentication required. No rate limit. CORS: *</p>
+        </div>
+
+        <!-- Explorer -->
+        <div class="api-panel p-5">
+            <p class="brand-font text-xs opacity-40 mb-4 tracking-widest">QUERY EXPLORER</p>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 mb-4">
+                <div>
+                    <label class="text-xs font-mono opacity-50 block mb-1">CATEGORY</label>
+                    <select id="filter-category" class="api-select w-full">
+                        <option value="">All categories</option>
+                        <option value="smartphones">smartphones</option>
+                        <option value="laptops">laptops</option>
+                        <option value="tablets">tablets</option>
+                        <option value="wearables">wearables</option>
+                        <option value="components">components</option>
+                        <option value="cameras">cameras</option>
+                        <option value="gaming">gaming</option>
+                        <option value="monitors">monitors</option>
+                        <option value="networking">networking</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="text-xs font-mono opacity-50 block mb-1">SEARCH</label>
+                    <input type="text" id="filter-search" class="api-input" placeholder="brand, name, spec...">
+                </div>
+                <div>
+                    <label class="text-xs font-mono opacity-50 block mb-1">SORT</label>
+                    <select id="filter-sort" class="api-select w-full">
+                        <option value="">Default</option>
+                        <option value="price-asc">Price: Low to High</option>
+                        <option value="price-desc">Price: High to Low</option>
+                        <option value="name-asc">Name A-Z</option>
+                        <option value="name-desc">Name Z-A</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="text-xs font-mono opacity-50 block mb-1">LIMIT</label>
+                    <select id="filter-limit" class="api-select w-full">
+                        <option value="5">5 results</option>
+                        <option value="10" selected>10 results</option>
+                        <option value="20">20 results</option>
+                        <option value="0">All results</option>
+                    </select>
+                </div>
             </div>
 
-        <h2 class="brand-font text-2xl mt-8 border-b border-current pb-2 opacity-70">2. Data Structure (Schema)</h2>
-            <p>Each object in the JSON array conforms to the following schema. All fields are designed to be comprehensive and future-proof.</p><br>
-            <div class="p-3 sm:p-4 rounded text-xs overflow-x-auto space-y-2 code-style">
-                <p>"id": <span class="text-green-500">string</span> (Unique product identifier, e.g., "phn-001")</p>
-                <p>"name": <span class="text-green-500">string</span> (Product name)</p>
-                <p>"brand": <span class="text-green-500">string</span></p>
-                <p>"category": <span class="text-green-500">string</span></p>
-                <p>"price": <span class="text-green-500">number</span> (Base price)</p>
-                <p>"currency_base": <span class="text-green-500">string</span> (Currency code for price, e.g., "USD")</p>
-                <p>"release_date": <span class="text-green-500">string</span> (ISO format or "N/A")</p>
-                <p>"status": <span class="text-green-500">string</span> ("Available", "Discontinued", etc.)</p>
-                <p>"description": <span class="text-green-500">string</span></p>
-                <p>"images": <span class="text-green-500">array</span> of <span class="text-green-500">string</span> (URLs)</p>
-                <p>"specs": <span class="text-green-500">object</span> (Key-value technical specifications, value is "N/A" if empty)</p>
-                <p>"diy_links": <span class="text-green-500">object</span> (Nested object of repair categories -> array of {title, url} links)</p>
+            <div class="flex flex-wrap gap-2 items-center mb-4">
+                <button onclick="apiExplorer.run()" class="btn-raw px-5 py-2 text-sm flex items-center gap-2">
+                    <i data-lucide="play" class="w-4 h-4"></i> RUN QUERY
+                </button>
+                <button onclick="apiExplorer.reset()" class="btn-raw px-4 py-2 text-sm">RESET</button>
+                <button onclick="apiExplorer.download()" class="btn-raw px-4 py-2 text-sm flex items-center gap-2">
+                    <i data-lucide="download" class="w-4 h-4"></i> DOWNLOAD JSON
+                </button>
+                <button onclick="apiExplorer.copyResult()" class="btn-raw px-4 py-2 text-sm">COPY RESULT</button>
+                <span id="result-count" class="font-mono text-xs opacity-50 ml-auto"></span>
             </div>
-        
-        <h2 class="brand-font text-2xl mt-8 border-b border-current pb-2 opacity-70">3. API Documentation</h2>
-            <p>Full API documentation (including rate limits, filtering, and query examples) will be available on the dedicated 
-                <a  class="links not-allowed" title="Not Available">API Docs page</a> (in the works..) in a later release. 
-                For now, please refer to the structure of <span class="code-style">data.json</span>.
-            </p>
-    </section> -->
+
+            <!-- Output -->
+            <div>
+                <div class="flex justify-between items-center mb-2">
+                    <span class="font-mono text-xs opacity-40">RESPONSE</span>
+                    <div class="flex gap-2">
+                        <button onclick="apiExplorer.setView('json')" id="view-json" class="btn-raw text-xs px-3 py-1 active">JSON</button>
+                        <button onclick="apiExplorer.setView('table')" id="view-table" class="btn-raw text-xs px-3 py-1">TABLE</button>
+                    </div>
+                </div>
+                <div id="json-view">
+                    <div class="result-box" id="json-output">
+                        <span style="opacity:0.3;">// Click RUN QUERY to fetch data...</span>
+                    </div>
+                </div>
+                <div id="table-view" class="hidden overflow-x-auto">
+                    <table class="w-full text-xs font-mono border-collapse" id="table-output">
+                        <tbody><tr><td class="p-2 opacity-40">Run a query to see table view.</td></tr></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Raw data links -->
+        <div class="api-panel p-5">
+            <p class="brand-font text-xs opacity-40 mb-4 tracking-widest">RAW DATA FILES</p>
+            <div class="space-y-3">
+                <a href="/api/data/data.json" target="_blank" class="flex items-center justify-between p-3 border border-gray-200 dark:border-gray-700 hover:border-red-600 transition-colors group">
+                    <div>
+                        <p class="font-bold text-sm group-hover:text-red-600 transition-colors font-mono">data.json</p>
+                        <p class="text-xs opacity-60">Full product archive. Updated periodically.</p>
+                    </div>
+                    <i data-lucide="external-link" class="w-4 h-4 opacity-40 group-hover:opacity-100 group-hover:text-red-600"></i>
+                </a>
+                <a href="/api/data/updates-data.json" target="_blank" class="flex items-center justify-between p-3 border border-gray-200 dark:border-gray-700 hover:border-red-600 transition-colors group">
+                    <div>
+                        <p class="font-bold text-sm group-hover:text-red-600 transition-colors font-mono">updates-data.json</p>
+                        <p class="text-xs opacity-60">Changelog and update records.</p>
+                    </div>
+                    <i data-lucide="external-link" class="w-4 h-4 opacity-40 group-hover:opacity-100 group-hover:text-red-600"></i>
+                </a>
+            </div>
+        </div>
+
+    </main>
+
+    <footer class="border-t border-gray-300 dark:border-gray-800 px-4 sm:px-6 py-8 mt-auto">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-start gap-6">
+            <p class="text-xs opacity-40 font-mono">N(DATA) - Open source tech archive. MIT License.</p>
+            <div class="flex gap-6 text-xs font-mono opacity-50">
+                <a href="/" class="hover:opacity-100 hover:text-red-600 transition-all">Home</a>
+                <a href="/api/docs" class="hover:opacity-100 hover:text-red-600 transition-all">Docs</a>
+                <a href="https://github.com/Abdulaziz-hu/NData" target="_blank" class="hover:opacity-100 hover:text-red-600 transition-all">GitHub</a>
+            </div>
+        </div>
+    </footer>
 
     <script src="/static/js/simple-func.js"></script>
-    <script src="/static/js/app.js"></script>
     <script src="/static/js/version.js"></script>
+    <script>
+    const apiExplorer = (() => {
+        let allData = [];
+        let lastResult = [];
+        let currentView = 'json';
+
+        async function loadData() {
+            try {
+                const res = await fetch('/api/data/data.json');
+                allData = await res.json();
+                updateStats(allData);
+            } catch (e) {
+                document.getElementById('json-output').textContent = '// Error loading data: ' + e.message;
+            }
+        }
+
+        function updateStats(data) {
+            document.getElementById('stat-total').textContent = data.length;
+            document.getElementById('stat-cats').textContent = new Set(data.map(i => i.category)).size;
+            document.getElementById('stat-brands').textContent = new Set(data.map(i => i.brand)).size;
+            const avgPrice = Math.round(data.reduce((s, i) => s + (i.price || 0), 0) / data.length);
+            document.getElementById('stat-price').textContent = '$' + avgPrice.toLocaleString();
+        }
+
+        function syntaxHighlight(json) {
+            json = json.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+            return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function(match) {
+                let cls = 'json-num';
+                if (/^"/.test(match)) {
+                    cls = /:$/.test(match) ? 'json-key' : 'json-str';
+                } else if (/true|false/.test(match)) {
+                    cls = 'json-bool';
+                }
+                return '<span class="' + cls + '">' + match + '</span>';
+            });
+        }
+
+        function run() {
+            const cat = document.getElementById('filter-category').value;
+            const search = document.getElementById('filter-search').value.toLowerCase();
+            const sort = document.getElementById('filter-sort').value;
+            const limit = parseInt(document.getElementById('filter-limit').value) || 0;
+
+            let result = [...allData];
+
+            if (cat) result = result.filter(i => i.category === cat);
+            if (search) {
+                result = result.filter(i => {
+                    const fields = [i.name, i.brand, i.description, i.category];
+                    const specs = Object.values(i.specs || {});
+                    return [...fields, ...specs].some(v => String(v).toLowerCase().includes(search));
+                });
+            }
+
+            switch (sort) {
+                case 'price-asc':  result.sort((a, b) => a.price - b.price); break;
+                case 'price-desc': result.sort((a, b) => b.price - a.price); break;
+                case 'name-asc':   result.sort((a, b) => a.name.localeCompare(b.name)); break;
+                case 'name-desc':  result.sort((a, b) => b.name.localeCompare(a.name)); break;
+            }
+
+            if (limit > 0) result = result.slice(0, limit);
+            lastResult = result;
+
+            document.getElementById('result-count').textContent = result.length + ' results';
+
+            if (currentView === 'json') {
+                const out = document.getElementById('json-output');
+                out.innerHTML = syntaxHighlight(JSON.stringify(result, null, 2));
+            } else {
+                renderTable(result);
+            }
+        }
+
+        function renderTable(data) {
+            if (!data.length) {
+                document.getElementById('table-output').innerHTML = '<tbody><tr><td class="p-2 opacity-40">No results.</td></tr></tbody>';
+                return;
+            }
+            const cols = ['id', 'brand', 'name', 'category', 'price'];
+            const thead = '<thead><tr>' + cols.map(c => `<th class="p-2 border border-gray-300 dark:border-gray-700 text-left font-mono text-xs bg-gray-200 dark:bg-gray-800">${c.toUpperCase()}</th>`).join('') + '</tr></thead>';
+            const tbody = '<tbody>' + data.map(item =>
+                '<tr class="hover:bg-gray-100 dark:hover:bg-gray-900 transition-colors">' +
+                cols.map(c => `<td class="p-2 border border-gray-200 dark:border-gray-800 font-mono text-xs">${String(item[c] || '-').substring(0, 60)}</td>`).join('') +
+                '</tr>'
+            ).join('') + '</tbody>';
+            document.getElementById('table-output').innerHTML = thead + tbody;
+        }
+
+        function setView(view) {
+            currentView = view;
+            document.getElementById('json-view').classList.toggle('hidden', view !== 'json');
+            document.getElementById('table-view').classList.toggle('hidden', view !== 'table');
+            document.getElementById('view-json').classList.toggle('active', view === 'json');
+            document.getElementById('view-table').classList.toggle('active', view === 'table');
+            if (lastResult.length > 0) {
+                if (view === 'table') renderTable(lastResult);
+                else document.getElementById('json-output').innerHTML = syntaxHighlight(JSON.stringify(lastResult, null, 2));
+            }
+        }
+
+        function reset() {
+            document.getElementById('filter-category').value = '';
+            document.getElementById('filter-search').value = '';
+            document.getElementById('filter-sort').value = '';
+            document.getElementById('filter-limit').value = '10';
+            document.getElementById('json-output').innerHTML = '<span style="opacity:0.3;">// Filters reset. Click RUN QUERY to fetch data...</span>';
+            document.getElementById('result-count').textContent = '';
+            lastResult = [];
+        }
+
+        function download() {
+            const data = lastResult.length ? lastResult : allData;
+            const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = 'ndata-export.json';
+            a.click();
+        }
+
+        async function copyResult() {
+            const text = lastResult.length ? JSON.stringify(lastResult, null, 2) : '// No results yet.';
+            try {
+                await navigator.clipboard.writeText(text);
+            } catch {
+                const ta = document.createElement('textarea');
+                ta.value = text;
+                ta.style.cssText = 'position:fixed;left:-9999px';
+                document.body.appendChild(ta);
+                ta.select();
+                document.execCommand('copy');
+                document.body.removeChild(ta);
+            }
+        }
+
+        function copyEndpoint() {
+            const url = window.location.origin + '/api/data/data.json';
+            navigator.clipboard.writeText(url).catch(() => {});
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            loadData();
+            if (typeof lucide !== 'undefined') lucide.createIcons();
+        });
+
+        return { run, reset, download, copyResult, copyEndpoint, setView };
+    })();
+    </script>
 </body>
 </html>

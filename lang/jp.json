@@ -1,0 +1,97 @@
+{
+  "nav": {
+    "home": "ホーム",
+    "about": "概要",
+    "updates": "更新",
+    "docs": "ドキュメント",
+    "api": "API",
+    "currency": "通貨",
+    "toggle_theme": "テーマ切替",
+    "language": "言語"
+  },
+  "hero": {
+    "line1": "純粋な",
+    "line2": "生の",
+    "line3": "データ",
+    "description": "技術仕様の無料リポジトリ。余計なものなし。データだけ。ウェブインターフェースまたはGithubリポジトリからアクセス可能。",
+    "search_placeholder": "データベースを検索..."
+  },
+  "filters": {
+    "all": "全て",
+    "smartphones": "スマホ",
+    "laptops": "ノートPC",
+    "wearables": "ウェアラブル",
+    "components": "パーツ",
+    "tablets": "タブレット",
+    "cameras": "カメラ",
+    "gaming": "ゲーミング",
+    "monitors": "モニター",
+    "networking": "ネットワーク",
+    "items_indexed": "件登録",
+    "sort_price_asc": "価格: 安い順",
+    "sort_price_desc": "価格: 高い順",
+    "sort_date_new": "新しい順",
+    "sort_date_old": "古い順"
+  },
+  "card": {
+    "copy_specs": "コピー",
+    "copied": "コピー完了!",
+    "bookmark": "ブックマーク",
+    "bookmarked": "保存済み",
+    "compare": "比較"
+  },
+  "modal": {
+    "category": "カテゴリ",
+    "technical_specifications": "技術仕様",
+    "diy_resources": "DIYリソース & ガイド",
+    "raw_json": "生のJSON",
+    "copy": "コピー",
+    "no_images": "画像データなし",
+    "price": "価格",
+    "share": "製品を共有"
+  },
+  "compare": {
+    "title": "比較",
+    "empty": "比較するアイテムを追加 (最大4つ)",
+    "clear": "全て削除",
+    "close": "閉じる"
+  },
+  "bookmarks": {
+    "title": "ブックマーク",
+    "empty": "ブックマークはまだありません。アイテムのアイコンをクリックしてください。",
+    "clear": "全て削除",
+    "close": "閉じる"
+  },
+  "load_more": "さらに読み込む",
+  "no_results": {
+    "title": "結果なし",
+    "description": "スペルを確認するか、別の検索ワードをお試しください。"
+  },
+  "footer": {
+    "description": "オープンソースの技術仕様データベース。透明性のために設計。速度のために構築。",
+    "inspired_by": "デザインのインスピレーション元:",
+    "project": "プロジェクト",
+    "legal": "法的情報",
+    "other": "その他",
+    "github": "GitHub",
+    "updates": "更新",
+    "api_docs": "APIドキュメント",
+    "contribute": "貢献",
+    "privacy": "プライバシー",
+    "terms": "利用規約",
+    "license": "MITライセンス",
+    "report": "報告",
+    "disclaimers": "免責事項",
+    "credits": "クレジット"
+  },
+  "credits": {
+    "title": "クレジット",
+    "libraries": "ライブラリ & フレームワーク",
+    "fonts": "フォント",
+    "inspiration": "インスピレーション",
+    "license": "ライセンス"
+  },
+  "keyboard": {
+    "hint": "/ を押して検索"
+  }
+}

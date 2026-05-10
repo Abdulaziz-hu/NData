@@ -1,0 +1,97 @@
+{
+  "nav": {
+    "home": "الرئيسية",
+    "about": "عن الموقع",
+    "updates": "التحديثات",
+    "docs": "التوثيق",
+    "api": "واجهة البرمجة",
+    "currency": "العملة",
+    "toggle_theme": "تغيير السمة",
+    "language": "اللغة"
+  },
+  "hero": {
+    "line1": "بيانات",
+    "line2": "خام.",
+    "line3": "نقية.",
+    "description": "مستودع مجاني للمواصفات التقنية. بلا فوضى. فقط بيانات. متاح عبر واجهة الويب او مستودع Github.",
+    "search_placeholder": "ابحث في قاعدة البيانات..."
+  },
+  "filters": {
+    "all": "الكل",
+    "smartphones": "الهواتف",
+    "laptops": "الحواسيب",
+    "wearables": "الصوتيات",
+    "components": "المكونات",
+    "tablets": "الاجهزة اللوحية",
+    "cameras": "الكاميرات",
+    "gaming": "الالعاب",
+    "monitors": "الشاشات",
+    "networking": "الشبكات",
+    "items_indexed": "عنصر مفهرس",
+    "sort_price_asc": "السعر: الاقل",
+    "sort_price_desc": "السعر: الاعلى",
+    "sort_date_new": "الاحدث",
+    "sort_date_old": "الاقدم"
+  },
+  "card": {
+    "copy_specs": "نسخ",
+    "copied": "تم النسخ!",
+    "bookmark": "حفظ",
+    "bookmarked": "محفوظ",
+    "compare": "مقارنة"
+  },
+  "modal": {
+    "category": "الفئة",
+    "technical_specifications": "المواصفات التقنية",
+    "diy_resources": "موارد الاصلاح الذاتي",
+    "raw_json": "بيانات JSON",
+    "copy": "نسخ",
+    "no_images": "لا توجد صور متاحة",
+    "price": "السعر",
+    "share": "مشاركة المنتج"
+  },
+  "compare": {
+    "title": "المقارنة",
+    "empty": "اضف عناصر للمقارنة (حتى 4)",
+    "clear": "مسح الكل",
+    "close": "اغلاق"
+  },
+  "bookmarks": {
+    "title": "المحفوظات",
+    "empty": "لا توجد محفوظات. انقر على ايقونة الحفظ على اي عنصر.",
+    "clear": "مسح الكل",
+    "close": "اغلاق"
+  },
+  "load_more": "تحميل المزيد",
+  "no_results": {
+    "title": "لا توجد نتائج",
+    "description": "جرب التحقق من الاخطاء الاملائية او استخدام مصطلحات بحث مختلفة."
+  },
+  "footer": {
+    "description": "قاعدة بيانات مواصفات تقنية مفتوحة المصدر. مصممة للشفافية. مبنية للسرعة.",
+    "inspired_by": "تصميم الموقع مستوحى من",
+    "project": "المشروع",
+    "legal": "القانونية",
+    "other": "اخرى",
+    "github": "GitHub",
+    "updates": "التحديثات",
+    "api_docs": "توثيق API",
+    "contribute": "المساهمة",
+    "privacy": "الخصوصية",
+    "terms": "شروط الخدمة",
+    "license": "رخصة MIT",
+    "report": "الابلاغ",
+    "disclaimers": "اخلاء المسؤولية",
+    "credits": "الاعتمادات"
+  },
+  "credits": {
+    "title": "الاعتمادات",
+    "libraries": "المكتبات والاطر",
+    "fonts": "الخطوط",
+    "inspiration": "مصادر الالهام",
+    "license": "الرخصة"
+  },
+  "keyboard": {
+    "hint": "اضغط / للبحث"
+  }
+}

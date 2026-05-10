@@ -1,0 +1,97 @@
+{
+  "nav": {
+    "home": "HOME",
+    "about": "ABOUT",
+    "updates": "UPDATES",
+    "docs": "DOCS",
+    "api": "API",
+    "currency": "CURRENCY",
+    "toggle_theme": "TOGGLE THEME",
+    "language": "LANGUAGE"
+  },
+  "hero": {
+    "line1": "P U R E.",
+    "line2": "R A W.",
+    "line3": "D A T A.",
+    "description": "A free repository of technical specifications. No clutter. Just data. Accessible via our web interface or Github repository.",
+    "search_placeholder": "SEARCH DATABASE..."
+  },
+  "filters": {
+    "all": "ALL",
+    "smartphones": "PHONES",
+    "laptops": "LAPTOPS",
+    "wearables": "AUDIO/WEAR",
+    "components": "COMPONENTS",
+    "tablets": "TABLETS",
+    "cameras": "CAMERAS",
+    "gaming": "GAMING",
+    "monitors": "MONITORS",
+    "networking": "NETWORKING",
+    "items_indexed": "ITEMS INDEXED",
+    "sort_price_asc": "PRICE: LOW",
+    "sort_price_desc": "PRICE: HIGH",
+    "sort_date_new": "NEWEST",
+    "sort_date_old": "OLDEST"
+  },
+  "card": {
+    "copy_specs": "COPY",
+    "copied": "COPIED!",
+    "bookmark": "Bookmark",
+    "bookmarked": "Bookmarked",
+    "compare": "Compare"
+  },
+  "modal": {
+    "category": "CATEGORY",
+    "technical_specifications": "TECHNICAL SPECIFICATIONS",
+    "diy_resources": "DIY RESOURCES & GUIDES",
+    "raw_json": "RAW JSON",
+    "copy": "COPY",
+    "no_images": "No Visual Data Available",
+    "price": "PRICE",
+    "share": "Share Product"
+  },
+  "compare": {
+    "title": "COMPARE",
+    "empty": "Add items to compare (up to 4)",
+    "clear": "CLEAR ALL",
+    "close": "CLOSE"
+  },
+  "bookmarks": {
+    "title": "BOOKMARKS",
+    "empty": "No bookmarks yet. Click the bookmark icon on any item.",
+    "clear": "CLEAR ALL",
+    "close": "CLOSE"
+  },
+  "load_more": "LOAD MORE",
+  "no_results": {
+    "title": "No Results",
+    "description": "Try checking for typos or using different search terms."
+  },
+  "footer": {
+    "description": "Open source tech specification database. Designed for transparency. Built for speed.",
+    "inspired_by": "Website design inspired by",
+    "project": "PROJECT",
+    "legal": "LEGAL",
+    "other": "OTHER",
+    "github": "GitHub",
+    "updates": "Updates",
+    "api_docs": "API Docs",
+    "contribute": "Contribute",
+    "privacy": "Privacy",
+    "terms": "Terms of Service",
+    "license": "MIT License",
+    "report": "Report",
+    "disclaimers": "Disclaimers",
+    "credits": "Credits"
+  },
+  "credits": {
+    "title": "CREDITS",
+    "libraries": "LIBRARIES & FRAMEWORKS",
+    "fonts": "FONTS",
+    "inspiration": "INSPIRATION",
+    "license": "LICENSE"
+  },
+  "keyboard": {
+    "hint": "Press / to search"
+  }
+}
