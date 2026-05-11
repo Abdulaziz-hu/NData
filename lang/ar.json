@@ -7,31 +7,33 @@
     "api": "واجهة البرمجة",
     "currency": "العملة",
     "toggle_theme": "تغيير السمة",
-    "language": "اللغة"
+    "language": "اللغة",
+    "bookmarks": "المحفوظات",
+    "compare": "مقارنة"
   },
   "hero": {
     "line1": "بيانات",
     "line2": "خام.",
     "line3": "نقية.",
-    "description": "مستودع مجاني للمواصفات التقنية. بلا فوضى. فقط بيانات. متاح عبر واجهة الويب او مستودع Github.",
+    "description": "مستودع مجاني للمواصفات التقنية. بلا فوضى. فقط بيانات. متاح عبر واجهة الويب أو مستودع Github.",
     "search_placeholder": "ابحث في قاعدة البيانات..."
   },
   "filters": {
     "all": "الكل",
     "smartphones": "الهواتف",
     "laptops": "الحواسيب",
-    "wearables": "الصوتيات",
+    "wearables": "الصوتيات والأجهزة القابلة للارتداء",
     "components": "المكونات",
-    "tablets": "الاجهزة اللوحية",
+    "tablets": "الأجهزة اللوحية",
     "cameras": "الكاميرات",
-    "gaming": "الالعاب",
+    "gaming": "الألعاب",
     "monitors": "الشاشات",
     "networking": "الشبكات",
     "items_indexed": "عنصر مفهرس",
-    "sort_price_asc": "السعر: الاقل",
-    "sort_price_desc": "السعر: الاعلى",
-    "sort_date_new": "الاحدث",
-    "sort_date_old": "الاقدم"
+    "sort_price_asc": "السعر: الأقل",
+    "sort_price_desc": "السعر: الأعلى",
+    "sort_date_new": "الأحدث",
+    "sort_date_old": "الأقدم"
   },
   "card": {
     "copy_specs": "نسخ",
@@ -43,7 +45,7 @@
   "modal": {
     "category": "الفئة",
     "technical_specifications": "المواصفات التقنية",
-    "diy_resources": "موارد الاصلاح الذاتي",
+    "diy_resources": "موارد الإصلاح الذاتي والأدلة",
     "raw_json": "بيانات JSON",
     "copy": "نسخ",
     "no_images": "لا توجد صور متاحة",
@@ -52,27 +54,27 @@
   },
   "compare": {
     "title": "المقارنة",
-    "empty": "اضف عناصر للمقارنة (حتى 4)",
+    "empty": "أضف عناصر للمقارنة (حتى 4)",
     "clear": "مسح الكل",
-    "close": "اغلاق"
+    "close": "إغلاق"
   },
   "bookmarks": {
     "title": "المحفوظات",
-    "empty": "لا توجد محفوظات. انقر على ايقونة الحفظ على اي عنصر.",
+    "empty": "لا توجد محفوظات. انقر على أيقونة الحفظ على أي عنصر.",
     "clear": "مسح الكل",
-    "close": "اغلاق"
+    "close": "إغلاق"
   },
   "load_more": "تحميل المزيد",
   "no_results": {
     "title": "لا توجد نتائج",
-    "description": "جرب التحقق من الاخطاء الاملائية او استخدام مصطلحات بحث مختلفة."
+    "description": "جرب التحقق من الأخطاء الإملائية أو استخدام مصطلحات بحث مختلفة."
   },
   "footer": {
     "description": "قاعدة بيانات مواصفات تقنية مفتوحة المصدر. مصممة للشفافية. مبنية للسرعة.",
     "inspired_by": "تصميم الموقع مستوحى من",
     "project": "المشروع",
     "legal": "القانونية",
-    "other": "اخرى",
+    "other": "أخرى",
     "github": "GitHub",
     "updates": "التحديثات",
     "api_docs": "توثيق API",
@@ -80,18 +82,46 @@
     "privacy": "الخصوصية",
     "terms": "شروط الخدمة",
     "license": "رخصة MIT",
-    "report": "الابلاغ",
-    "disclaimers": "اخلاء المسؤولية",
+    "report": "الإبلاغ",
+    "disclaimers": "إخلاء المسؤولية",
     "credits": "الاعتمادات"
   },
   "credits": {
     "title": "الاعتمادات",
-    "libraries": "المكتبات والاطر",
+    "libraries": "المكتبات والأطر",
     "fonts": "الخطوط",
-    "inspiration": "مصادر الالهام",
+    "inspiration": "مصادر الإلهام",
     "license": "الرخصة"
   },
   "keyboard": {
     "hint": "اضغط / للبحث"
+  },
+  "updates_page": {
+    "title_line1": "التقدم",
+    "title_line2": "والتحديثات",
+    "search_placeholder": "ابحث في التحديثات...",
+    "posts_label": "منشور",
+    "filter_all": "الكل",
+    "filter_news": "الأخبار",
+    "filter_updates": "التحديثات",
+    "filter_blogs": "المدونات",
+    "no_results_title": "لا توجد نتائج",
+    "no_results_desc": "جرب تعديل الفلاتر أو مصطلح البحث",
+    "share": "مشاركة",
+    "copy_link": "نسخ الرابط",
+    "read_more": "قراءة المزيد",
+    "back": "رجوع",
+    "loading": "جار التحميل...",
+    "error": "فشل تحميل المحتوى. يرجى المحاولة مرة أخرى."
+  },
+  "about_page": {
+    "title_line1": "عن",
+    "title_line2": "الموقع.",
+    "mission_title": "مهمتنا",
+    "mission_text": "وُجد N(DATA) لإتاحة المواصفات التقنية للجميع: المطورين والباحثين والمهندسين والهواة. لا دعاية. لا حواجز. لا ضوضاء. لا إعلانات. فقط بيانات منظمة ونظيفة يمكن الوثوق بها.",
+    "provides_title": "ما نقدمه",
+    "journey_title": "رحلتنا",
+    "progress_title": "تقدمنا",
+    "progress_text": "تابع آخر الأخبار والتقدم من خلال زيارة صفحة التحديثات أو صفحة Github."
   }
 }

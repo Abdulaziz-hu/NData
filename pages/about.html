@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- THEME FLASH PREVENTION: inline script runs before body renders -->
     <script>
         (function() {
             var saved = localStorage.getItem('theme');
@@ -14,145 +13,53 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ABOUT US | N(DATA)</title>
     <link rel="icon" href="/assets/logos/svg/ndata_logo.svg">
-    
+
     <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {}
-            }
-        }
-    </script>
-    
+    <script>tailwind.config = { darkMode: 'class', theme: { extend: {} } }</script>
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="https://fonts.googleapis.com/css2?family=DotGothic16&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-
     <script src="https://unpkg.com/lucide@latest"></script>
 
     <link rel="stylesheet" href="/static/css/style.css">
 </head>
 <body class="min-h-screen flex flex-col">
 
-    <nav class="sticky top-0 z-50 glass-panel px-4 sm:px-6 py-4 flex justify-between items-center">
-        <div class="flex items-center gap-2 sm:gap-3 group cursor-pointer" onclick="app.reset()">
-            <div class="w-6 h-6 sm:w-8 sm:h-8 bg-red-600 rounded-full group-hover:scale-110 transition-transform"></div>
-            <span class="text-xl sm:text-2xl brand-font font-bold tracking-tighter"><a href="/">N(DATA)</a></span>
-        </div>
-        
-        <div class="hidden md:flex items-center gap-6">
-            <a href="/" class="hover:text-red-600 transition-colors brand-font text-sm">HOME</a>
-                <a href="/pages/about" class="underline decoration-red-600 decoration-2 underline-offset-4 hover:text-red-600 transition-colors brand-font text-sm">ABOUT</a>
-            <a href="/pages/updates" class="hover:text-red-600 transition-colors brand-font text-sm">UPDATES</a>
-            <a href="/api/docs" class="hover:text-red-600 transition-colors brand-font text-sm">DOCS</a>
-            <a href="/api/api" class="hover:text-red-600 transition-colors brand-font text-sm">API</a>
-            
-            <!-- Currency Selector -->
-            <div class="relative currency-selector">
-                <button id="currency-toggle" class="p-2 hover:bg-gray-300 dark:hover:bg-gray-800 rounded-full transition flex items-center gap-1">
-                    <span id="currency-symbol" class="text-sm font-mono">$</span>
-                </button>
-                <div id="currency-dropdown" class="hidden absolute right-0 mt-2 text-red-500 bg-gray-300 dark:bg-zinc-900 border border-gray-300 dark:border-gray-700 rounded shadow-lg min-w-[120px] z-50">
-                    <button data-currency="USD" class="w-full px-4 py-2 text-left hover:text-red-500 hover:bg-black dark:hover:bg-black transition flex items-center gap-2 text-sm font-mono">
-                        <span>$</span>
-                        <span>USD</span>
-                    </button>
-                    <button data-currency="SAR" class="w-full px-4 py-2 text-left hover:text-red-500 hover:bg-black dark:hover:bg-black transition flex items-center gap-2 text-sm font-mono">
-                        <i class="sr"></i>
-                        <span>SAR</span>
-                    </button>
-                    <button data-currency="JPY" class="w-full px-4 py-2 text-left hover:text-red-500 hover:bg-black dark:hover:bg-black transition flex items-center gap-2 text-sm font-mono">
-                        <span>¥</span>
-                        <span>JPY</span>
-                    </button>
-                </div>
-            </div>
-            
-            <button id="theme-toggle" class="p-2 hover:bg-gray-300 dark:hover:bg-gray-800 rounded-full transition">
-                <i data-lucide="moon" data-theme-icon class="w-5 h-5"></i>
-            </button>
-        </div>
-        
-        <button class="md:hidden p-2" id="mobile-menu-btn">
-            <i data-lucide="menu" class="w-6 h-6"></i>
-        </button>
-    </nav>
-
-    <div id="mobile-menu" class="fixed inset-0 z-[60] hidden md:hidden">
-        <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" id="mobile-menu-backdrop"></div>
-        <div class="absolute right-0 top-0 h-full w-64 glass-panel transform transition-transform duration-300 translate-x-full" id="mobile-menu-panel">
-            <div class="p-6 flex flex-col gap-6">
-                <button id="mobile-menu-close" class="self-end">
-                    <i data-lucide="x" class="w-6 h-6"></i>
-                </button>
-                <a href="/" class="hover:text-red-600 transition-colors brand-font text-sm">HOME</a>
-                <a href="/pages/about" class="underline decoration-red-600 decoration-2 underline-offset-4 hover:text-red-600 transition-colors brand-font text-sm">ABOUT</a>
-                <a href="/pages/updates" class="hover:text-red-600 transition-colors brand-font text-sm">UPDATES</a>
-                <a href="/api/docs" class="hover:text-red-600 transition-colors brand-font text-sm">DOCS</a>
-                <a href="/api/api" class="hover:text-red-600 transition-colors brand-font text-sm">API</a>
-                
-                <!-- Mobile Currency Selector -->
-                <div class="border-t border-gray-300 dark:border-gray-700 pt-4">
-                    <span class="text-xs opacity-50 font-mono mb-2 block">CURRENCY</span>
-                    <div class="flex flex-col gap-2">
-                        <button data-currency="USD" class="mobile-currency-btn flex items-center gap-2 hover:text-red-500 transition-colors brand-font text-sm">
-                            <span>$</span>
-                            <span>USD</span>
-                        </button>
-                        <button data-currency="SAR" class="mobile-currency-btn flex items-center gap-2 hover:text-red-500 transition-colors brand-font text-sm">
-                            <i class="sr"></i>
-                            <span>SAR</span>
-                        </button>
-                        <button data-currency="JPY" class="mobile-currency-btn flex items-center gap-2 hover:text-red-500 transition-colors brand-font text-sm">
-                            <span>¥</span>
-                            <span>JPY</span>
-                        </button>
-                    </div>
-                </div>
-                
-                <button id="mobile-theme-toggle" class="flex items-center gap-2 hover:text-red-600 transition-colors brand-font text-sm border-t border-gray-300 dark:border-gray-700 pt-4">
-                    <i data-lucide="moon" data-theme-icon class="w-5 h-5"></i>
-                    <span>TOGGLE THEME</span>
-                </button>
-            </div>
-        </div>
-    </div>
+    <div id="site-nav"></div>
 
     <header class="px-4 sm:px-6 py-8 sm:py-12 md:py-24 max-w-7xl mx-auto w-full">
         <h1 class="text-4xl sm:text-5xl md:text-8xl font-black mb-4 sm:mb-6 leading-none">
-            A B O U T .<br><span class="text-red-600">U S .</span>
+            <span id="about-title-1">A B O U T .</span><br><span class="text-red-600" id="about-title-2">U S .</span>
         </h1>
     </header>
 
     <section class="max-w-7xl mx-auto px-4 sm:px-6 mb-20">
         <div class="rounded-2xl overflow-hidden shadow-xl border border-gray-300 dark:border-gray-800">
-            <img src="https://images.unsplash.com/photo-1531297484001-80022131f5a1?q=80&w=2020&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+            <img src="https://images.unsplash.com/photo-1531297484001-80022131f5a1?q=80&w=2020&auto=format&fit=crop"
                  alt="MacBook image by Ales Nesetril from Unsplash"
-                 title="MacBook image by Ales Nesetril from Unsplash"
                  class="w-full object-cover h-64 sm:h-96">
         </div><br>
         <p class="opacity-30 text-xs leading-relaxed">
-            Image by: <a href="https://unsplash.com/photos/gray-and-black-laptop-computer-on-surface-Im7lZjxeLhg" class="links" target="_blank" title="MacBook image by Ales Nesetril from Unsplash">Ales Nesetril <i class="fa fa-external-link" aria-hidden="true"></i></a>
+            Image by: <a href="https://unsplash.com/photos/gray-and-black-laptop-computer-on-surface-Im7lZjxeLhg" class="links" target="_blank">Ales Nesetril <i class="fa fa-external-link" aria-hidden="true"></i></a>
         </p>
     </section>
 
     <section class="px-4 sm:px-6 max-w-5xl mx-auto mb-24">
-        <h2 class="text-3xl sm:text-5xl font-black mb-6">Our Mission</h2>
-        <p class="opacity-80 text-lg leading-relaxed">
+        <h2 class="text-3xl sm:text-5xl font-black mb-6" id="about-mission-title">Our Mission</h2>
+        <p class="opacity-80 text-lg leading-relaxed" id="about-mission-text">
             N(DATA) exists to make technical specifications available to everyone,
-            developers, researchers, engineers, and enthusiasts.  
+            developers, researchers, engineers, and enthusiasts.
             No marketing fluff. No paywalls. No noise. No ads.
             Just clean, structured, machine-friendly data you can trust.
         </p>
     </section>
 
     <section class="px-4 sm:px-6 max-w-6xl mx-auto mb-24">
-        <h2 class="text-3xl sm:text-5xl font-black mb-12">What We Provide</h2>
+        <h2 class="text-3xl sm:text-5xl font-black mb-12" id="about-provides-title">What We Provide</h2>
 
         <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-10">
-            <!-- Feature 1 -->
             <div class="p-6 glass-panel rounded-xl border border-gray-400/20 dark:border-gray-700/40">
                 <i data-lucide="database" class="w-10 h-10 mb-4 text-red-600"></i>
                 <h3 class="text-xl font-semibold mb-2">Huge Technical Database</h3>
@@ -161,16 +68,6 @@
                 </p>
             </div>
 
-            <!-- Feature 2 -->
-            <!-- <div class="p-6 glass-panel rounded-xl border border-gray-400/20 dark:border-gray-700/40">
-                <i data-lucide="code" class="w-10 h-10 mb-4 text-red-600"></i>
-                <h3 class="text-xl font-semibold mb-2">JSON API</h3>
-                <p class="opacity-80 text-sm">
-                    Use our fast, structured API in your apps, dashboards, or research tools.
-                </p>
-            </div> -->
-
-            <!-- Feature 3 -->
             <div class="p-6 glass-panel rounded-xl border border-gray-400/20 dark:border-gray-700/40">
                 <i data-lucide="git-branch" class="w-10 h-10 mb-4 text-red-600"></i>
                 <h3 class="text-xl font-semibold mb-2">Open-Source</h3>
@@ -179,7 +76,6 @@
                 </p>
             </div>
 
-            <!-- Feature 4 -->
             <div class="p-6 glass-panel rounded-xl border border-gray-400/20 dark:border-gray-700/40">
                 <i data-lucide="search" class="w-10 h-10 mb-4 text-red-600"></i>
                 <h3 class="text-xl font-semibold mb-2">No Clutter</h3>
@@ -188,7 +84,6 @@
                 </p>
             </div>
 
-            <!-- Feature 5 -->
             <div class="p-6 glass-panel rounded-xl border border-gray-400/20 dark:border-gray-700/40">
                 <i data-lucide="server" class="w-10 h-10 mb-4 text-red-600"></i>
                 <h3 class="text-xl font-semibold mb-2">Structured Data</h3>
@@ -197,7 +92,6 @@
                 </p>
             </div>
 
-            <!-- Feature 6 -->
             <div class="p-6 glass-panel rounded-xl border border-gray-400/20 dark:border-gray-700/40">
                 <i data-lucide="shield" class="w-10 h-10 mb-4 text-red-600"></i>
                 <h3 class="text-xl font-semibold mb-2">Reliable & Transparent</h3>
@@ -205,31 +99,73 @@
                     All data sources are documented and manually reviewed for accuracy.
                 </p>
             </div>
+
+            <div class="p-6 glass-panel rounded-xl border border-gray-400/20 dark:border-gray-700/40">
+                <i data-lucide="globe" class="w-10 h-10 mb-4 text-red-600"></i>
+                <h3 class="text-xl font-semibold mb-2">Multi-language</h3>
+                <p class="opacity-80 text-sm">
+                    Available in English and Arabic, with RTL support and localized formatting.
+                </p>
+            </div>
         </div>
     </section>
 
     <!-- TIMELINE -->
     <section class="px-4 sm:px-6 max-w-5xl mx-auto mb-28">
-        <h2 class="text-3xl sm:text-5xl font-black mb-12">Our Journey</h2>
-
+        <h2 class="text-3xl sm:text-5xl font-black mb-12" id="about-journey-title">Our Journey</h2>
         <div class="border-l-2 border-red-600 pl-6 space-y-12">
             <div>
                 <p class="text-red-600 font-semibold">Nov 25 • 2025</p>
                 <h3 class="text-xl font-bold">The Idea</h3>
                 <p class="opacity-80 text-sm max-w-lg">We noticed the lack of a clean, open, developer-friendly database for device specifications.</p>
             </div>
+            <div>
+                <p class="text-red-600 font-semibold">May 10 • 2026</p>
+                <h3 class="text-xl font-bold">v1.11.0 — Major Feature Release</h3>
+                <p class="opacity-80 text-sm max-w-lg">Bookmarks, compare, multi-language support, card images, keyboard shortcuts, and much more.</p>
+            </div>
         </div>
     </section>
 
     <section class="px-4 sm:px-6 max-w-5xl mx-auto mb-24">
-        <h2 class="text-3xl sm:text-5xl font-black mb-6">Our Progress</h2>
-        <p class="opacity-80 text-lg leading-relaxed">
-            Get the latest news and see website/data progress by visiting our <a href="/updates" class="links">NDUpdates page</a> or our <a href="https://github.com/Abdulaziz-hu/NData" class="links" target="_blank">Github page <i class="fa fa-external-link" aria-hidden="true"></i></a>.
+        <h2 class="text-3xl sm:text-5xl font-black mb-6" id="about-progress-title">Our Progress</h2>
+        <p class="opacity-80 text-lg leading-relaxed" id="about-progress-text">
+            Get the latest news and see website/data progress by visiting our <a href="/pages/updates" class="links">NDUpdates page</a> or our <a href="https://github.com/Abdulaziz-hu/NData" class="links" target="_blank">Github page <i class="fa fa-external-link" aria-hidden="true"></i></a>.
         </p>
     </section>
 
-    <script src="/static/js/simple-func.js"></script>
-    <script src="/static/js/app.js"></script>
+    <div id="site-footer"></div>
+
+    <script>
+        // Hook translations for about page
+        window.__layoutOnLangChange = function(lang, strings) {
+            applyAboutTranslations(strings);
+        };
+
+        function applyAboutTranslations(strings) {
+            if (!strings) return;
+            const t = (path, fb) => {
+                const keys = path.split('.');
+                let v = strings;
+                for (const k of keys) { if (v && typeof v === 'object') v = v[k]; else return fb || path; }
+                return v || fb || path;
+            };
+            const el = id => document.getElementById(id);
+            if (el('about-title-1')) el('about-title-1').textContent = t('about_page.title_line1', 'A B O U T .');
+            if (el('about-title-2')) el('about-title-2').textContent = t('about_page.title_line2', 'U S .');
+            if (el('about-mission-title')) el('about-mission-title').textContent = t('about_page.mission_title', 'Our Mission');
+            if (el('about-mission-text')) el('about-mission-text').textContent = t('about_page.mission_text', '');
+            if (el('about-provides-title')) el('about-provides-title').textContent = t('about_page.provides_title', 'What We Provide');
+            if (el('about-journey-title')) el('about-journey-title').textContent = t('about_page.journey_title', 'Our Journey');
+            if (el('about-progress-title')) el('about-progress-title').textContent = t('about_page.progress_title', 'Our Progress');
+        }
+
+        document.addEventListener('layout:ready', (e) => {
+            applyAboutTranslations(e.detail.strings);
+        });
+    </script>
+
     <script src="/static/js/version.js"></script>
+    <script src="/static/js/layout.js"></script>
 </body>
 </html>

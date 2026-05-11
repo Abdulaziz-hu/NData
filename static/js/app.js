@@ -71,17 +71,21 @@ class DataService {
     }
 
     async init() {
-        try {
-            const response = await fetch('/api/data/data.json');
-            if (!response.ok) throw new Error('Failed to load data');
-            const raw = await response.json();
-            this.data = assignIds(raw);
-            this.initialized = true;
-            return this.data;
-        } catch (error) {
-            console.error('Error loading data:', error);
-            throw error;
+        const CONTENT_REPO_RAW = 'https://raw.githubusercontent.com/Abdulaziz-hu/NData-Content/main/data/data.json';
+        const sources = ['/api/data/data.json', CONTENT_REPO_RAW];
+        for (const url of sources) {
+            try {
+                const response = await fetch(url);
+                if (!response.ok) continue;
+                const raw = await response.json();
+                this.data = assignIds(raw);
+                this.initialized = true;
+                return this.data;
+            } catch (e) {
+                console.warn('DataService: could not load from', url, e);
+            }
         }
+        throw new Error('Failed to load data from all sources');
     }
 
     getAll() { return this.data; }
@@ -145,13 +149,91 @@ class App {
         this.bookmarks = JSON.parse(localStorage.getItem('bookmarks') || '[]');
         this.compareList = JSON.parse(localStorage.getItem('compareList') || '[]');
 
-        this.bindEvents();
-        this.initTheme();
-        this.initCurrency();
+        // layout.js handles theme/lang/currency/mobile-menu; we only bind data events here
+        this._bindNonNavEvents();
+    }
+
+    /** Events that don't depend on injected nav DOM */
+    _bindNonNavEvents() {
+        let searchTimeout;
+        if (this.searchInput) {
+            this.searchInput.addEventListener('input', (e) => {
+                clearTimeout(searchTimeout);
+                searchTimeout = setTimeout(() => {
+                    this.currentSearchQuery = e.target.value;
+                    this.applyFiltersAndRender();
+                }, 280);
+            });
+        }
+
+        document.querySelectorAll('#category-filters button[data-cat]').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('#category-filters button[data-cat]').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                this.currentCategory = btn.dataset.cat;
+                this.applyFiltersAndRender();
+            });
+        });
+
+        document.querySelectorAll('[data-sort]').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const sort = btn.dataset.sort;
+                this.currentSort = this.currentSort === sort ? 'default' : sort;
+                document.querySelectorAll('[data-sort]').forEach(b => b.classList.remove('active'));
+                if (this.currentSort !== 'default') btn.classList.add('active');
+                this.applyFiltersAndRender();
+            });
+        });
+
+        document.addEventListener('keydown', (e) => {
+            const tag = document.activeElement?.tagName;
+            const inInput = tag === 'INPUT' || tag === 'TEXTAREA';
+            if (e.key === '/' && !inInput) {
+                e.preventDefault();
+                this.searchInput?.focus();
+                this.searchInput?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+            if (e.key === 'Escape') {
+                if (!this.lightbox?.classList.contains('hidden')) {
+                    this.closeLightbox();
+                } else if (!this.modal?.classList.contains('hidden')) {
+                    this.closeModal();
+                } else {
+                    document.getElementById('credits-modal')?.classList.add('hidden');
+                    document.getElementById('bookmarks-modal')?.classList.add('hidden');
+                    document.getElementById('compare-modal')?.classList.add('hidden');
+                    document.body.style.overflow = '';
+                }
+            }
+            if (!this.lightbox?.classList.contains('hidden')) {
+                if (e.key === 'ArrowLeft') this.prevImage();
+                else if (e.key === 'ArrowRight') this.nextImage();
+            }
+        });
+
+        window.addEventListener('popstate', (e) => {
+            if (e.state?.productId) {
+                const item = this.service.getById(e.state.productId);
+                if (item) this.openDetails(item, false);
+            } else {
+                this.closeModal(false);
+            }
+        });
+
+        document.getElementById('load-more-btn')?.addEventListener('click', () => this.loadMore());
+    }
+
+    /** Called after layout:ready — binds events on nav elements injected by layout.js */
+    _bindIndexEvents() {
+        document.getElementById('bookmarks-btn')?.addEventListener('click', () => this.openBookmarksModal());
+        document.getElementById('mobile-bookmarks-btn')?.addEventListener('click', () => this.openBookmarksModal());
+        document.getElementById('compare-btn')?.addEventListener('click', () => this.openCompareModal());
+        document.getElementById('mobile-compare-btn')?.addEventListener('click', () => this.openCompareModal());
+        // Currency and lang changes are forwarded by layout.js via __layoutOnCurrencyChange / __layoutOnLangChange
     }
 
     async start() {
-        await this.lang.load(this.lang.current);
+        // lang is already loaded by layout.js; just apply translations
         this.applyTranslations();
 
         this.showLoader(true);
@@ -219,170 +301,6 @@ class App {
         });
     }
 
-    bindEvents() {
-        let searchTimeout;
-        if (this.searchInput) {
-            this.searchInput.addEventListener('input', (e) => {
-                clearTimeout(searchTimeout);
-                searchTimeout = setTimeout(() => {
-                    this.currentSearchQuery = e.target.value;
-                    this.applyFiltersAndRender();
-                }, 280);
-            });
-        }
-
-        document.querySelectorAll('#category-filters button[data-cat]').forEach(btn => {
-            btn.addEventListener('click', () => {
-                document.querySelectorAll('#category-filters button[data-cat]').forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                this.currentCategory = btn.dataset.cat;
-                this.applyFiltersAndRender();
-            });
-        });
-
-        document.querySelectorAll('[data-sort]').forEach(btn => {
-            btn.addEventListener('click', () => {
-                const sort = btn.dataset.sort;
-                this.currentSort = this.currentSort === sort ? 'default' : sort;
-                document.querySelectorAll('[data-sort]').forEach(b => b.classList.remove('active'));
-                if (this.currentSort !== 'default') btn.classList.add('active');
-                this.applyFiltersAndRender();
-            });
-        });
-
-        const currencyToggle = document.getElementById('currency-toggle');
-        const currencyDropdown = document.getElementById('currency-dropdown');
-        if (currencyToggle && currencyDropdown) {
-            currencyToggle.addEventListener('click', (e) => {
-                e.stopPropagation();
-                currencyDropdown.classList.toggle('hidden');
-            });
-            document.addEventListener('click', (e) => {
-                if (!currencyToggle.contains(e.target) && !currencyDropdown.contains(e.target)) {
-                    currencyDropdown.classList.add('hidden');
-                }
-            });
-            currencyDropdown.querySelectorAll('button[data-currency]').forEach(btn => {
-                btn.addEventListener('click', () => {
-                    this.changeCurrency(btn.dataset.currency);
-                    currencyDropdown.classList.add('hidden');
-                });
-            });
-        }
-
-        document.querySelectorAll('.mobile-currency-btn').forEach(btn => {
-            btn.addEventListener('click', () => this.changeCurrency(btn.dataset.currency));
-        });
-
-        // Language buttons
-        document.querySelectorAll('[data-lang]').forEach(btn => {
-            btn.addEventListener('click', async () => {
-                const success = await this.lang.load(btn.dataset.lang);
-                if (success) {
-                    this.applyTranslations();
-                    if (this.service.initialized) this.applyFiltersAndRender();
-                    document.querySelectorAll('[data-lang]').forEach(b => b.classList.remove('active-lang'));
-                    btn.classList.add('active-lang');
-                    document.getElementById('lang-dropdown')?.classList.add('hidden');
-                    document.getElementById('mobile-lang-dropdown')?.classList.add('hidden');
-                    document.getElementById('lang-label').textContent = btn.dataset.lang.toUpperCase();
-                    document.getElementById('mobile-lang-label').textContent = btn.dataset.lang.toUpperCase();
-                }
-            });
-        });
-
-        const langToggle = document.getElementById('lang-toggle');
-        const langDropdown = document.getElementById('lang-dropdown');
-        if (langToggle && langDropdown) {
-            langToggle.addEventListener('click', (e) => {
-                e.stopPropagation();
-                langDropdown.classList.toggle('hidden');
-                currencyDropdown?.classList.add('hidden');
-            });
-            document.addEventListener('click', (e) => {
-                if (!langToggle.contains(e.target) && !langDropdown.contains(e.target)) {
-                    langDropdown.classList.add('hidden');
-                }
-            });
-        }
-
-        const mobileLangToggle = document.getElementById('mobile-lang-toggle');
-        const mobileLangDropdown = document.getElementById('mobile-lang-dropdown');
-        if (mobileLangToggle && mobileLangDropdown) {
-            mobileLangToggle.addEventListener('click', () => {
-                mobileLangDropdown.classList.toggle('hidden');
-            });
-        }
-
-        document.getElementById('theme-toggle')?.addEventListener('click', () => this.toggleTheme());
-        document.getElementById('mobile-theme-toggle')?.addEventListener('click', () => this.toggleTheme());
-
-        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-        const mobileMenu = document.getElementById('mobile-menu');
-        const mobileMenuPanel = document.getElementById('mobile-menu-panel');
-        const mobileMenuClose = document.getElementById('mobile-menu-close');
-        const mobileMenuBackdrop = document.getElementById('mobile-menu-backdrop');
-
-        if (mobileMenuBtn && mobileMenu && mobileMenuPanel) {
-            mobileMenuBtn.addEventListener('click', () => {
-                mobileMenu.classList.remove('hidden');
-                setTimeout(() => mobileMenuPanel.classList.remove('translate-x-full'), 10);
-                document.body.style.overflow = 'hidden';
-            });
-            const closeMobileMenu = () => {
-                mobileMenuPanel.classList.add('translate-x-full');
-                setTimeout(() => { mobileMenu.classList.add('hidden'); document.body.style.overflow = ''; }, 300);
-            };
-            mobileMenuClose?.addEventListener('click', closeMobileMenu);
-            mobileMenuBackdrop?.addEventListener('click', closeMobileMenu);
-        }
-
-        document.addEventListener('keydown', (e) => {
-            const tag = document.activeElement?.tagName;
-            const inInput = tag === 'INPUT' || tag === 'TEXTAREA';
-
-            if (e.key === '/' && !inInput) {
-                e.preventDefault();
-                this.searchInput?.focus();
-                this.searchInput?.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            }
-
-            if (e.key === 'Escape') {
-                if (!this.lightbox.classList.contains('hidden')) {
-                    this.closeLightbox();
-                } else if (!this.modal.classList.contains('hidden')) {
-                    this.closeModal();
-                } else {
-                    document.getElementById('credits-modal')?.classList.add('hidden');
-                    document.getElementById('bookmarks-modal')?.classList.add('hidden');
-                    document.getElementById('compare-modal')?.classList.add('hidden');
-                    document.body.style.overflow = '';
-                }
-            }
-
-            if (!this.lightbox.classList.contains('hidden')) {
-                if (e.key === 'ArrowLeft') this.prevImage();
-                else if (e.key === 'ArrowRight') this.nextImage();
-            }
-        });
-
-        window.addEventListener('popstate', (e) => {
-            if (e.state?.productId) {
-                const item = this.service.getById(e.state.productId);
-                if (item) this.openDetails(item, false);
-            } else {
-                this.closeModal(false);
-            }
-        });
-
-        document.getElementById('load-more-btn')?.addEventListener('click', () => this.loadMore());
-
-        document.getElementById('bookmarks-btn')?.addEventListener('click', () => this.openBookmarksModal());
-        document.getElementById('mobile-bookmarks-btn')?.addEventListener('click', () => this.openBookmarksModal());
-
-        document.getElementById('compare-btn')?.addEventListener('click', () => this.openCompareModal());
-        document.getElementById('mobile-compare-btn')?.addEventListener('click', () => this.openCompareModal());
-    }
 
     applyFiltersAndRender() {
         let results = this.currentSearchQuery
@@ -1127,7 +1045,25 @@ class App {
 const app = new App();
 window.app = app;
 
-window.addEventListener('DOMContentLoaded', () => {
+// layout.js injects nav/footer and handles theme/lang/currency/mobile-menu.
+// We start after layout:ready so the nav DOM is present.
+document.addEventListener('layout:ready', (e) => {
+    // Sync lang state from layout into app's LangService
+    const { lang, strings } = e.detail;
+    if (lang && strings) {
+        app.lang.current = lang;
+        app.lang.strings = strings;
+        app.lang.dir = lang === 'ar' ? 'rtl' : 'ltr';
+    }
+    // Sync currency from localStorage
+    const savedCurrency = localStorage.getItem('currency');
+    if (savedCurrency && CURRENCY_RATES[savedCurrency]) {
+        app.currentCurrency = savedCurrency;
+    }
+
+    // Re-bind app-specific events now that nav DOM exists
+    app._bindIndexEvents();
+
     app.start().then(() => {
         app._updateBookmarksBadge();
         app._updateCompareBadge();

@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- THEME FLASH PREVENTION: inline script runs before body renders -->
     <script>
         (function() {
             var saved = localStorage.getItem('theme');
@@ -12,112 +11,23 @@
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MIT LICENSE | N(DATA)</title>
+    <title>MIT License | N(DATA)</title>
     <link rel="icon" href="/assets/logos/svg/ndata_logo.svg">
-    
+
     <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {}
-            }
-        }
-    </script>
-    
+    <script>tailwind.config = { darkMode: 'class', theme: { extend: {} } }</script>
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="https://fonts.googleapis.com/css2?family=DotGothic16&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-
     <script src="https://unpkg.com/lucide@latest"></script>
 
     <link rel="stylesheet" href="/static/css/style.css">
 </head>
 <body class="min-h-screen flex flex-col">
 
-    <nav class="sticky top-0 z-50 glass-panel px-4 sm:px-6 py-4 flex justify-between items-center">
-        <div class="flex items-center gap-2 sm:gap-3 group cursor-pointer" onclick="app.reset()">
-            <div class="w-6 h-6 sm:w-8 sm:h-8 bg-red-600 rounded-full group-hover:scale-110 transition-transform"></div>
-            <span class="text-xl sm:text-2xl brand-font font-bold tracking-tighter"><a href="/">N(DATA)</a></span>
-        </div>
-        
-        <div class="hidden md:flex items-center gap-6">
-            <a href="/" class="hover:text-red-600 transition-colors brand-font text-sm">HOME</a>
-            <a href="/pages/about" class="hover:text-red-600 transition-colors brand-font text-sm">ABOUT</a>
-            <a href="/pages/updates" class="hover:text-red-600 transition-colors brand-font text-sm">UPDATES</a>
-            <a href="/api/docs" class="hover:text-red-600 transition-colors brand-font text-sm">DOCS</a>
-            <a href="/api/api" class="hover:text-red-600 transition-colors brand-font text-sm">API</a>
-            
-            <!-- Currency Selector -->
-            <div class="relative currency-selector">
-                <button id="currency-toggle" class="p-2 hover:bg-gray-300 dark:hover:bg-gray-800 rounded-full transition flex items-center gap-1">
-                    <span id="currency-symbol" class="text-sm font-mono">$</span>
-                </button>
-                <div id="currency-dropdown" class="hidden absolute right-0 mt-2 text-red-500 bg-gray-300 dark:bg-zinc-900 border border-gray-300 dark:border-gray-700 rounded shadow-lg min-w-[120px] z-50">
-                    <button data-currency="USD" class="w-full px-4 py-2 text-left hover:text-red-500 hover:bg-black dark:hover:bg-black transition flex items-center gap-2 text-sm font-mono">
-                        <span>$</span>
-                        <span>USD</span>
-                    </button>
-                    <button data-currency="SAR" class="w-full px-4 py-2 text-left hover:text-red-500 hover:bg-black dark:hover:bg-black transition flex items-center gap-2 text-sm font-mono">
-                        <i class="sr"></i>
-                        <span>SAR</span>
-                    </button>
-                    <button data-currency="JPY" class="w-full px-4 py-2 text-left hover:text-red-500 hover:bg-black dark:hover:bg-black transition flex items-center gap-2 text-sm font-mono">
-                        <span>¥</span>
-                        <span>JPY</span>
-                    </button>
-                </div>
-            </div>
-            
-            <button id="theme-toggle" class="p-2 hover:bg-gray-300 dark:hover:bg-gray-800 rounded-full transition">
-                <i data-lucide="moon" data-theme-icon class="w-5 h-5"></i>
-            </button>
-        </div>
-        
-        <button class="md:hidden p-2" id="mobile-menu-btn">
-            <i data-lucide="menu" class="w-6 h-6"></i>
-        </button>
-    </nav>
-
-    <div id="mobile-menu" class="fixed inset-0 z-[60] hidden md:hidden">
-        <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" id="mobile-menu-backdrop"></div>
-        <div class="absolute right-0 top-0 h-full w-64 glass-panel transform transition-transform duration-300 translate-x-full" id="mobile-menu-panel">
-            <div class="p-6 flex flex-col gap-6">
-                <button id="mobile-menu-close" class="self-end">
-                    <i data-lucide="x" class="w-6 h-6"></i>
-                </button>
-                <a href="/" class="hover:text-red-600 transition-colors brand-font text-sm">HOME</a>
-                <a href="/pages/about" class="hover:text-red-600 transition-colors brand-font text-sm">ABOUT</a>
-                <a href="/pages/updates" class="hover:text-red-600 transition-colors brand-font text-sm">UPDATES</a>
-                <a href="/api/docs" class="hover:text-red-600 transition-colors brand-font text-sm">DOCS</a>
-                <a href="/api/api" class="hover:text-red-600 transition-colors brand-font text-sm">API</a>
-                
-                <!-- Mobile Currency Selector -->
-                <div class="border-t border-gray-300 dark:border-gray-700 pt-4">
-                    <span class="text-xs opacity-50 font-mono mb-2 block">CURRENCY</span>
-                    <div class="flex flex-col gap-2">
-                        <button data-currency="USD" class="mobile-currency-btn flex items-center gap-2 hover:text-red-500 transition-colors brand-font text-sm">
-                            <span>$</span>
-                            <span>USD</span>
-                        </button>
-                        <button data-currency="SAR" class="mobile-currency-btn flex items-center gap-2 hover:text-red-500 transition-colors brand-font text-sm">
-                            <i class="sr"></i>
-                            <span>SAR</span>
-                        </button>
-                        <button data-currency="JPY" class="mobile-currency-btn flex items-center gap-2 hover:text-red-500 transition-colors brand-font text-sm">
-                            <span>¥</span>
-                            <span>JPY</span>
-                        </button>
-                    </div>
-                </div>
-                
-                <button id="mobile-theme-toggle" class="flex items-center gap-2 hover:text-red-600 transition-colors brand-font text-sm border-t border-gray-300 dark:border-gray-700 pt-4">
-                    <i data-lucide="moon" data-theme-icon class="w-5 h-5"></i>
-                    <span>TOGGLE THEME</span>
-                </button>
-            </div>
-        </div>
-    </div>
+    <div id="site-nav"></div>
 
     <header class="px-4 sm:px-6 py-8 sm:py-12 md:py-24 max-w-7xl mx-auto w-full">
         <h1 class="text-4xl sm:text-5xl md:text-8xl font-black mb-4 sm:mb-6 leading-none">
@@ -137,8 +47,9 @@
         </p>
     </section>
 
-    <script src="/static/js/simple-func.js"></script>
-    <script src="/static/js/app.js"></script>
+    <div id="site-footer"></div>
+
     <script src="/static/js/version.js"></script>
+    <script src="/static/js/layout.js"></script>
 </body>
 </html>
