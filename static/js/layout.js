@@ -152,7 +152,10 @@
 <footer class="border-t border-gray-300 dark:border-gray-800 px-4 sm:px-6 py-8 sm:py-12 mt-auto">
     <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-start gap-8">
         <div>
-            <h2 class="text-xl sm:text-2xl mb-4">N(DATA)</h2>
+            <h2 class="flex items-center gap-3 text-xl sm:text-2xl mb-4">
+                <div class="w-6 h-6 sm:w-8 sm:h-8 bg-red-600 rounded-full group-hover:scale-110 transition-transform"></div>
+                N(DATA)
+            </h2>
             <p class="text-xs sm:text-sm opacity-50 max-w-xs" id="footer-desc">
                 Open source tech specification database.<br>
                 Designed for transparency. Built for speed.<br>
