@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- THEME FLASH PREVENTION: inline script runs before body renders -->
     <script>
         (function() {
             var saved = localStorage.getItem('theme');
@@ -14,22 +13,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NDUpdates | N(DATA)</title>
     <link rel="icon" href="/assets/logos/svg/ndata_logo.svg">
-    
+
     <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {}
-            }
-        }
-    </script>
-    
+    <script>tailwind.config = { darkMode: 'class', theme: { extend: {} } }</script>
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="https://fonts.googleapis.com/css2?family=DotGothic16&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-
     <script src="https://unpkg.com/lucide@latest"></script>
 
     <link rel="stylesheet" href="/static/css/style.css">
@@ -37,92 +28,10 @@
 </head>
 <body class="min-h-screen flex flex-col">
 
-    <nav class="sticky top-0 z-50 glass-panel px-4 sm:px-6 py-4 flex justify-between items-center">
-        <div class="flex items-center gap-2 sm:gap-3 group cursor-pointer" onclick="app.reset()">
-            <div class="w-6 h-6 sm:w-8 sm:h-8 bg-red-600 rounded-full group-hover:scale-110 transition-transform"></div>
-            <span class="text-xl sm:text-2xl brand-font font-bold tracking-tighter"><a href="/">N(DATA)</a></span>
-        </div>
-        
-        <div class="hidden md:flex items-center gap-6">
-            <a href="/" class="hover:text-red-600 transition-colors brand-font text-sm">HOME</a>
-            <a href="/pages/about" class="hover:text-red-600 transition-colors brand-font text-sm">ABOUT</a>
-            <a href="/pages/updates" class="underline decoration-red-600 decoration-2 underline-offset-4 hover:text-red-600 transition-colors brand-font text-sm">UPDATES</a>
-            <a href="/api/docs" class="hover:text-red-600 transition-colors brand-font text-sm">DOCS</a>
-            <a href="/api/api" class="hover:text-red-600 transition-colors brand-font text-sm">API</a>
-            
-            <!-- Currency Selector -->
-            <div class="relative currency-selector">
-                <button id="currency-toggle" class="p-2 hover:bg-gray-300 dark:hover:bg-gray-800 rounded-full transition flex items-center gap-1">
-                    <span id="currency-symbol" class="text-sm font-mono">$</span>
-                </button>
-                <div id="currency-dropdown" class="hidden absolute right-0 mt-2 text-red-500 bg-gray-300 dark:bg-zinc-900 border border-gray-300 dark:border-gray-700 rounded shadow-lg min-w-[120px] z-50">
-                    <button data-currency="USD" class="w-full px-4 py-2 text-left hover:text-red-500 hover:bg-black dark:hover:bg-black transition flex items-center gap-2 text-sm font-mono">
-                        <span>$</span>
-                        <span>USD</span>
-                    </button>
-                    <button data-currency="SAR" class="w-full px-4 py-2 text-left hover:text-red-500 hover:bg-black dark:hover:bg-black transition flex items-center gap-2 text-sm font-mono">
-                        <i class="sr"></i>
-                        <span>SAR</span>
-                    </button>
-                    <button data-currency="JPY" class="w-full px-4 py-2 text-left hover:text-red-500 hover:bg-black dark:hover:bg-black transition flex items-center gap-2 text-sm font-mono">
-                        <span>¥</span>
-                        <span>JPY</span>
-                    </button>
-                </div>
-            </div>
-            
-            <button id="theme-toggle" class="p-2 hover:bg-gray-300 dark:hover:bg-gray-800 rounded-full transition">
-                <i data-lucide="moon" data-theme-icon class="w-5 h-5"></i>
-            </button>
-        </div>
-        
-        <button class="md:hidden p-2" id="mobile-menu-btn">
-            <i data-lucide="menu" class="w-6 h-6"></i>
-        </button>
-    </nav>
-
-    <div id="mobile-menu" class="fixed inset-0 z-[60] hidden md:hidden">
-        <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" id="mobile-menu-backdrop"></div>
-        <div class="absolute right-0 top-0 h-full w-64 glass-panel transform transition-transform duration-300 translate-x-full" id="mobile-menu-panel">
-            <div class="p-6 flex flex-col gap-6">
-                <button id="mobile-menu-close" class="self-end">
-                    <i data-lucide="x" class="w-6 h-6"></i>
-                </button>
-                <a href="/" class="hover:text-red-600 transition-colors brand-font text-sm">HOME</a>
-                <a href="/pages/about" class="hover:text-red-600 transition-colors brand-font text-sm">ABOUT</a>
-                <a href="/pages/updates" class="underline decoration-red-600 decoration-2 underline-offset-4 hover:text-red-600 transition-colors brand-font text-sm">UPDATES</a>
-                <a href="/api/docs" class="hover:text-red-600 transition-colors brand-font text-sm">DOCS</a>
-                <a href="/api/api" class="hover:text-red-600 transition-colors brand-font text-sm">API</a>
-                
-                <!-- Mobile Currency Selector -->
-                <div class="border-t border-gray-300 dark:border-gray-700 pt-4">
-                    <span class="text-xs opacity-50 font-mono mb-2 block">CURRENCY</span>
-                    <div class="flex flex-col gap-2">
-                        <button data-currency="USD" class="mobile-currency-btn flex items-center gap-2 hover:text-red-500 transition-colors brand-font text-sm">
-                            <span>$</span>
-                            <span>USD</span>
-                        </button>
-                        <button data-currency="SAR" class="mobile-currency-btn flex items-center gap-2 hover:text-red-500 transition-colors brand-font text-sm">
-                            <i class="sr"></i>
-                            <span>SAR</span>
-                        </button>
-                        <button data-currency="JPY" class="mobile-currency-btn flex items-center gap-2 hover:text-red-500 transition-colors brand-font text-sm">
-                            <span>¥</span>
-                            <span>JPY</span>
-                        </button>
-                    </div>
-                </div>
-                
-                <button id="mobile-theme-toggle" class="flex items-center gap-2 hover:text-red-600 transition-colors brand-font text-sm border-t border-gray-300 dark:border-gray-700 pt-4">
-                    <i data-lucide="moon" data-theme-icon class="w-5 h-5"></i>
-                    <span>TOGGLE THEME</span>
-                </button>
-            </div>
-        </div>
-    </div>
+    <div id="site-nav"></div>
 
     <header class="px-4 sm:px-6 py-8 sm:py-12 md:py-24 max-w-7xl mx-auto w-full">
-        <h1 class="text-4xl sm:text-5xl md:text-8xl font-black mb-4 sm:mb-6 leading-none">
+        <h1 class="text-4xl sm:text-5xl md:text-8xl font-black mb-4 sm:mb-6 leading-none" id="updates-title">
             P R O G R E S S<br><span class="text-red-600">+</span><br>U P D A T E S
         </h1>
     </header>
@@ -131,25 +40,20 @@
         <div class="max-w-7xl mx-auto">
             <div class="flex flex-col sm:flex-row gap-4 sm:gap-6 items-start sm:items-center mb-6">
                 <div class="relative w-full sm:flex-1">
-                    <input 
-                        type="text" 
-                        id="search-input" 
-                        placeholder="SEARCH UPDATES..." 
-                        class="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 bg-transparent font-mono text-sm focus:outline-none focus:border-red-600 transition-colors"
-                    >
+                    <input type="text" id="search-input" placeholder="SEARCH UPDATES..."
+                        class="w-full px-4 py-3 border border-gray-300 dark:border-gray-700 bg-transparent font-mono text-sm focus:outline-none focus:border-red-600 transition-colors">
                     <i data-lucide="search" class="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 opacity-50 pointer-events-none"></i>
                 </div>
                 <div class="flex items-center gap-2 font-mono text-sm opacity-60">
                     <span id="item-count">0</span>
-                    <span>POSTS</span>
+                    <span id="posts-label">POSTS</span>
                 </div>
             </div>
-
             <div id="category-filters" class="flex flex-wrap gap-3">
-                <button class="btn-raw active" data-cat="all">ALL</button>
-                <button class="btn-raw" data-cat="news">NEWS</button>
-                <button class="btn-raw" data-cat="update">UPDATES</button>
-                <button class="btn-raw" data-cat="blog">BLOGS</button>
+                <button class="btn-raw active" data-cat="all" id="filter-all">ALL</button>
+                <button class="btn-raw" data-cat="news" id="filter-news">NEWS</button>
+                <button class="btn-raw" data-cat="update" id="filter-updates">UPDATES</button>
+                <button class="btn-raw" data-cat="blog" id="filter-blogs">BLOGS</button>
             </div>
         </div>
     </section>
@@ -158,17 +62,20 @@
         <div id="loader" class="flex justify-center items-center py-20">
             <div class="loader"></div>
         </div>
-
-        <div id="no-results" class="hidden text-center py-20">
-            <h3 class="text-2xl sm:text-3xl mb-4 brand-font">NO RESULTS</h3>
-            <p class="opacity-60 font-mono text-sm">Try adjusting your filters or search query</p>
+        <div id="error-message" class="hidden text-center py-20">
+            <h3 class="text-2xl sm:text-3xl mb-4 brand-font text-red-600">ERROR</h3>
+            <p id="error-text" class="opacity-60 font-mono text-sm">Failed to load content. Please try again.</p>
         </div>
-
+        <div id="no-results" class="hidden text-center py-20">
+            <h3 class="text-2xl sm:text-3xl mb-4 brand-font" id="no-results-title">NO RESULTS</h3>
+            <p class="opacity-60 font-mono text-sm" id="no-results-desc">Try adjusting your filters or search query</p>
+        </div>
         <div id="grid-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 hidden"></div>
     </section>
 
+    <!-- POST MODAL -->
     <div id="modal" class="fixed inset-0 z-[70] hidden">
-        <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" onclick="app.closeModal()"></div>
+        <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" onclick="updatesApp.closeModal()"></div>
         <div id="modal-panel" class="absolute right-0 top-0 h-full w-full md:w-2/3 lg:w-1/2 glass-panel transform transition-transform duration-300 translate-x-full overflow-y-auto custom-scrollbar">
             <div class="p-6 sm:p-8">
                 <div class="flex justify-between items-start mb-6">
@@ -181,31 +88,30 @@
                             <span id="modal-author"></span>
                         </div>
                     </div>
-                    <button onclick="app.closeModal()" class="ml-4 p-2 hover:bg-gray-200 dark:hover:bg-gray-800 rounded-full transition flex-shrink-0">
+                    <button onclick="updatesApp.closeModal()" class="ml-4 p-2 hover:bg-gray-200 dark:hover:bg-gray-800 rounded-full transition flex-shrink-0">
                         <i data-lucide="x" class="w-6 h-6"></i>
                     </button>
                 </div>
-
                 <div id="modal-tags" class="flex flex-wrap gap-2 mb-6"></div>
-
-                <div id="modal-content" class="modal-content-container mb-8"></div>
-
+                <div id="modal-content" class="modal-content-container mb-8 prose-like"></div>
                 <div class="border-t border-gray-200 dark:border-gray-800 pt-6 flex flex-wrap gap-3">
-                    <button onclick="app.sharePost()" class="btn-raw flex items-center gap-2">
+                    <button onclick="updatesApp.sharePost()" class="btn-raw flex items-center gap-2">
                         <i data-lucide="share-2" class="w-4 h-4"></i>
-                        SHARE
+                        <span id="btn-share">SHARE</span>
                     </button>
-                    <button onclick="app.copyLink()" class="btn-raw flex items-center gap-2">
+                    <button onclick="updatesApp.copyLink()" class="btn-raw flex items-center gap-2">
                         <i data-lucide="link" class="w-4 h-4"></i>
-                        COPY LINK
+                        <span id="btn-copy-link">COPY LINK</span>
                     </button>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- <script src="/static/js/simple-func.js"></script> -->
-    <script src="/static/js/updates-app.js"></script>
+    <div id="site-footer"></div>
+
     <script src="/static/js/version.js"></script>
+    <script src="/static/js/layout.js"></script>
+    <script src="/static/js/updates-app.js"></script>
 </body>
 </html>

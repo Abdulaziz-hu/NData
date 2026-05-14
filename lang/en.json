@@ -7,7 +7,9 @@
     "api": "API",
     "currency": "CURRENCY",
     "toggle_theme": "TOGGLE THEME",
-    "language": "LANGUAGE"
+    "language": "LANGUAGE",
+    "bookmarks": "SAVED",
+    "compare": "COMPARE"
   },
   "hero": {
     "line1": "P U R E.",
@@ -93,5 +95,33 @@
   },
   "keyboard": {
     "hint": "Press / to search"
+  },
+  "updates_page": {
+    "title_line1": "P R O G R E S S",
+    "title_line2": "U P D A T E S",
+    "search_placeholder": "SEARCH UPDATES...",
+    "posts_label": "POSTS",
+    "filter_all": "ALL",
+    "filter_news": "NEWS",
+    "filter_updates": "UPDATES",
+    "filter_blogs": "BLOGS",
+    "no_results_title": "NO RESULTS",
+    "no_results_desc": "Try adjusting your filters or search query",
+    "share": "SHARE",
+    "copy_link": "COPY LINK",
+    "read_more": "READ MORE",
+    "back": "BACK",
+    "loading": "LOADING...",
+    "error": "Failed to load content. Please try again."
+  },
+  "about_page": {
+    "title_line1": "A B O U T .",
+    "title_line2": "U S .",
+    "mission_title": "Our Mission",
+    "mission_text": "N(DATA) exists to make technical specifications available to everyone, developers, researchers, engineers, and enthusiasts. No marketing fluff. No paywalls. No noise. No ads. Just clean, structured, machine-friendly data you can trust.",
+    "provides_title": "What We Provide",
+    "journey_title": "Our Journey",
+    "progress_title": "Our Progress",
+    "progress_text": "Get the latest news and see website/data progress by visiting our Updates page or our Github page."
   }
 }

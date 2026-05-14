@@ -13,70 +13,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>API Explorer | N(DATA)</title>
     <link rel="icon" href="/assets/logos/svg/ndata_logo.svg">
+
     <script src="https://cdn.tailwindcss.com"></script>
     <script>tailwind.config = { darkMode: 'class', theme: { extend: {} } }</script>
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="https://fonts.googleapis.com/css2?family=DotGothic16&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
     <link rel="stylesheet" href="/static/css/style.css">
-    <style>
-        .api-panel { background: var(--code-bg); border: 1px solid var(--border); box-shadow: 2px 2px 0 var(--code-shadow); }
-        .api-input { background: transparent; border: 1px solid var(--border); padding: 0.5rem 0.75rem; font-family: monospace; font-size: 0.85rem; width: 100%; color: var(--text-color); outline: none; transition: border-color 0.2s; }
-        .api-input:focus { border-color: var(--accent-red); }
-        .api-select { background: var(--bg-color); border: 1px solid var(--border); padding: 0.4rem 0.6rem; font-family: monospace; font-size: 0.8rem; color: var(--text-color); cursor: pointer; }
-        .api-select:focus { outline: 1px solid var(--accent-red); }
-        .result-box { background: var(--bg-color); border: 1px solid var(--border); font-family: 'Courier New', monospace; font-size: 0.75rem; padding: 1rem; overflow: auto; max-height: 500px; white-space: pre; word-break: break-all; }
-        .stat-card { border: 1px solid var(--border); padding: 1rem; text-align: center; }
-        .method-badge { display: inline-block; font-family: monospace; font-size: 0.7rem; font-weight: bold; padding: 2px 8px; background: rgba(34,197,94,0.2); color: #16a34a; border-radius: 2px; margin-right: 8px; }
-        .dark-mode .method-badge { color: #4ade80; }
-        #json-output { color: var(--text-color); }
-        .json-key { color: #dc2626; }
-        .json-str { color: #16a34a; }
-        .dark-mode .json-str { color: #4ade80; }
-        .json-num { color: #2563eb; }
-        .dark-mode .json-num { color: #60a5fa; }
-        .json-bool { color: #9333ea; }
-    </style>
 </head>
 <body class="min-h-screen flex flex-col">
 
-    <nav class="sticky top-0 z-50 glass-panel px-4 sm:px-6 py-4 flex justify-between items-center">
-        <div class="flex items-center gap-2 sm:gap-3 group cursor-pointer" onclick="window.location='/'">
-            <div class="w-6 h-6 sm:w-8 sm:h-8 bg-red-600 rounded-full group-hover:scale-110 transition-transform"></div>
-            <span class="text-xl sm:text-2xl brand-font font-bold tracking-tighter"><a href="/">N(DATA)</a></span>
-        </div>
-        <div class="hidden md:flex items-center gap-6">
-            <a href="/" class="hover:text-red-600 transition-colors brand-font text-sm">HOME</a>
-            <a href="/pages/about" class="hover:text-red-600 transition-colors brand-font text-sm">ABOUT</a>
-            <a href="/pages/updates" class="hover:text-red-600 transition-colors brand-font text-sm">UPDATES</a>
-            <a href="/api/docs" class="hover:text-red-600 transition-colors brand-font text-sm">DOCS</a>
-            <a href="/api/api" class="underline decoration-red-600 decoration-2 underline-offset-4 hover:text-red-600 transition-colors brand-font text-sm">API</a>
-            <button id="theme-toggle" class="p-2 hover:bg-gray-300 dark:hover:bg-gray-800 rounded-full transition">
-                <i data-lucide="moon" data-theme-icon class="w-5 h-5"></i>
-            </button>
-        </div>
-        <button class="md:hidden p-2" id="mobile-menu-btn">
-            <i data-lucide="menu" class="w-6 h-6"></i>
-        </button>
-    </nav>
-    <div id="mobile-menu" class="fixed inset-0 z-[60] hidden md:hidden">
-        <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" id="mobile-menu-backdrop"></div>
-        <div class="absolute right-0 top-0 h-full w-64 glass-panel transform transition-transform duration-300 translate-x-full" id="mobile-menu-panel">
-            <div class="p-6 flex flex-col gap-6">
-                <button id="mobile-menu-close" class="self-end"><i data-lucide="x" class="w-6 h-6"></i></button>
-                <a href="/" class="hover:text-red-600 transition-colors brand-font text-sm">HOME</a>
-                <a href="/pages/about" class="hover:text-red-600 transition-colors brand-font text-sm">ABOUT</a>
-                <a href="/pages/updates" class="hover:text-red-600 transition-colors brand-font text-sm">UPDATES</a>
-                <a href="/api/docs" class="hover:text-red-600 transition-colors brand-font text-sm">DOCS</a>
-                <a href="/api/api" class="underline decoration-red-600 decoration-2 underline-offset-4 hover:text-red-600 transition-colors brand-font text-sm">API</a>
-                <button id="mobile-theme-toggle" class="flex items-center gap-2 hover:text-red-600 transition-colors brand-font text-sm border-t border-gray-300 dark:border-gray-700 pt-4">
-                    <i data-lucide="moon" data-theme-icon class="w-5 h-5"></i>
-                    <span>TOGGLE THEME</span>
-                </button>
-            </div>
-        </div>
+    <div id="site-nav"></div>
+
     </div>
 
     <header class="px-4 sm:px-6 py-10 sm:py-16 md:py-20 max-w-7xl mx-auto w-full">
@@ -226,155 +177,9 @@
         </div>
     </footer>
 
-    <script src="/static/js/simple-func.js"></script>
+    <div id="site-footer"></div>
+
     <script src="/static/js/version.js"></script>
-    <script>
-    const apiExplorer = (() => {
-        let allData = [];
-        let lastResult = [];
-        let currentView = 'json';
-
-        async function loadData() {
-            try {
-                const res = await fetch('/api/data/data.json');
-                allData = await res.json();
-                updateStats(allData);
-            } catch (e) {
-                document.getElementById('json-output').textContent = '// Error loading data: ' + e.message;
-            }
-        }
-
-        function updateStats(data) {
-            document.getElementById('stat-total').textContent = data.length;
-            document.getElementById('stat-cats').textContent = new Set(data.map(i => i.category)).size;
-            document.getElementById('stat-brands').textContent = new Set(data.map(i => i.brand)).size;
-            const avgPrice = Math.round(data.reduce((s, i) => s + (i.price || 0), 0) / data.length);
-            document.getElementById('stat-price').textContent = '$' + avgPrice.toLocaleString();
-        }
-
-        function syntaxHighlight(json) {
-            json = json.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-            return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function(match) {
-                let cls = 'json-num';
-                if (/^"/.test(match)) {
-                    cls = /:$/.test(match) ? 'json-key' : 'json-str';
-                } else if (/true|false/.test(match)) {
-                    cls = 'json-bool';
-                }
-                return '<span class="' + cls + '">' + match + '</span>';
-            });
-        }
-
-        function run() {
-            const cat = document.getElementById('filter-category').value;
-            const search = document.getElementById('filter-search').value.toLowerCase();
-            const sort = document.getElementById('filter-sort').value;
-            const limit = parseInt(document.getElementById('filter-limit').value) || 0;
-
-            let result = [...allData];
-
-            if (cat) result = result.filter(i => i.category === cat);
-            if (search) {
-                result = result.filter(i => {
-                    const fields = [i.name, i.brand, i.description, i.category];
-                    const specs = Object.values(i.specs || {});
-                    return [...fields, ...specs].some(v => String(v).toLowerCase().includes(search));
-                });
-            }
-
-            switch (sort) {
-                case 'price-asc':  result.sort((a, b) => a.price - b.price); break;
-                case 'price-desc': result.sort((a, b) => b.price - a.price); break;
-                case 'name-asc':   result.sort((a, b) => a.name.localeCompare(b.name)); break;
-                case 'name-desc':  result.sort((a, b) => b.name.localeCompare(a.name)); break;
-            }
-
-            if (limit > 0) result = result.slice(0, limit);
-            lastResult = result;
-
-            document.getElementById('result-count').textContent = result.length + ' results';
-
-            if (currentView === 'json') {
-                const out = document.getElementById('json-output');
-                out.innerHTML = syntaxHighlight(JSON.stringify(result, null, 2));
-            } else {
-                renderTable(result);
-            }
-        }
-
-        function renderTable(data) {
-            if (!data.length) {
-                document.getElementById('table-output').innerHTML = '<tbody><tr><td class="p-2 opacity-40">No results.</td></tr></tbody>';
-                return;
-            }
-            const cols = ['id', 'brand', 'name', 'category', 'price'];
-            const thead = '<thead><tr>' + cols.map(c => `<th class="p-2 border border-gray-300 dark:border-gray-700 text-left font-mono text-xs bg-gray-200 dark:bg-gray-800">${c.toUpperCase()}</th>`).join('') + '</tr></thead>';
-            const tbody = '<tbody>' + data.map(item =>
-                '<tr class="hover:bg-gray-100 dark:hover:bg-gray-900 transition-colors">' +
-                cols.map(c => `<td class="p-2 border border-gray-200 dark:border-gray-800 font-mono text-xs">${String(item[c] || '-').substring(0, 60)}</td>`).join('') +
-                '</tr>'
-            ).join('') + '</tbody>';
-            document.getElementById('table-output').innerHTML = thead + tbody;
-        }
-
-        function setView(view) {
-            currentView = view;
-            document.getElementById('json-view').classList.toggle('hidden', view !== 'json');
-            document.getElementById('table-view').classList.toggle('hidden', view !== 'table');
-            document.getElementById('view-json').classList.toggle('active', view === 'json');
-            document.getElementById('view-table').classList.toggle('active', view === 'table');
-            if (lastResult.length > 0) {
-                if (view === 'table') renderTable(lastResult);
-                else document.getElementById('json-output').innerHTML = syntaxHighlight(JSON.stringify(lastResult, null, 2));
-            }
-        }
-
-        function reset() {
-            document.getElementById('filter-category').value = '';
-            document.getElementById('filter-search').value = '';
-            document.getElementById('filter-sort').value = '';
-            document.getElementById('filter-limit').value = '10';
-            document.getElementById('json-output').innerHTML = '<span style="opacity:0.3;">// Filters reset. Click RUN QUERY to fetch data...</span>';
-            document.getElementById('result-count').textContent = '';
-            lastResult = [];
-        }
-
-        function download() {
-            const data = lastResult.length ? lastResult : allData;
-            const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
-            const a = document.createElement('a');
-            a.href = URL.createObjectURL(blob);
-            a.download = 'ndata-export.json';
-            a.click();
-        }
-
-        async function copyResult() {
-            const text = lastResult.length ? JSON.stringify(lastResult, null, 2) : '// No results yet.';
-            try {
-                await navigator.clipboard.writeText(text);
-            } catch {
-                const ta = document.createElement('textarea');
-                ta.value = text;
-                ta.style.cssText = 'position:fixed;left:-9999px';
-                document.body.appendChild(ta);
-                ta.select();
-                document.execCommand('copy');
-                document.body.removeChild(ta);
-            }
-        }
-
-        function copyEndpoint() {
-            const url = window.location.origin + '/api/data/data.json';
-            navigator.clipboard.writeText(url).catch(() => {});
-        }
-
-        document.addEventListener('DOMContentLoaded', () => {
-            loadData();
-            if (typeof lucide !== 'undefined') lucide.createIcons();
-        });
-
-        return { run, reset, download, copyResult, copyEndpoint, setView };
-    })();
-    </script>
+    <script src="/static/js/layout.js"></script>
 </body>
 </html>

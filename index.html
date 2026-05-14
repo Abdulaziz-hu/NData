@@ -15,9 +15,7 @@
     <link rel="icon" href="/assets/logos/svg/ndata_logo.svg">
 
     <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = { darkMode: 'class', theme: { extend: {} } }
-    </script>
+    <script>tailwind.config = { darkMode: 'class', theme: { extend: {} } }</script>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -31,127 +29,8 @@
 </head>
 <body class="min-h-screen flex flex-col">
 
-    <!-- NAV -->
-    <nav class="sticky top-0 z-50 glass-panel px-4 sm:px-6 py-4 flex justify-between items-center">
-        <div class="flex items-center gap-2 sm:gap-3 group cursor-pointer" onclick="app.reset()">
-            <div class="w-6 h-6 sm:w-8 sm:h-8 bg-red-600 rounded-full group-hover:scale-110 transition-transform"></div>
-            <span class="text-xl sm:text-2xl brand-font font-bold tracking-tighter"><a href="/">N(DATA)</a></span>
-        </div>
-
-        <div class="hidden md:flex items-center gap-6">
-            <a href="/" data-nav="home" class="underline decoration-red-600 decoration-2 underline-offset-4 hover:text-red-600 transition-colors brand-font text-sm">HOME</a>
-            <a href="/pages/about" data-nav="about" class="hover:text-red-600 transition-colors brand-font text-sm">ABOUT</a>
-            <a href="/pages/updates" data-nav="updates" class="hover:text-red-600 transition-colors brand-font text-sm">UPDATES</a>
-            <a href="/api/docs" data-nav="docs" class="hover:text-red-600 transition-colors brand-font text-sm">DOCS</a>
-            <a href="/api/api" data-nav="api" class="hover:text-red-600 transition-colors brand-font text-sm">API</a>
-
-            <!-- Bookmarks -->
-            <button id="bookmarks-btn" class="relative p-2 hover:bg-gray-300 dark:hover:bg-gray-800 rounded-full transition" title="Bookmarks">
-                <i data-lucide="bookmark" class="w-5 h-5"></i>
-                <span id="bookmarks-badge" class="nav-badge hidden">0</span>
-            </button>
-
-            <!-- Compare -->
-            <button id="compare-btn" class="relative p-2 hover:bg-gray-300 dark:hover:bg-gray-800 rounded-full transition" title="Compare">
-                <i data-lucide="bar-chart-2" class="w-5 h-5"></i>
-                <span id="compare-badge" class="nav-badge hidden">0</span>
-            </button>
-
-            <!-- Currency -->
-            <div class="relative currency-selector">
-                <button id="currency-toggle" class="p-2 hover:bg-gray-300 dark:hover:bg-gray-800 rounded-full transition flex items-center gap-1">
-                    <span id="currency-symbol" class="text-sm font-mono">$</span>
-                </button>
-                <div id="currency-dropdown" class="hidden absolute right-0 mt-2 text-red-500 bg-gray-300 dark:bg-zinc-900 border border-gray-300 dark:border-gray-700 rounded shadow-lg min-w-[120px] z-50">
-                    <button data-currency="USD" class="w-full px-4 py-2 text-left hover:text-red-500 hover:bg-black dark:hover:bg-black transition flex items-center gap-2 text-sm font-mono"><span>$</span><span>USD</span></button>
-                    <button data-currency="SAR" class="w-full px-4 py-2 text-left hover:text-red-500 hover:bg-black dark:hover:bg-black transition flex items-center gap-2 text-sm font-mono"><i class="sr"></i><span>SAR</span></button>
-                    <button data-currency="JPY" class="w-full px-4 py-2 text-left hover:text-red-500 hover:bg-black dark:hover:bg-black transition flex items-center gap-2 text-sm font-mono"><span>&#165;</span><span>JPY</span></button>
-                    <button data-currency="EUR" class="w-full px-4 py-2 text-left hover:text-red-500 hover:bg-black dark:hover:bg-black transition flex items-center gap-2 text-sm font-mono"><span>&#8364;</span><span>EUR</span></button>
-                    <button data-currency="GBP" class="w-full px-4 py-2 text-left hover:text-red-500 hover:bg-black dark:hover:bg-black transition flex items-center gap-2 text-sm font-mono"><span>&#163;</span><span>GBP</span></button>
-                </div>
-            </div>
-
-            <!-- Language -->
-            <div class="relative">
-                <button id="lang-toggle" class="p-2 hover:bg-gray-300 dark:hover:bg-gray-800 rounded-full transition flex items-center gap-1">
-                    <i data-lucide="globe" class="w-4 h-4"></i>
-                    <span id="lang-label" class="text-xs font-mono">EN</span>
-                </button>
-                <div id="lang-dropdown" class="hidden absolute right-0 mt-2 bg-gray-300 dark:bg-zinc-900 border border-gray-300 dark:border-gray-700 rounded shadow-lg min-w-[100px] z-50">
-                    <button data-lang="en" class="w-full px-4 py-2 text-left hover:text-red-500 hover:bg-black dark:hover:bg-black transition text-sm font-mono">EN</button>
-                    <button data-lang="ar" class="w-full px-4 py-2 text-left hover:text-red-500 hover:bg-black dark:hover:bg-black transition text-sm font-mono">AR</button>
-                    <button data-lang="jp" class="w-full px-4 py-2 text-left hover:text-red-500 hover:bg-black dark:hover:bg-black transition text-sm font-mono">JP</button>
-                    <button data-lang="de" class="w-full px-4 py-2 text-left hover:text-red-500 hover:bg-black dark:hover:bg-black transition text-sm font-mono">DE</button>
-                </div>
-            </div>
-
-            <!-- Theme -->
-            <button id="theme-toggle" class="p-2 hover:bg-gray-300 dark:hover:bg-gray-800 rounded-full transition">
-                <i data-lucide="moon" data-theme-icon class="w-5 h-5"></i>
-            </button>
-        </div>
-
-        <button class="md:hidden p-2" id="mobile-menu-btn">
-            <i data-lucide="menu" class="w-6 h-6"></i>
-        </button>
-    </nav>
-
-    <!-- MOBILE MENU -->
-    <div id="mobile-menu" class="fixed inset-0 z-[60] hidden md:hidden">
-        <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" id="mobile-menu-backdrop"></div>
-        <div class="absolute right-0 top-0 h-full w-64 glass-panel transform transition-transform duration-300 translate-x-full" id="mobile-menu-panel">
-            <div class="p-6 flex flex-col gap-4 overflow-y-auto h-full">
-                <button id="mobile-menu-close" class="self-end">
-                    <i data-lucide="x" class="w-6 h-6"></i>
-                </button>
-                <a href="/" data-nav="home" class="underline decoration-red-600 decoration-2 underline-offset-4 hover:text-red-600 transition-colors brand-font text-sm">HOME</a>
-                <a href="/pages/about" data-nav="about" class="hover:text-red-600 transition-colors brand-font text-sm">ABOUT</a>
-                <a href="/pages/updates" data-nav="updates" class="hover:text-red-600 transition-colors brand-font text-sm">UPDATES</a>
-                <a href="/api/docs" data-nav="docs" class="hover:text-red-600 transition-colors brand-font text-sm">DOCS</a>
-                <a href="/api/api" data-nav="api" class="hover:text-red-600 transition-colors brand-font text-sm">API</a>
-
-                <div class="border-t border-gray-300 dark:border-gray-700 pt-4 flex gap-3">
-                    <button id="mobile-bookmarks-btn" class="relative flex items-center gap-2 hover:text-red-600 transition-colors brand-font text-sm">
-                        <i data-lucide="bookmark" class="w-4 h-4"></i> SAVED
-                    </button>
-                    <button id="mobile-compare-btn" class="relative flex items-center gap-2 hover:text-red-600 transition-colors brand-font text-sm">
-                        <i data-lucide="bar-chart-2" class="w-4 h-4"></i> COMPARE
-                    </button>
-                </div>
-
-                <!-- Mobile Currency -->
-                <div class="border-t border-gray-300 dark:border-gray-700 pt-4">
-                    <span class="text-xs opacity-50 font-mono mb-2 block">CURRENCY</span>
-                    <div class="flex flex-wrap gap-2">
-                        <button data-currency="USD" class="mobile-currency-btn hover:text-red-500 transition-colors brand-font text-xs px-2 py-1 border border-current">$ USD</button>
-                        <button data-currency="SAR" class="mobile-currency-btn hover:text-red-500 transition-colors brand-font text-xs px-2 py-1 border border-current">SAR</button>
-                        <button data-currency="JPY" class="mobile-currency-btn hover:text-red-500 transition-colors brand-font text-xs px-2 py-1 border border-current">&#165; JPY</button>
-                        <button data-currency="EUR" class="mobile-currency-btn hover:text-red-500 transition-colors brand-font text-xs px-2 py-1 border border-current">&#8364; EUR</button>
-                        <button data-currency="GBP" class="mobile-currency-btn hover:text-red-500 transition-colors brand-font text-xs px-2 py-1 border border-current">&#163; GBP</button>
-                    </div>
-                </div>
-
-                <!-- Mobile Language -->
-                <div class="border-t border-gray-300 dark:border-gray-700 pt-4">
-                    <button id="mobile-lang-toggle" class="text-xs opacity-50 font-mono mb-2 flex items-center gap-2 w-full">
-                        <i data-lucide="globe" class="w-3 h-3"></i>
-                        LANGUAGE: <span id="mobile-lang-label" class="text-red-600">EN</span>
-                    </button>
-                    <div id="mobile-lang-dropdown" class="hidden flex flex-col gap-1">
-                        <button data-lang="en" class="text-left hover:text-red-500 transition-colors brand-font text-sm px-2 py-1">English (EN)</button>
-                        <button data-lang="ar" class="text-left hover:text-red-500 transition-colors brand-font text-sm px-2 py-1">Arabic (AR)</button>
-                        <button data-lang="jp" class="text-left hover:text-red-500 transition-colors brand-font text-sm px-2 py-1">Japanese (JP)</button>
-                        <button data-lang="de" class="text-left hover:text-red-500 transition-colors brand-font text-sm px-2 py-1">German (DE)</button>
-                    </div>
-                </div>
-
-                <button id="mobile-theme-toggle" class="flex items-center gap-2 hover:text-red-600 transition-colors brand-font text-sm border-t border-gray-300 dark:border-gray-700 pt-4">
-                    <i data-lucide="moon" data-theme-icon class="w-5 h-5"></i>
-                    <span>TOGGLE THEME</span>
-                </button>
-            </div>
-        </div>
-    </div>
+    <!-- SHARED NAV injected by layout.js -->
+    <div id="site-nav"></div>
 
     <!-- HERO -->
     <header class="px-4 sm:px-6 py-8 sm:py-12 md:py-24 max-w-7xl mx-auto w-full">
@@ -166,7 +45,6 @@
             Accessible via our web interface or Github repository.
         </p>
 
-        <!-- Sticky Search -->
         <div class="relative max-w-xl">
             <input type="text" id="search-input" placeholder="SEARCH DATABASE..."
                 class="w-full bg-transparent border-b-2 border-current py-3 sm:py-4 text-lg sm:text-xl md:text-2xl focus:outline-none focus:border-red-600 font-mono transition-colors placeholder-opacity-50 placeholder-current pr-12">
@@ -175,11 +53,10 @@
         <p class="mt-2 text-xs opacity-30 font-mono" data-hint="keyboard">Press / to search</p>
     </header>
 
-    <!-- FILTER BAR (sticky) -->
+    <!-- FILTER BAR -->
     <section class="px-4 sm:px-6 py-4 sticky top-16 sm:top-20 z-40 backdrop-blur-md border-y border-gray-300 dark:border-gray-800 transition-colors" style="background-color:var(--bg-color);">
         <div class="max-w-7xl mx-auto flex flex-col gap-3">
             <div class="flex flex-col sm:flex-row gap-3 items-start sm:items-center justify-between">
-                <!-- Category filters -->
                 <div class="overflow-x-auto w-full sm:w-auto pb-1 no-scrollbar">
                     <div class="flex gap-2 min-w-max" id="category-filters">
                         <button class="btn-raw active text-xs sm:text-sm" data-cat="all">ALL</button>
@@ -198,8 +75,6 @@
                     <span id="item-count">0</span> <span data-label="items-indexed">ITEMS INDEXED</span>
                 </div>
             </div>
-
-            <!-- Sort buttons -->
             <div class="overflow-x-auto no-scrollbar">
                 <div class="flex gap-2 min-w-max sort-bar">
                     <span class="text-xs font-mono opacity-40 self-center">SORT:</span>
@@ -216,68 +91,26 @@
     <main class="flex-grow px-4 sm:px-6 py-8 sm:py-12 max-w-7xl mx-auto w-full">
         <div id="loader" class="hidden py-20">
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
-                <div class="skeleton-card"></div>
-                <div class="skeleton-card"></div>
-                <div class="skeleton-card"></div>
-                <div class="skeleton-card"></div>
-                <div class="skeleton-card"></div>
-                <div class="skeleton-card"></div>
-                <div class="skeleton-card"></div>
-                <div class="skeleton-card"></div>
+                <div class="skeleton-card"></div><div class="skeleton-card"></div>
+                <div class="skeleton-card"></div><div class="skeleton-card"></div>
+                <div class="skeleton-card"></div><div class="skeleton-card"></div>
+                <div class="skeleton-card"></div><div class="skeleton-card"></div>
             </div>
         </div>
-
         <div id="grid-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6"></div>
-
         <div id="load-more-container" class="hidden text-center py-8">
             <button id="load-more-btn" class="btn-raw inline-flex items-center gap-2 px-6 py-3 text-sm">
                 <i data-lucide="chevron-down" class="w-4 h-4"></i> LOAD MORE
             </button>
         </div>
-
         <div id="no-results" class="hidden text-center py-20">
             <h3 class="text-2xl sm:text-3xl mb-2">No Results</h3>
             <p class="opacity-60 font-mono text-sm sm:text-base">Try checking for typos or using different search terms.</p>
         </div>
     </main>
 
-    <!-- FOOTER -->
-    <footer class="border-t border-gray-300 dark:border-gray-800 px-4 sm:px-6 py-8 sm:py-12 mt-auto">
-        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-start gap-8">
-            <div>
-                <h2 class="text-xl sm:text-2xl mb-4">N(DATA)</h2>
-                <p class="text-xs sm:text-sm opacity-50 max-w-xs">
-                    Open source tech specification database.<br>
-                    Designed for transparency. Built for speed.<br>
-                    Website design inspired by <a href="https://nothing.tech/" target="_blank" class="links">Nothing <i class="fa fa-external-link" aria-hidden="true"></i></a>.
-                </p>
-                <p style="font-size:11px;opacity:0.3;font-weight:300;font-family:monospace;">
-                    Version <span id="app-version">0.0.0</span>
-                </p>
-            </div>
-            <div class="flex gap-6 sm:gap-8 text-xs sm:text-sm font-mono">
-                <div class="flex flex-col gap-2">
-                    <span class="opacity-40 mb-2">PROJECT</span>
-                    <a href="https://github.com/Abdulaziz-hu/NData" target="_blank" class="hover:underline">GitHub</a>
-                    <a href="/pages/updates" class="hover:underline">Updates</a>
-                    <a href="/api/docs" class="hover:underline">API Docs</a>
-                    <a href="https://github.com/Abdulaziz-hu/NData?tab=readme-ov-file#-contributing" target="_blank" class="hover:underline">Contribute</a>
-                </div>
-                <div class="flex flex-col gap-2">
-                    <span class="opacity-40 mb-2">LEGAL</span>
-                    <a href="/pages/privacy" class="hover:underline">Privacy</a>
-                    <a href="/pages/terms-of-service" class="hover:underline">Terms of Service</a>
-                    <a href="/pages/mit-license" class="hover:underline">MIT License</a>
-                </div>
-                <div class="flex flex-col gap-2">
-                    <span class="opacity-40 mb-2">OTHER</span>
-                    <a href="/pages/report-forum" class="hover:underline">Report</a>
-                    <a href="/pages/disclaimers" class="hover:underline">Disclaimers</a>
-                    <button onclick="app.openCreditsModal()" class="hover:underline text-left hover:text-red-600 transition-colors">Credits</button>
-                </div>
-            </div>
-        </div>
-    </footer>
+    <!-- SHARED FOOTER injected by layout.js -->
+    <div id="site-footer"></div>
 
     <!-- PRODUCT MODAL -->
     <div id="modal" class="fixed inset-0 z-[100] hidden">
@@ -301,19 +134,15 @@
                         </button>
                     </div>
                 </div>
-
                 <div class="flex-grow p-4 sm:p-6 custom-scrollbar">
                     <div id="modal-gallery" class="mb-6 w-full"></div>
-
                     <div class="mb-6 sm:mb-8">
                         <p class="text-base sm:text-lg leading-relaxed text-gray-800 dark:text-gray-200" id="modal-desc"></p>
                     </div>
-
                     <div class="space-y-4 sm:space-y-6">
                         <h3 class="text-gray-900 dark:text-gray-100 border-b border-current pb-2 text-xs sm:text-sm opacity-50">TECHNICAL SPECIFICATIONS</h3>
                         <div id="modal-specs" class="space-y-3 sm:space-y-4 font-mono text-xs sm:text-sm"></div>
                     </div>
-
                     <div id="modal-diy-section" class="mt-8 sm:mt-10 hidden">
                         <button onclick="app.toggleDiySection()" class="brand-font w-full flex items-center justify-between text-gray-900 dark:text-gray-100 border-b border-current pb-2 text-xs sm:text-sm opacity-50 mb-4 hover:opacity-100 transition-opacity cursor-pointer">
                             <span>DIY RESOURCES &amp; GUIDES</span>
@@ -321,7 +150,6 @@
                         </button>
                         <div id="modal-diy-content" class="text-gray-900 dark:text-gray-100 space-y-3 hidden"></div>
                     </div>
-
                     <div class="mt-8 sm:mt-10 p-3 sm:p-4 bg-gray-100 dark:bg-zinc-800 rounded font-mono text-xs overflow-x-auto">
                         <div class="flex justify-between mb-2 opacity-50">
                             <span class="text-red-800">RAW JSON</span>
@@ -424,11 +252,11 @@
                     <h3 class="brand-font text-xs opacity-50 mb-4 tracking-widest">FONTS</h3>
                     <div class="space-y-3">
                         <a href="https://fonts.google.com/specimen/DotGothic16" target="_blank" rel="noopener" class="flex items-center justify-between p-3 border border-gray-200 dark:border-gray-700 hover:border-red-600 transition-colors group">
-                            <div><p class="font-bold text-sm group-hover:text-red-600 transition-colors">DotGothic16</p><p class="text-xs opacity-60">Google Fonts - primary brand/display font</p></div>
+                            <div><p class="font-bold text-sm group-hover:text-red-600 transition-colors">DotGothic16</p><p class="text-xs opacity-60">Google Fonts — primary brand/display font</p></div>
                             <i data-lucide="external-link" class="w-4 h-4 opacity-40 group-hover:opacity-100 group-hover:text-red-600 flex-shrink-0"></i>
                         </a>
                         <a href="https://fonts.google.com/specimen/Inter" target="_blank" rel="noopener" class="flex items-center justify-between p-3 border border-gray-200 dark:border-gray-700 hover:border-red-600 transition-colors group">
-                            <div><p class="font-bold text-sm group-hover:text-red-600 transition-colors">Inter</p><p class="text-xs opacity-60">Google Fonts - body and UI text</p></div>
+                            <div><p class="font-bold text-sm group-hover:text-red-600 transition-colors">Inter</p><p class="text-xs opacity-60">Google Fonts — body and UI text</p></div>
                             <i data-lucide="external-link" class="w-4 h-4 opacity-40 group-hover:opacity-100 group-hover:text-red-600 flex-shrink-0"></i>
                         </a>
                     </div>
@@ -450,14 +278,44 @@
                         All third-party libraries are used under their respective licenses.
                     </p>
                     <p style="font-size:11px;opacity:0.3;font-weight:300;font-family:monospace;margin-top:8px;">
-                        Version <span id="app-version">0.0.0</span>
+                        Version <span id="credits-app-version">0.0.0</span>
                     </p>
                 </section>
             </div>
         </div>
     </div>
 
-    <script src="/static/js/app.js"></script>
+    <!-- Hook layout.js into app.js lang/currency change callbacks -->
+    <script>
+        // Tell layout.js to call app methods when lang/currency change
+        window.__layoutOnLangChange = function(lang, strings) {
+            if (window.app) {
+                window.app.lang.strings = strings;
+                window.app.lang.current = lang;
+                window.app.lang.dir = lang === 'ar' ? 'rtl' : 'ltr';
+                window.app.applyTranslations();
+                window.app.render(window.app.currentItems);
+            }
+        };
+        window.__layoutOnCurrencyChange = function(currency) {
+            if (window.app) {
+                window.app.currentCurrency = currency;
+                window.app.render(window.app.currentItems);
+            }
+        };
+        // Show index-only nav buttons after layout renders
+        document.addEventListener('layout:ready', function() {
+            ['bookmarks-btn','compare-btn'].forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.style.display = '';
+            });
+            const mobileIndexBtns = document.getElementById('mobile-index-btns');
+            if (mobileIndexBtns) mobileIndexBtns.style.removeProperty('display');
+        });
+    </script>
+
     <script src="/static/js/version.js"></script>
+    <script src="/static/js/layout.js"></script>
+    <script src="/static/js/app.js"></script>
 </body>
 </html>
