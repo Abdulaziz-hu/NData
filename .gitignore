@@ -1,11 +1,19 @@
-# Code Editor
+# Editor & OS Junk
 .vscode/
+.DS_Store
+Thumbs.db
 
-# Environments
+# Secrets & Vercel
 .env
 .env.local
 .env.*.local
 .vercel
+.vercel_build_output/
 
-# Other
+# Build & Dependencies
+node_modules/
+dist/
+out/
+
+# Personal
 notes.txt
