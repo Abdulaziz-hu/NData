@@ -1,1 +1,11 @@
+# Code Editor
 .vscode/
+
+# Environments
+.env
+.env.local
+.env.*.local
+.vercel
+
+# Other
+notes.txt
